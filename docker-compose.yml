@@ -1,0 +1,14 @@
+version: '3.7'
+services:
+  admin:
+    container_name: admin
+    image: khipu/openjdk17-alpine
+    restart: always
+    network_mode: "host"
+    working_dir: /app
+    environment:
+      - SET_CONTAINER_TIMEZONE=true
+      - CONTAINER_TIMEZONE=Asia/Shanghai
+    volumes:
+      - ./admin:/app
+    command: java -jar admin.jar --spring.profiles.active=prod

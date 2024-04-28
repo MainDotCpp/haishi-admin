@@ -1,0 +1,38 @@
+package com.haishi.admin.{{ package }}.service;
+
+import com.haishi.admin.common.dto.PageDTO;
+import com.haishi.admin.{{ package }}.dao.{{ biz_name_upper }}Repository;
+import com.haishi.admin.{{ package }}.entity.{{ biz_name_upper }};
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
+
+@Slf4j
+@Service
+@RequiredArgsConstructor
+public class ShortLinkService {
+    private final{{ biz_name_upper }}Repository {{ biz_name }}Repository;
+
+    public{{ biz_name_upper }} getById(Long id) {
+        return {{ biz_name }}Repository.findById(id).orElse(null);
+    }
+
+    public PageDTO<{{ biz_name_upper }}> getPage(PageDTO<{{ biz_name_upper }}> pageDTO) {
+        PageRequest pageRequest = PageRequest.of(pageDTO.getCurrent() - 1, pageDTO.getPageSize());
+        Page<{{ biz_name_upper }}> {{ biz_name }}Page = {{ biz_name }}Repository.findAll(pageRequest);
+        pageDTO.setData({{ biz_name }}Page.getContent());
+        pageDTO.setTotal({{ biz_name }}Page.getTotalElements());
+        return pageDTO;
+    }
+
+    public{{ biz_name_upper }} save({{ biz_name_upper }} {{ biz_name }}) {
+        return {{ biz_name }}Repository.save({{ biz_name }});
+    }
+
+    public boolean delete(Long id) {
+        {{ biz_name }}Repository.deleteById(id);
+        return true;
+    }
+}
