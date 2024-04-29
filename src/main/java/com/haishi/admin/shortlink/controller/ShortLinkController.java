@@ -47,7 +47,7 @@ public class ShortLinkController {
     }
 
     @Operation(summary = "删除短链接配置")
-    @PostMapping("/delete")
+    @PostMapping("/deleteById")
     public HttpResult delete(Long id) {
         return HttpResult.success(
                 shortLinkService.delete(id)

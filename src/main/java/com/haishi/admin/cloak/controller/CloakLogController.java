@@ -1,9 +1,9 @@
 package com.haishi.admin.cloak.controller;
 
+import com.haishi.admin.cloak.dto.CloakLogQueryDTO;
 import com.haishi.admin.common.dto.HttpResult;
-import com.haishi.admin.common.dto.PageDTO;
 import com.haishi.admin.cloak.entity.CloakLog;
-import com.haishi.admin.cloak.service.cloakLogService;
+import com.haishi.admin.cloak.service.CloakLogService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/cloakLog")
 @AllArgsConstructor
-public class cloakLogController {
-    private final cloakLogService cloakLogService;
+public class CloakLogController {
+    private final CloakLogService cloakLogService;
 
     @Operation(summary = "根据ID获取访问记录")
     @GetMapping("/getById")
@@ -25,9 +25,9 @@ public class cloakLogController {
 
     @Operation(summary = "分页查询访问记录")
     @GetMapping("/page")
-    public HttpResult page(PageDTO<CloakLog> pageDTO) {
+    public HttpResult page(CloakLogQueryDTO queryDTO) {
         return HttpResult.success(
-                cloakLogService.getPage(pageDTO)
+                cloakLogService.page(queryDTO)
         );
     }
 
@@ -40,8 +40,8 @@ public class cloakLogController {
     }
 
     @Operation(summary = "删除访问记录")
-    @PostMapping("/delete")
-    public HttpResult delete(Long id) {
+    @PostMapping("/deleteById")
+    public HttpResult deleteById(Long id) {
         return HttpResult.success(
                 cloakLogService.delete(id)
         );

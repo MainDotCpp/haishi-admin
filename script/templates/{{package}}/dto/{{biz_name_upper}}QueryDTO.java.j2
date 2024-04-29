@@ -1,0 +1,14 @@
+package com.haishi.admin.{{ package }}.dto;
+
+import com.haishi.admin.{{ package }}.entity.{{ biz_name_upper }};
+import com.haishi.admin.common.dto.PageDTO;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
+
+/**
+ * DTO for {@link {{ biz_name_upper }}}
+ */
+@Data
+@Schema(description = "{{ comment }}查询对象")
+public class {{ biz_name_upper }}QueryDTO extends PageDTO<{{ biz_name_upper }}> {
+}
