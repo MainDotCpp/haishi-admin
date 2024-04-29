@@ -2,10 +2,10 @@ from pathlib import Path
 import jinja2
 
 data = {
-    "package": "cloak",
-    "biz_name": "cloakConfig",
-    "biz_name_upper": "CloakConfig",
-    "comment": "斗篷配置 "
+    "package": "shortLinkVisitLog",
+    "biz_name": "shortLinkVisitLog",
+    "biz_name_upper": "ShortLinkVisitLog",
+    "comment": "短链访问记录"
 }
 # 更改当前工作目录
 work_dir = Path(__file__).parent.parent

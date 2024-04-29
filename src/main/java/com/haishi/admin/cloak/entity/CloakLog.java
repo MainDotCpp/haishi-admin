@@ -1,12 +1,15 @@
 package com.haishi.admin.cloak.entity;
 
 import com.haishi.admin.cloak.enums.CheckStatus;
+import com.haishi.admin.cloak.enums.CloakScene;
 import com.haishi.admin.cloak.enums.Device;
 import com.haishi.admin.cloak.enums.OS;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -131,4 +134,13 @@ public class CloakLog {
     @Schema(description = "第三方cloak返回")
     @Column(name = "third_cloak_response")
     private String thirdCloakResponse;
+
+    @Schema(description = "场景")
+    @Column(name = "scene")
+    @Enumerated(EnumType.STRING)
+    private CloakScene Scene;
+
+    @Schema(description = "关联ID")
+    @Column(name = "related_id")
+    private Long relatedId;
 }
