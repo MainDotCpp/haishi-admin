@@ -1170,3 +1170,94 @@ java.lang.NullPointerException: Cannot invoke "java.lang.Boolean.booleanValue()"
 2024-04-29T04:56:33.524+08:00  INFO 16850 --- [haishi-admin] [http-nio-8888-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
 2024-04-29T04:56:33.799+08:00  INFO 16850 --- [haishi-admin] [http-nio-8888-exec-1] o.springdoc.api.AbstractOpenApiResource  : Init duration for springdoc-openapi is: 249 ms
 2024-04-29T06:34:13.787+08:00  INFO 16850 --- [haishi-admin] [http-nio-8888-exec-10] o.springdoc.api.AbstractOpenApiResource  : Init duration for springdoc-openapi is: 143 ms
+2024-04-29T22:28:11.466+08:00  INFO 31124 --- [haishi-admin] [main] c.haishi.admin.HaishiAdminApplication    : Starting HaishiAdminApplication using Java 17.0.10 with PID 31124 (/Users/yangyang/Projects/HaiShi/haishi-admin/target/classes started by yangyang in /Users/yangyang/Projects/HaiShi/haishi-admin)
+2024-04-29T22:28:11.467+08:00 DEBUG 31124 --- [haishi-admin] [main] c.haishi.admin.HaishiAdminApplication    : Running with Spring Boot v3.2.5, Spring v6.1.6
+2024-04-29T22:28:11.467+08:00  INFO 31124 --- [haishi-admin] [main] c.haishi.admin.HaishiAdminApplication    : The following 1 profile is active: "dev"
+2024-04-29T22:28:11.966+08:00  INFO 31124 --- [haishi-admin] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-04-29T22:28:12.081+08:00  INFO 31124 --- [haishi-admin] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 109 ms. Found 3 JPA repository interfaces.
+2024-04-29T22:28:12.491+08:00  INFO 31124 --- [haishi-admin] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8888 (http)
+2024-04-29T22:28:12.501+08:00  INFO 31124 --- [haishi-admin] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-04-29T22:28:12.502+08:00  INFO 31124 --- [haishi-admin] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.20]
+2024-04-29T22:28:12.546+08:00  INFO 31124 --- [haishi-admin] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-04-29T22:28:12.546+08:00  INFO 31124 --- [haishi-admin] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1051 ms
+2024-04-29T22:28:12.662+08:00  INFO 31124 --- [haishi-admin] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-04-29T22:28:12.700+08:00  INFO 31124 --- [haishi-admin] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.4.Final
+2024-04-29T22:28:12.723+08:00  INFO 31124 --- [haishi-admin] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-04-29T22:28:12.860+08:00  INFO 31124 --- [haishi-admin] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-04-29T22:28:12.876+08:00  INFO 31124 --- [haishi-admin] [main] com.zaxxer.hikari.HikariDataSource       : HikariCP - Starting...
+2024-04-29T22:28:18.985+08:00  INFO 31124 --- [haishi-admin] [main] com.zaxxer.hikari.pool.HikariPool        : HikariCP - Added connection org.postgresql.jdbc.PgConnection@32f54c2a
+2024-04-29T22:28:18.989+08:00  INFO 31124 --- [haishi-admin] [main] com.zaxxer.hikari.HikariDataSource       : HikariCP - Start completed.
+2024-04-29T22:28:20.070+08:00  WARN 31124 --- [haishi-admin] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-04-29T22:28:22.360+08:00  INFO 31124 --- [haishi-admin] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-04-29T22:28:24.693+08:00  INFO 31124 --- [haishi-admin] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-04-29T22:28:25.175+08:00  WARN 31124 --- [haishi-admin] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-04-29T22:28:25.402+08:00  INFO 31124 --- [haishi-admin] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8888 (http) with context path ''
+2024-04-29T22:28:25.408+08:00  INFO 31124 --- [haishi-admin] [main] c.haishi.admin.HaishiAdminApplication    : Started HaishiAdminApplication in 14.195 seconds (process running for 15.269)
+2024-04-29T22:31:13.646+08:00  INFO 31124 --- [haishi-admin] [http-nio-8888-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-04-29T22:31:13.647+08:00  INFO 31124 --- [haishi-admin] [http-nio-8888-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-04-29T22:31:13.651+08:00  INFO 31124 --- [haishi-admin] [http-nio-8888-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
+2024-04-29T22:31:14.067+08:00  INFO 31124 --- [haishi-admin] [http-nio-8888-exec-1] o.springdoc.api.AbstractOpenApiResource  : Init duration for springdoc-openapi is: 361 ms
+2024-04-29T22:32:31.085+08:00  INFO 31124 --- [haishi-admin] [http-nio-8888-exec-5] o.springdoc.api.AbstractOpenApiResource  : Init duration for springdoc-openapi is: 126 ms
+2024-04-29T22:37:41.196+08:00  INFO 31124 --- [haishi-admin] [http-nio-8888-exec-3] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-04-29T22:37:41.201+08:00  INFO 31124 --- [haishi-admin] [http-nio-8888-exec-3] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 3 ms. Found 0 JPA repository interfaces.
+2024-04-29T22:37:41.301+08:00  INFO 31124 --- [haishi-admin] [http-nio-8888-exec-3] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-04-29T22:37:41.312+08:00  INFO 31124 --- [haishi-admin] [http-nio-8888-exec-3] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-04-29T22:37:41.782+08:00  WARN 31124 --- [haishi-admin] [http-nio-8888-exec-3] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-04-29T22:37:43.986+08:00  INFO 31124 --- [haishi-admin] [http-nio-8888-exec-3] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-04-29T22:47:49.335+08:00  INFO 31124 --- [haishi-admin] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-04-29T22:47:49.338+08:00  INFO 31124 --- [haishi-admin] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariCP - Shutdown initiated...
+2024-04-29T22:47:49.339+08:00  INFO 31124 --- [haishi-admin] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariCP - Shutdown completed.
+2024-04-29T22:47:51.141+08:00  INFO 31858 --- [haishi-admin] [main] c.haishi.admin.HaishiAdminApplication    : Starting HaishiAdminApplication using Java 17.0.10 with PID 31858 (/Users/yangyang/Projects/HaiShi/haishi-admin/target/classes started by yangyang in /Users/yangyang/Projects/HaiShi/haishi-admin)
+2024-04-29T22:47:51.142+08:00 DEBUG 31858 --- [haishi-admin] [main] c.haishi.admin.HaishiAdminApplication    : Running with Spring Boot v3.2.5, Spring v6.1.6
+2024-04-29T22:47:51.142+08:00  INFO 31858 --- [haishi-admin] [main] c.haishi.admin.HaishiAdminApplication    : The following 1 profile is active: "dev"
+2024-04-29T22:47:51.510+08:00  INFO 31858 --- [haishi-admin] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-04-29T22:47:51.582+08:00  INFO 31858 --- [haishi-admin] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 68 ms. Found 3 JPA repository interfaces.
+2024-04-29T22:47:51.789+08:00  INFO 31858 --- [haishi-admin] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8888 (http)
+2024-04-29T22:47:51.794+08:00  INFO 31858 --- [haishi-admin] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-04-29T22:47:51.794+08:00  INFO 31858 --- [haishi-admin] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.20]
+2024-04-29T22:47:51.818+08:00  INFO 31858 --- [haishi-admin] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-04-29T22:47:51.818+08:00  INFO 31858 --- [haishi-admin] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 661 ms
+2024-04-29T22:47:51.877+08:00  INFO 31858 --- [haishi-admin] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-04-29T22:47:51.902+08:00  INFO 31858 --- [haishi-admin] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.4.Final
+2024-04-29T22:47:51.916+08:00  INFO 31858 --- [haishi-admin] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-04-29T22:47:51.990+08:00  INFO 31858 --- [haishi-admin] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-04-29T22:47:51.999+08:00  INFO 31858 --- [haishi-admin] [main] com.zaxxer.hikari.HikariDataSource       : HikariCP - Starting...
+2024-04-29T22:47:58.814+08:00  INFO 31858 --- [haishi-admin] [main] com.zaxxer.hikari.pool.HikariPool        : HikariCP - Added connection org.postgresql.jdbc.PgConnection@e06ec83
+2024-04-29T22:47:58.816+08:00  INFO 31858 --- [haishi-admin] [main] com.zaxxer.hikari.HikariDataSource       : HikariCP - Start completed.
+2024-04-29T22:47:59.833+08:00  WARN 31858 --- [haishi-admin] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-04-29T22:48:01.255+08:00  INFO 31858 --- [haishi-admin] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-04-29T22:48:02.703+08:00  INFO 31858 --- [haishi-admin] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-04-29T22:48:02.986+08:00  WARN 31858 --- [haishi-admin] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-04-29T22:48:03.157+08:00  INFO 31858 --- [haishi-admin] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8888 (http) with context path ''
+2024-04-29T22:48:03.162+08:00  INFO 31858 --- [haishi-admin] [main] c.haishi.admin.HaishiAdminApplication    : Started HaishiAdminApplication in 12.164 seconds (process running for 12.567)
+2024-04-29T22:48:44.920+08:00  INFO 31858 --- [haishi-admin] [http-nio-8888-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-04-29T22:48:44.921+08:00  INFO 31858 --- [haishi-admin] [http-nio-8888-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-04-29T22:48:44.924+08:00  INFO 31858 --- [haishi-admin] [http-nio-8888-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2024-04-29T22:48:45.177+08:00  INFO 31858 --- [haishi-admin] [http-nio-8888-exec-1] o.springdoc.api.AbstractOpenApiResource  : Init duration for springdoc-openapi is: 224 ms
+2024-04-29T22:48:54.943+08:00  INFO 31893 --- [haishi-admin] [main] c.haishi.admin.HaishiAdminApplication    : Starting HaishiAdminApplication using Java 17.0.10 with PID 31893 (/Users/yangyang/Projects/HaiShi/haishi-admin/target/classes started by yangyang in /Users/yangyang/Projects/HaiShi/haishi-admin)
+2024-04-29T22:48:54.944+08:00 DEBUG 31893 --- [haishi-admin] [main] c.haishi.admin.HaishiAdminApplication    : Running with Spring Boot v3.2.5, Spring v6.1.6
+2024-04-29T22:48:54.945+08:00  INFO 31893 --- [haishi-admin] [main] c.haishi.admin.HaishiAdminApplication    : The following 1 profile is active: "dev"
+2024-04-29T22:48:55.417+08:00  INFO 31893 --- [haishi-admin] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-04-29T22:48:55.508+08:00  INFO 31893 --- [haishi-admin] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 86 ms. Found 3 JPA repository interfaces.
+2024-04-29T22:48:55.855+08:00  INFO 31893 --- [haishi-admin] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8888 (http)
+2024-04-29T22:48:55.863+08:00  INFO 31893 --- [haishi-admin] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-04-29T22:48:55.863+08:00  INFO 31893 --- [haishi-admin] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.20]
+2024-04-29T22:48:55.901+08:00  INFO 31893 --- [haishi-admin] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-04-29T22:48:55.902+08:00  INFO 31893 --- [haishi-admin] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 928 ms
+2024-04-29T22:48:55.993+08:00  INFO 31893 --- [haishi-admin] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-04-29T22:48:56.021+08:00  INFO 31893 --- [haishi-admin] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.4.Final
+2024-04-29T22:48:56.040+08:00  INFO 31893 --- [haishi-admin] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-04-29T22:48:56.166+08:00  INFO 31893 --- [haishi-admin] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-04-29T22:48:56.181+08:00  INFO 31893 --- [haishi-admin] [main] com.zaxxer.hikari.HikariDataSource       : HikariCP - Starting...
+2024-04-29T22:49:01.292+08:00  INFO 31893 --- [haishi-admin] [main] com.zaxxer.hikari.pool.HikariPool        : HikariCP - Added connection org.postgresql.jdbc.PgConnection@51a69e8f
+2024-04-29T22:49:01.296+08:00  INFO 31893 --- [haishi-admin] [main] com.zaxxer.hikari.HikariDataSource       : HikariCP - Start completed.
+2024-04-29T22:49:02.202+08:00  WARN 31893 --- [haishi-admin] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-04-29T22:49:04.259+08:00  INFO 31893 --- [haishi-admin] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-04-29T22:49:08.274+08:00  INFO 31893 --- [haishi-admin] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-04-29T22:49:08.702+08:00  WARN 31893 --- [haishi-admin] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-04-29T22:49:08.918+08:00  INFO 31893 --- [haishi-admin] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8888 (http) with context path ''
+2024-04-29T22:49:08.924+08:00  INFO 31893 --- [haishi-admin] [main] c.haishi.admin.HaishiAdminApplication    : Started HaishiAdminApplication in 14.213 seconds (process running for 15.159)
+2024-04-29T22:49:13.154+08:00  INFO 31893 --- [haishi-admin] [http-nio-8888-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-04-29T22:49:13.155+08:00  INFO 31893 --- [haishi-admin] [http-nio-8888-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-04-29T22:49:13.157+08:00  INFO 31893 --- [haishi-admin] [http-nio-8888-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2024-04-29T22:49:13.477+08:00  INFO 31893 --- [haishi-admin] [http-nio-8888-exec-1] o.springdoc.api.AbstractOpenApiResource  : Init duration for springdoc-openapi is: 290 ms

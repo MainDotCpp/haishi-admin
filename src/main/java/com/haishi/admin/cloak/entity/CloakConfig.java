@@ -29,7 +29,7 @@ public class CloakConfig {
     private String allowRegion;
 
     @Schema(description = "是否使用Cloak服务")
-    @Column(name = "use_cloak_provicer")
+    @Column(name = "use_cloak_provider")
     private Boolean useCloakProvider;
 
     @Enumerated(EnumType.STRING)

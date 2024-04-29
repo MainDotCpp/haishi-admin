@@ -1,7 +1,7 @@
 package com.haishi.admin.{{ package }}.service;
 
 import com.haishi.admin.{{ package }}.dto.{{biz_name_upper}}QueryDTO;
-import com.haishi.admin.cloak.entity.Q{{ biz_name_upper }};
+import com.haishi.admin.{{ package }}.entity.Q{{biz_name_upper}};
 import com.haishi.admin.common.dto.PageDTO;
 import com.haishi.admin.{{ package }}.dao.{{biz_name_upper}}Repository;
 import com.haishi.admin.{{ package }}.entity.{{biz_name_upper}};
@@ -16,6 +16,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -23,18 +25,24 @@ public class {{biz_name_upper}}Service {
     private final {{biz_name_upper}}Repository {{biz_name}}Repository;
     private final JPAQueryFactory jpaQueryFactory;
 
-    public {{biz_name_upper}} getById(Long id) {
+    public {{biz_name_upper}} getById(UUID id) {
         return {{biz_name}}Repository.findById(id).orElse(null);
     }
 
-    public PageDTO<{{biz_name_upper}}> page({{biz_name_upper}}QueryDTO queryDTO) {
+    private JPAQuery<{{biz_name_upper}}> buildQuery({{biz_name_upper}}QueryDTO queryDTO) {
         JPAQuery<{{biz_name_upper}}> query = jpaQueryFactory.selectFrom(Q{{biz_name_upper}}.{{biz_name}});
         ArrayList<Predicate> predicates = new ArrayList<>();
-        if (queryDTO.getConfigId() != null) {
-            predicates.add(Q{{biz_name_upper}}.{{biz_name}}.configId.eq(queryDTO.getConfigId()));
-        }
         query.where(predicates.toArray(Predicate[]::new));
+        return query;
+    }
 
+    public List<{{biz_name_upper}}> list({{biz_name_upper}}QueryDTO queryDTO) {
+        JPAQuery<{{biz_name_upper}}> query = buildQuery(queryDTO);
+        return query.fetch();
+    }
+
+    public PageDTO<{{biz_name_upper}}> page({{biz_name_upper}}QueryDTO queryDTO) {
+        JPAQuery<{{biz_name_upper}}> query = buildQuery(queryDTO);
         queryDTO.setTotal(query.fetchCount());
         List<{{biz_name_upper}}> data = query.offset((long) (queryDTO.getCurrent() - 1) * queryDTO.getPageSize()).limit(queryDTO.getPageSize()).fetch();
         queryDTO.setData(data);
@@ -45,7 +53,7 @@ public class {{biz_name_upper}}Service {
         return {{biz_name}}Repository.save({{biz_name}});
     }
 
-    public boolean delete(Long id) {
+    public boolean delete(UUID id) {
         {{biz_name}}Repository.deleteById(id);
         return true;
     }

@@ -23,6 +23,14 @@ public class {{biz_name_upper}}Controller {
         return HttpResult.success({{biz_name}});
     }
 
+    @Operation(summary = "斗篷配置列表")
+    @GetMapping("/list")
+    public HttpResult list(CloakConfigQueryDTO queryDTO) {
+        return HttpResult.success(
+                cloakConfigService.list(queryDTO)
+        );
+    }
+
     @Operation(summary = "分页查询{{comment}}")
     @GetMapping("/page")
     public HttpResult page({{biz_name_upper}}QueryDTO queryDTO) {
