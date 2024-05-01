@@ -20,12 +20,12 @@ public abstract class CloakCheckHandleIntercept {
     CloakCheckContext execute(CloakCheckContext context) {
         CloakLog cloakLog = context.getCloakLog();
         CloakConfig cloakConfig = context.getCloakConfig();
-        if (cloakLog.getStatus() != CheckStatus.PERMIT) {
-            log.info("[CLOAK] - 前置检测未通过，跳过" + checkName());
-            return context;
-        }
         if (!isEnable(cloakLog, cloakConfig)) {
             log.info("[CLOAK] O 未开启" + checkName() + "模块");
+            return context;
+        }
+        if (cloakLog.getStatus() != CheckStatus.PERMIT) {
+            log.info("[CLOAK] - 前置检测未通过，跳过" + checkName());
             return context;
         }
         CheckStatus status = check(cloakLog, cloakConfig);

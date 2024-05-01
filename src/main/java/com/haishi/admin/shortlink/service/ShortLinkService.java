@@ -56,6 +56,7 @@ public class ShortLinkService {
     public Object access(String key, HttpServletRequest request) {
         ShortLinkConfig shortLinkConfig = getByKey(key);
         if (shortLinkConfig == null) throw new BizException(BizExceptionEnum.SHORT_LINK_NOT_EXIST);
+        if (shortLinkConfig.getCloakId() == null) throw new BizException(BizExceptionEnum.CLOAK_LINK_NOT_CONFIG);
 
         UUID cloakId = shortLinkConfig.getCloakId();
         CloakCheckResult result = cloakService.check(cloakId.toString(), request, cloakLog -> {

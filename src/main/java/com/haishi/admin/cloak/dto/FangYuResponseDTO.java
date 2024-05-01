@@ -44,7 +44,7 @@ public class FangYuResponseDTO {
          * message
          */
         @JsonProperty("message")
-        private Object message;
+        private String message;
         /**
          * jump
          */

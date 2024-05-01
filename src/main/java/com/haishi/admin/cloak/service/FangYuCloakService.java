@@ -42,7 +42,10 @@ public class FangYuCloakService extends CloakCheckHandleIntercept {
         FangYuResponseDTO responseDTO = fangYuHttpClient.check(cloakConfig.getCloakProviderApiUrl(), fangYuRequestDTO);
         log.info("[CLOAK] 第三方 CLOAK 服务返回: {}", responseDTO);
         cloakLog.setThirdCloakResponse(om.writeValueAsString(responseDTO));
-        if (!responseDTO.getData().getStatus()) return CheckStatus.FORBID_BY_THIRD_CLOAK;
+        if (!responseDTO.getData().getStatus()) {
+            cloakLog.setRemark(responseDTO.getData().getMessage());
+            return CheckStatus.FORBID_BY_THIRD_CLOAK;
+        }
         return null;
     }
 }

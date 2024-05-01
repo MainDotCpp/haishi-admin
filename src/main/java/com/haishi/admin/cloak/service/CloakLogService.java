@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -30,9 +31,9 @@ public class CloakLogService {
     public PageDTO<CloakLog> page(CloakLogQueryDTO queryDTO) {
         JPAQuery<CloakLog> query = jpaQueryFactory.selectFrom(QCloakLog.cloakLog);
         ArrayList<Predicate> predicates = new ArrayList<>();
-        if (queryDTO.getConfigId() != null) {
-            predicates.add(QCloakLog.cloakLog.configId.eq(queryDTO.getConfigId()));
-        }
+        if (queryDTO.getConfigId() != null) predicates.add(QCloakLog.cloakLog.configId.eq(queryDTO.getConfigId()));
+        if (queryDTO.getScene() != null) predicates.add(QCloakLog.cloakLog.Scene.eq(queryDTO.getScene()));
+        if (queryDTO.getRelatedId() != null) predicates.add(QCloakLog.cloakLog.relatedId.eq(queryDTO.getRelatedId()));
         query.where(predicates.toArray(Predicate[]::new));
 
         queryDTO.setTotal(query.fetchCount());

@@ -55,7 +55,6 @@ public class CloakServiceImpl implements CloakService {
         context.setCloakLog(cloakLog);
         context.setCloakConfig(cloakConfig);
         cloakCheckChainService.execute(context);
-        cloakLog.setRemark(cloakLog.getStatus().getDesc());
         cloakLogRepository.save(cloakLog);
         return new CloakCheckResult(cloakLog.getStatus().getCode() == 1, cloakLog.getStatus());
     }
