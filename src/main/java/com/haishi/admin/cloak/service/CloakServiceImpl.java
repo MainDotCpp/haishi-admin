@@ -89,6 +89,8 @@ public class CloakServiceImpl implements CloakService {
         cloakLog.setUserAgent(request.getHeaders("User-Agent").nextElement());
         cloakLog.setLanguage(request.getHeader("Accept-Language"));
         cloakLog.setReferer(request.getHeader("Referer"));
+        // 获取请求的地址
+        cloakLog.setAccessUrl(request.getRequestURL().toString());
         return cloakLog;
     }
 }

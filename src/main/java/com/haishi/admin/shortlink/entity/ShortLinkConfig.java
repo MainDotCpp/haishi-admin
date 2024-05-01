@@ -14,7 +14,7 @@ import java.util.UUID;
 @Entity
 @DynamicInsert
 @DynamicUpdate
-@Table(name = "short_link_config")
+@Table(name = "sl_config")
 public class ShortLinkConfig {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)

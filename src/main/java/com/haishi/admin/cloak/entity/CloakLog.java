@@ -143,4 +143,8 @@ public class CloakLog {
     @Schema(description = "关联ID")
     @Column(name = "related_id")
     private Long relatedId;
+
+    @Schema(description = "访问 URL")
+    @Column(name = "access_url")
+    private String accessUrl;
 }
