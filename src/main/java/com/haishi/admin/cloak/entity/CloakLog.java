@@ -31,7 +31,7 @@ public class CloakLog {
     private String ip;
 
     @Schema(description = "user-agent")
-    @Column(name = "user_agent")
+    @Column(name = "user_agent", length = 1024)
     private String userAgent;
 
     @Schema(description = "平台")
@@ -51,7 +51,7 @@ public class CloakLog {
     private String browser;
 
     @Schema(description = "语言 ")
-    @Column(name = "language")
+    @Column(name = "language", length = 512)
     private String language;
 
     @Schema(description = "引擎")

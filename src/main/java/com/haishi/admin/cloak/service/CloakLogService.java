@@ -34,6 +34,10 @@ public class CloakLogService {
         if (queryDTO.getConfigId() != null) predicates.add(QCloakLog.cloakLog.configId.eq(queryDTO.getConfigId()));
         if (queryDTO.getScene() != null) predicates.add(QCloakLog.cloakLog.Scene.eq(queryDTO.getScene()));
         if (queryDTO.getRelatedId() != null) predicates.add(QCloakLog.cloakLog.relatedId.eq(queryDTO.getRelatedId()));
+        if (queryDTO.getStatus() != null) predicates.add(QCloakLog.cloakLog.status.eq(queryDTO.getStatus()));
+        if (queryDTO.getIsCrawler() != null) predicates.add(QCloakLog.cloakLog.isCrawler.eq(queryDTO.getIsCrawler()));
+        if (queryDTO.getIsMobile() != null) predicates.add(QCloakLog.cloakLog.isMobile.eq(queryDTO.getIsMobile()));
+        if (queryDTO.getIsProxy() != null) predicates.add(QCloakLog.cloakLog.isProxy.eq(queryDTO.getIsProxy()));
 
         query.orderBy(QCloakLog.cloakLog.id.desc());
         query.where(predicates.toArray(Predicate[]::new));

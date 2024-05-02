@@ -36,4 +36,12 @@ public class ShortLinkConfig {
     @Column(name = "remark")
     private String remark;
 
+    @Schema(description = "pv")
+    @Column(name = "pv", nullable = false, columnDefinition = "int default 0")
+    private Integer pv;
+
+    @Schema(description = "uv")
+    @Column(name = "uv", nullable = false, columnDefinition = "int default 0")
+    private Integer uv;
+
 }
