@@ -7,7 +7,10 @@ import com.haishi.admin.common.dto.PageDTO;
 import com.haishi.admin.common.exception.BizException;
 import com.haishi.admin.common.exception.BizExceptionEnum;
 import com.haishi.admin.shortlink.dao.ShortLinkConfigRepository;
+import com.haishi.admin.shortlink.entity.QShortLinkConfig;
 import com.haishi.admin.shortlink.entity.ShortLinkConfig;
+import com.querydsl.jpa.impl.JPAQuery;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -26,6 +29,7 @@ import java.util.UUID;
 public class ShortLinkService {
     private final ShortLinkConfigRepository shortLinkConfigRepository;
     private final CloakService cloakService;
+    private final JPAQueryFactory jpaQueryFactory;
 
     public ShortLinkConfig getById(Long id) {
         return shortLinkConfigRepository.findById(id).orElse(null);
@@ -36,10 +40,12 @@ public class ShortLinkService {
     }
 
     public PageDTO<ShortLinkConfig> getPage(PageDTO<ShortLinkConfig> pageDTO) {
-        PageRequest pageRequest = PageRequest.of(pageDTO.getCurrent() - 1, pageDTO.getPageSize());
-        Page<ShortLinkConfig> shortLinkPage = shortLinkConfigRepository.findAll(pageRequest);
-        pageDTO.setData(shortLinkPage.getContent());
-        pageDTO.setTotal(shortLinkPage.getTotalElements());
+        QShortLinkConfig q = QShortLinkConfig.shortLinkConfig;
+        JPAQuery<ShortLinkConfig> query = jpaQueryFactory.selectFrom(q);
+        query.orderBy(q.id.desc());
+        pageDTO.setTotal(query.fetchCount());
+        query.offset((long) (pageDTO.getCurrent() - 1) * pageDTO.getPageSize()).limit(pageDTO.getPageSize());
+        pageDTO.setData(query.fetch());
         return pageDTO;
     }
 
@@ -59,7 +65,7 @@ public class ShortLinkService {
         if (shortLinkConfig.getCloakId() == null) throw new BizException(BizExceptionEnum.CLOAK_LINK_NOT_CONFIG);
 
         RedirectView redirectView = new RedirectView(shortLinkConfig.getTargetUrl());
-        redirectView.setStatusCode(HttpStatusCode.valueOf(301));
+        redirectView.setStatusCode(HttpStatusCode.valueOf(302));
         if (Boolean.TRUE.equals(preview)) return redirectView;
 
         UUID cloakId = shortLinkConfig.getCloakId();
@@ -69,7 +75,6 @@ public class ShortLinkService {
             return cloakLog;
         });
         if (result.getPermit()) return redirectView;
-        redirectView.setStatusCode(HttpStatusCode.valueOf(404));
-        return redirectView;
+        return "404";
     }
 }

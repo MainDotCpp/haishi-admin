@@ -19,6 +19,11 @@ public class UaCheckService extends CloakCheckHandleIntercept {
     }
 
     @Override
+    protected boolean isEnable(CloakLog cloakLog, CloakConfig cloakConfig) {
+        return cloakConfig.getEnableUaDetection();
+    }
+
+    @Override
     public CheckStatus check(CloakLog cloakLog, CloakConfig cloakConfig) {
         String userAgent = cloakLog.getUserAgent();
         UserAgent ua = UserAgentUtil.parse(userAgent);
@@ -33,7 +38,7 @@ public class UaCheckService extends CloakCheckHandleIntercept {
         cloakLog.setIsCrawler(false);
         if (ua.getPlatform() == Platform.Unknown) {
             cloakLog.setIsCrawler(true);
-            // return CheckStatus.FORBID_BY_SPIDER;
+            return CheckStatus.FORBID_BY_SPIDER;
         }
         return null;
     }

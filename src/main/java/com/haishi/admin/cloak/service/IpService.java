@@ -11,5 +11,5 @@ import org.springframework.web.service.annotation.HttpExchange;
 public interface IpService {
 
     @GetExchange
-    IpLocationDTO request(@RequestParam("ip") String ip);
+    IpLocationDTO request(@RequestParam("ip") String ip, @RequestParam(value = "key", defaultValue = "E5944BD8AAC6618AFEC2E378D44C1A77") String key);
 }

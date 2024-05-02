@@ -41,7 +41,16 @@ public class CloakServiceImpl implements CloakService {
         cloakLog.setConfigId(cloakConfig.getId().toString());
 
         // 检测 IP 地址
-        IpLocationDTO locationDTO = ipService.request(cloakLog.getIp());
+        IpLocationDTO locationDTO = new IpLocationDTO();
+        locationDTO.setIp(cloakLog.getIp());
+        locationDTO.setCountryCode("");
+        locationDTO.setIsProxy(false);
+        try {
+            locationDTO = ipService.request(cloakLog.getIp(), null);
+        } catch (Exception e) {
+            log.error("[CLOAK] ip2location 接口请求异常", e);
+        }
+
         log.info("[CLOAK] ip2location 接口返回结果:{}", locationDTO);
         CloakLogMapper.INSTANCE.updateCloakLogByLocationResult(cloakLog, locationDTO);
         cloakLog.setAccessTime(System.currentTimeMillis());

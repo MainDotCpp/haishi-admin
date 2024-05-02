@@ -15,6 +15,11 @@ public class ProxyCheckService extends CloakCheckHandleIntercept {
     }
 
     @Override
+    protected boolean isEnable(CloakLog cloakLog, CloakConfig cloakConfig) {
+        return cloakConfig.getEnableProxyDetection();
+    }
+
+    @Override
     public CheckStatus check(CloakLog cloakLog, CloakConfig cloakConfig) {
         if (!cloakLog.getIsProxy()) {
             return null;

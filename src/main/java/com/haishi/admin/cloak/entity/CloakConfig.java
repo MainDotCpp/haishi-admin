@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.swing.text.StyledEditorKit;
 import java.util.UUID;
 
 @Getter
@@ -48,5 +49,25 @@ public class CloakConfig {
     @Column(name = "preview_secret")
     @Schema(description = "预览密钥")
     private String previewSecret;
+
+    @Schema(description = "是否启用地区检测")
+    @Column(name = "enable_region_detection")
+    private Boolean enableRegionDetection;
+
+    @Schema(description = "是否启用爬虫检测")
+    @Column(name = "enable_spider_detection")
+    private Boolean enableSpiderDetection;
+
+    @Schema(description = "是否启用语言检测")
+    @Column(name = "enable_language_detection")
+    private Boolean enableLanguageDetection;
+
+    @Schema(description = "是否启用代理检测")
+    @Column(name = "enable_proxy_detection")
+    private Boolean enableProxyDetection;
+
+    @Schema(description = "是否启用UA检测")
+    @Column(name = "enable_ua_detection")
+    private Boolean enableUaDetection;
 
 }

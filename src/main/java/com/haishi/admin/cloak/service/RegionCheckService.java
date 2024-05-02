@@ -17,7 +17,7 @@ public class RegionCheckService extends CloakCheckHandleIntercept {
 
     @Override
     protected boolean isEnable(CloakLog cloakLog, CloakConfig cloakConfig) {
-        return !cloakConfig.getAllowRegion().isEmpty();
+        return cloakConfig.getEnableRegionDetection();
     }
 
     @Override
