@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "shortlink", description = "Short Link Controller")
 @RestController
-@RequestMapping("/shortlink")
+@RequestMapping("shortlink")
 @AllArgsConstructor
 public class ShortLinkController {
     private final ShortLinkService shortLinkService;

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "cloak", description = "斗篷")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/cloak")
+@RequestMapping("cloak")
 public class CloakController {
 
     private final CloakService cloakService;

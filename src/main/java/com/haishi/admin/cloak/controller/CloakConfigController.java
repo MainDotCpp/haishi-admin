@@ -13,7 +13,7 @@ import java.util.UUID;
 
 @Tag(name = "cloakConfig", description = "斗篷配置 控制器")
 @RestController
-@RequestMapping("/cloakConfig")
+@RequestMapping("cloakConfig")
 @AllArgsConstructor
 public class CloakConfigController {
     private final CloakConfigService cloakConfigService;

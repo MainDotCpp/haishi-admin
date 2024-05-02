@@ -30,9 +30,10 @@ public class UaCheckService extends CloakCheckHandleIntercept {
         cloakLog.setEngine(ua.getEngine().getName());
         cloakLog.setEngineVersion(ua.getEngineVersion());
         cloakLog.setIsMobile(ua.isMobile());
+        cloakLog.setIsCrawler(false);
         if (ua.getPlatform() == Platform.Unknown) {
             cloakLog.setIsCrawler(true);
-            return CheckStatus.FORBID_BY_SPIDER;
+            // return CheckStatus.FORBID_BY_SPIDER;
         }
         return null;
     }

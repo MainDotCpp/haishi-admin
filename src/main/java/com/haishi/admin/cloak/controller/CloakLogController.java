@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "cloakLog", description = "访问记录控制器")
 @RestController
-@RequestMapping("/cloakLog")
+@RequestMapping("cloakLog")
 @AllArgsConstructor
 public class CloakLogController {
     private final CloakLogService cloakLogService;

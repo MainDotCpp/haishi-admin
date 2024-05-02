@@ -53,10 +53,14 @@ public class ShortLinkService {
     }
 
     @SneakyThrows
-    public Object access(String key, HttpServletRequest request) {
+    public Object access(String key, HttpServletRequest request, Boolean preview) {
         ShortLinkConfig shortLinkConfig = getByKey(key);
         if (shortLinkConfig == null) throw new BizException(BizExceptionEnum.SHORT_LINK_NOT_EXIST);
         if (shortLinkConfig.getCloakId() == null) throw new BizException(BizExceptionEnum.CLOAK_LINK_NOT_CONFIG);
+
+        RedirectView redirectView = new RedirectView(shortLinkConfig.getTargetUrl());
+        redirectView.setStatusCode(HttpStatusCode.valueOf(301));
+        if (Boolean.TRUE.equals(preview)) return redirectView;
 
         UUID cloakId = shortLinkConfig.getCloakId();
         CloakCheckResult result = cloakService.check(cloakId.toString(), request, cloakLog -> {
@@ -64,11 +68,7 @@ public class ShortLinkService {
             cloakLog.setRelatedId(shortLinkConfig.getId());
             return cloakLog;
         });
-        RedirectView redirectView = new RedirectView(shortLinkConfig.getTargetUrl());
-        if (result.getPermit()) {
-            redirectView.setStatusCode(HttpStatusCode.valueOf(301));
-            return redirectView;
-        }
+        if (result.getPermit()) return redirectView;
         redirectView.setStatusCode(HttpStatusCode.valueOf(404));
         return redirectView;
     }
