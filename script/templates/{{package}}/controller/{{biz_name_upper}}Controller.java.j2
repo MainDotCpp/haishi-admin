@@ -25,9 +25,9 @@ public class {{biz_name_upper}}Controller {
 
     @Operation(summary = "斗篷配置列表")
     @GetMapping("/list")
-    public HttpResult list(CloakConfigQueryDTO queryDTO) {
+    public HttpResult list({{biz_name_upper}}QueryDTO queryDTO) {
         return HttpResult.success(
-                cloakConfigService.list(queryDTO)
+                {{biz_name}}Service.list(queryDTO)
         );
     }
 

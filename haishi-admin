@@ -647,3 +647,19 @@ jakarta.persistence.TransactionRequiredException: Executing an update/delete que
 2024-05-02T16:25:15.019+08:00  INFO 72172 --- [haishi-admin] [scheduling-1] c.h.admin.shortlink.task.ShortlinkTask   : 统计短链接的pv和uv结束
 2024-05-02T16:30:00.331+08:00  INFO 72172 --- [haishi-admin] [scheduling-1] c.h.admin.shortlink.task.ShortlinkTask   : 开始统计短链接的pv和uv
 2024-05-02T16:30:17.125+08:00  INFO 72172 --- [haishi-admin] [scheduling-1] c.h.admin.shortlink.task.ShortlinkTask   : 统计短链接的pv和uv结束
+2024-05-02T16:35:00.292+08:00  INFO 72172 --- [haishi-admin] [scheduling-1] c.h.admin.shortlink.task.ShortlinkTask   : 开始统计短链接的pv和uv
+2024-05-02T16:35:14.564+08:00  INFO 72172 --- [haishi-admin] [scheduling-1] c.h.admin.shortlink.task.ShortlinkTask   : 统计短链接的pv和uv结束
+2024-05-02T16:40:00.327+08:00  INFO 72172 --- [haishi-admin] [scheduling-1] c.h.admin.shortlink.task.ShortlinkTask   : 开始统计短链接的pv和uv
+2024-05-02T16:40:13.834+08:00  INFO 72172 --- [haishi-admin] [scheduling-1] c.h.admin.shortlink.task.ShortlinkTask   : 统计短链接的pv和uv结束
+2024-05-02T16:45:00.008+08:00  INFO 72172 --- [haishi-admin] [scheduling-1] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-05-02T16:45:00.019+08:00  INFO 72172 --- [haishi-admin] [scheduling-1] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 9 ms. Found 0 JPA repository interfaces.
+2024-05-02T16:45:00.843+08:00  INFO 72172 --- [haishi-admin] [scheduling-1] c.h.admin.shortlink.task.ShortlinkTask   : 开始统计短链接的pv和uv
+2024-05-02T16:45:14.462+08:00  INFO 72172 --- [haishi-admin] [scheduling-1] c.h.admin.shortlink.task.ShortlinkTask   : 统计短链接的pv和uv结束
+2024-05-02T16:50:00.327+08:00  INFO 72172 --- [haishi-admin] [scheduling-1] c.h.admin.shortlink.task.ShortlinkTask   : 开始统计短链接的pv和uv
+2024-05-02T16:50:14.396+08:00  INFO 72172 --- [haishi-admin] [scheduling-1] c.h.admin.shortlink.task.ShortlinkTask   : 统计短链接的pv和uv结束
+2024-05-02T16:55:00.006+08:00  INFO 72172 --- [haishi-admin] [scheduling-1] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-05-02T16:55:00.016+08:00  INFO 72172 --- [haishi-admin] [scheduling-1] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 8 ms. Found 0 JPA repository interfaces.
+2024-05-02T16:55:00.312+08:00  INFO 72172 --- [haishi-admin] [scheduling-1] c.h.admin.shortlink.task.ShortlinkTask   : 开始统计短链接的pv和uv
+2024-05-02T16:55:14.154+08:00  INFO 72172 --- [haishi-admin] [scheduling-1] c.h.admin.shortlink.task.ShortlinkTask   : 统计短链接的pv和uv结束
+2024-05-02T17:00:00.270+08:00  INFO 72172 --- [haishi-admin] [scheduling-1] c.h.admin.shortlink.task.ShortlinkTask   : 开始统计短链接的pv和uv
+2024-05-02T17:00:13.885+08:00  INFO 72172 --- [haishi-admin] [scheduling-1] c.h.admin.shortlink.task.ShortlinkTask   : 统计短链接的pv和uv结束

@@ -25,7 +25,7 @@ public class {{biz_name_upper}}Service {
     private final {{biz_name_upper}}Repository {{biz_name}}Repository;
     private final JPAQueryFactory jpaQueryFactory;
 
-    public {{biz_name_upper}} getById(UUID id) {
+    public {{biz_name_upper}} getById(Long id) {
         return {{biz_name}}Repository.findById(id).orElse(null);
     }
 
@@ -53,7 +53,7 @@ public class {{biz_name_upper}}Service {
         return {{biz_name}}Repository.save({{biz_name}});
     }
 
-    public boolean delete(UUID id) {
+    public boolean delete(Long id) {
         {{biz_name}}Repository.deleteById(id);
         return true;
     }
