@@ -4,6 +4,7 @@ import com.haishi.admin.cloak.dto.CloakLogQueryDTO;
 import com.haishi.admin.common.dto.HttpResult;
 import com.haishi.admin.cloak.entity.CloakLog;
 import com.haishi.admin.cloak.service.CloakLogService;
+import com.haishi.admin.common.dto.PageDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
@@ -18,14 +19,14 @@ public class CloakLogController {
 
     @Operation(summary = "根据ID获取访问记录")
     @GetMapping("/getById")
-    public HttpResult get(Long id) {
+    public HttpResult<CloakLog> get(Long id) {
         CloakLog cloakLog = cloakLogService.getById(id);
         return HttpResult.success(cloakLog);
     }
 
     @Operation(summary = "分页查询访问记录")
     @GetMapping("/page")
-    public HttpResult page(CloakLogQueryDTO queryDTO) {
+    public HttpResult<PageDTO<CloakLog>> page(CloakLogQueryDTO queryDTO) {
         return HttpResult.success(
                 cloakLogService.page(queryDTO)
         );
@@ -33,7 +34,7 @@ public class CloakLogController {
 
     @Operation(summary = "保存访问记录")
     @PostMapping("/save")
-    public HttpResult save(@RequestBody CloakLog cloakLog) {
+    public HttpResult<CloakLog> save(@RequestBody CloakLog cloakLog) {
         return HttpResult.success(
                 cloakLogService.save(cloakLog)
         );
@@ -41,7 +42,7 @@ public class CloakLogController {
 
     @Operation(summary = "删除访问记录")
     @PostMapping("/deleteById")
-    public HttpResult deleteById(Long id) {
+    public HttpResult<Boolean> deleteById(Long id) {
         return HttpResult.success(
                 cloakLogService.delete(id)
         );

@@ -25,7 +25,7 @@ public class LoadingConfigService {
     private final LoadingConfigRepository loadingConfigRepository;
     private final JPAQueryFactory jpaQueryFactory;
 
-    public LoadingConfig getById(UUID id) {
+    public LoadingConfig getById(Long id) {
         return loadingConfigRepository.findById(id).orElse(null);
     }
 
@@ -53,7 +53,7 @@ public class LoadingConfigService {
         return loadingConfigRepository.save(loadingConfig);
     }
 
-    public boolean delete(UUID id) {
+    public boolean delete(Long id) {
         loadingConfigRepository.deleteById(id);
         return true;
     }

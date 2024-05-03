@@ -10,13 +10,10 @@ import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Slf4j
 @Service
@@ -27,10 +24,6 @@ public class LoadingConfigService {
 
     public LoadingConfig getById(Long id) {
         return loadingConfigRepository.findById(id).orElse(null);
-    }
-
-    public LoadingConfig getByKey(String path) {
-        return jpaQueryFactory.selectFrom(QLoadingConfig.loadingConfig).where(QLoadingConfig.loadingConfig.path.eq(path)).fetchOne();
     }
 
     private JPAQuery<LoadingConfig> buildQuery(LoadingConfigQueryDTO queryDTO) {
@@ -60,5 +53,11 @@ public class LoadingConfigService {
     public boolean delete(Long id) {
         loadingConfigRepository.deleteById(id);
         return true;
+    }
+
+    public LoadingConfig getByPath(String path) {
+        return jpaQueryFactory.selectFrom(QLoadingConfig.loadingConfig)
+                .where(QLoadingConfig.loadingConfig.path.eq(path))
+                .fetchOne();
     }
 }

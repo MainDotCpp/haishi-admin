@@ -1,57 +1,60 @@
 package com.haishi.admin.{{ package }}.controller;
 
-import com.haishi.admin.{{ package }}.dto.{{biz_name_upper}}QueryDTO;
+import com.haishi.admin.common.dto.PageDTO;
+import com.haishi.admin.{{ package }}.dto.{{ biz_name_upper }}QueryDTO;
 import com.haishi.admin.common.dto.HttpResult;
-import com.haishi.admin.{{ package }}.entity.{{biz_name_upper}};
-import com.haishi.admin.{{ package }}.service.{{biz_name_upper}}Service;
+import com.haishi.admin.{{ package }}.entity.{{ biz_name_upper }};
+import com.haishi.admin.{{ package }}.service.{{ biz_name_upper }}Service;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-@Tag(name = "{{biz_name}}", description = "{{comment}}控制器")
+import java.util.List;
+
+@Tag(name = "{{ biz_name }}", description = "{{ comment }}控制器")
 @RestController
-@RequestMapping("/{{biz_name}}")
+@RequestMapping("/{{ biz_name }}")
 @AllArgsConstructor
-public class {{biz_name_upper}}Controller {
-    private final {{biz_name_upper}}Service {{biz_name}}Service;
+public class {{ biz_name_upper }}Controller {
+    private final {{ biz_name_upper }}Service {{ biz_name }}Service;
 
-    @Operation(summary = "根据ID获取{{comment}}")
+    @Operation(summary = "根据ID获取{{ comment }}")
     @GetMapping("/getById")
-    public HttpResult get(Long id) {
-        {{biz_name_upper}} {{biz_name}} = {{biz_name}}Service.getById(id);
-        return HttpResult.success({{biz_name}});
+    public HttpResult<{{ biz_name_upper }}> get(Long id) {
+        {{ biz_name_upper }} {{ biz_name }} = {{ biz_name }}Service.getById(id);
+        return HttpResult.success({{ biz_name }});
     }
 
-    @Operation(summary = "斗篷配置列表")
+    @Operation(summary = "{{ comment }}列表")
     @GetMapping("/list")
-    public HttpResult list({{biz_name_upper}}QueryDTO queryDTO) {
+    public HttpResult<List<{{ biz_name_upper }}>> list({{ biz_name_upper }}QueryDTO queryDTO) {
         return HttpResult.success(
-                {{biz_name}}Service.list(queryDTO)
+                {{ biz_name }}Service.list(queryDTO)
         );
     }
 
-    @Operation(summary = "分页查询{{comment}}")
+    @Operation(summary = "分页查询{{ comment }}")
     @GetMapping("/page")
-    public HttpResult page({{biz_name_upper}}QueryDTO queryDTO) {
+    public HttpResult<PageDTO<{{ biz_name_upper }}>> page({{ biz_name_upper }}QueryDTO queryDTO) {
         return HttpResult.success(
-                {{biz_name}}Service.page(queryDTO)
+                {{ biz_name }}Service.page(queryDTO)
         );
     }
 
-    @Operation(summary = "保存{{comment}}")
+    @Operation(summary = "保存{{ comment }}")
     @PostMapping("/save")
-    public HttpResult save(@RequestBody {{biz_name_upper}} {{biz_name}}) {
+    public HttpResult<{{ biz_name_upper }}> save(@RequestBody {{ biz_name_upper }} {{ biz_name }}) {
         return HttpResult.success(
-                {{biz_name}}Service.save({{biz_name}})
+                {{ biz_name }}Service.save({{ biz_name }})
         );
     }
 
-    @Operation(summary = "通过ID删除{{comment}}")
+    @Operation(summary = "通过ID删除{{ comment }}")
     @PostMapping("/deleteById")
-    public HttpResult delete(Long id) {
+    public HttpResult<Boolean> delete(Long id) {
         return HttpResult.success(
-                {{biz_name}}Service.delete(id)
+                {{ biz_name }}Service.delete(id)
         );
     }
 

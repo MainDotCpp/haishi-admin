@@ -9,6 +9,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Tag(name = "shortlink", description = "Short Link Controller")
 @RestController
 @RequestMapping("shortlink")
@@ -18,21 +20,21 @@ public class ShortLinkController {
 
     @Operation(summary = "根据ID获取短链接配置")
     @GetMapping("/getById")
-    public HttpResult get(Long id) {
+    public HttpResult<ShortLinkConfig> get(Long id) {
         ShortLinkConfig shortLinkConfig = shortLinkService.getById(id);
         return HttpResult.success(shortLinkConfig);
     }
 
     @Operation(summary = "根据KEY获取短链接")
     @GetMapping("/getByKey")
-    public HttpResult getByKey(String key) {
+    public HttpResult<ShortLinkConfig> getByKey(String key) {
         ShortLinkConfig shortLinkConfig = shortLinkService.getByKey(key);
         return HttpResult.success(shortLinkConfig);
     }
 
     @Operation(summary = "分页查询短链接配置")
     @GetMapping("/page")
-    public HttpResult page(PageDTO<ShortLinkConfig> pageDTO) {
+    public HttpResult<PageDTO<ShortLinkConfig>> page(PageDTO<ShortLinkConfig> pageDTO) {
         return HttpResult.success(
                 shortLinkService.getPage(pageDTO)
         );
@@ -40,7 +42,7 @@ public class ShortLinkController {
 
     @Operation(summary = "保存短链接配置")
     @PostMapping("/save")
-    public HttpResult save(@RequestBody ShortLinkConfig shortLinkConfig) {
+    public HttpResult<ShortLinkConfig> save(@RequestBody ShortLinkConfig shortLinkConfig) {
         return HttpResult.success(
                 shortLinkService.save(shortLinkConfig)
         );
@@ -48,7 +50,7 @@ public class ShortLinkController {
 
     @Operation(summary = "删除短链接配置")
     @PostMapping("/deleteById")
-    public HttpResult delete(Long id) {
+    public HttpResult<Boolean> delete(Long id) {
         return HttpResult.success(
                 shortLinkService.delete(id)
         );

@@ -5,10 +5,10 @@ import com.haishi.admin.common.exception.BizExceptionEnum;
 import lombok.Data;
 
 @Data
-public class HttpResult {
+public class HttpResult<T> {
     private int code;
     private String message;
-    private Object data;
+    private T data;
 
     public HttpResult() {
     }
@@ -18,25 +18,17 @@ public class HttpResult {
         this.message = message;
     }
 
-    public HttpResult(int code, String message, Object data) {
+    public HttpResult(int code, String message, T data) {
         this.code = code;
         this.message = message;
         this.data = data;
     }
 
-    static public HttpResult success() {
-        return new HttpResult(200, "success");
+    static public <Z> HttpResult<Z> success(Z data) {
+        return new HttpResult<>(200, "success", data);
     }
 
-    static public HttpResult success(Object data) {
-        return new HttpResult(200, "success", data);
-    }
-
-    static public HttpResult error() {
-        return new HttpResult(500, "error");
-    }
-
-    static public HttpResult error(BizException e) {
-        return new HttpResult(e.getCode(), e.getMsg());
+    static public <Z> HttpResult<Z> error(BizException e) {
+        return new HttpResult<>(e.getCode(), e.getMsg());
     }
 }

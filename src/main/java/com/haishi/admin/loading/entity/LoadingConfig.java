@@ -21,8 +21,8 @@ public class LoadingConfig {
     private String path;
 
     @Schema(description = "落地页id")
-    @Column(name = "template_id", nullable = false)
-    private String templateId;
+    @Column(name = "template_path", nullable = false)
+    private String templatePath;
 
     @Schema(description = "斗篷配置")
     @Column(name = "cloak_id")

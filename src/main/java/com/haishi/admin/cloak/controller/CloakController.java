@@ -20,7 +20,7 @@ public class CloakController {
 
     @Operation(summary = "调用斗篷")
     @PostMapping("/check/{key}")
-    public HttpResult check(@PathVariable String key, @RequestBody CloakCheckDTO dto) {
+    public HttpResult<CloakCheckResult> check(@PathVariable String key, @RequestBody CloakCheckDTO dto) {
         CloakCheckResult result = cloakService.check(key, dto, cloakLog -> {
             cloakLog.setScene(CloakScene.API);
             cloakLog.setRelatedId(0L);
