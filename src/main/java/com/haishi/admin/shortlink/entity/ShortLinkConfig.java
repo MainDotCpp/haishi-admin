@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 @Getter
@@ -15,7 +16,9 @@ import java.util.UUID;
 @DynamicInsert
 @DynamicUpdate
 @Table(name = "sl_config")
-public class ShortLinkConfig {
+public class ShortLinkConfig implements Serializable {
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)

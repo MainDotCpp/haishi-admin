@@ -10,6 +10,10 @@ import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -46,15 +50,20 @@ public class LoadingConfigService {
         return queryDTO;
     }
 
+    @Caching(put = {
+            @CachePut(value = "loadingConfig", key = "#loadingConfig.path", condition = "#loadingConfig.path != null")
+    })
     public LoadingConfig save(LoadingConfig loadingConfig) {
         return loadingConfigRepository.save(loadingConfig);
     }
 
+    @CacheEvict(value = "loadingConfig", key = "#id")
     public boolean delete(Long id) {
         loadingConfigRepository.deleteById(id);
         return true;
     }
 
+    @Cacheable(value = "loadingConfig", key = "#path")
     public LoadingConfig getByPath(String path) {
         return jpaQueryFactory.selectFrom(QLoadingConfig.loadingConfig)
                 .where(QLoadingConfig.loadingConfig.path.eq(path))

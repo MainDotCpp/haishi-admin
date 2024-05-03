@@ -15,6 +15,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatusCode;
@@ -35,6 +38,7 @@ public class ShortLinkService {
         return shortLinkConfigRepository.findById(id).orElse(null);
     }
 
+    @Cacheable(value = "shortLinkConfig", key = "#key")
     public ShortLinkConfig getByKey(String key) {
         return shortLinkConfigRepository.findByKey(key);
     }
@@ -49,6 +53,7 @@ public class ShortLinkService {
         return pageDTO;
     }
 
+    @CachePut(value = "shortLinkConfig", key = "#shortLinkConfig.key")
     public ShortLinkConfig save(ShortLinkConfig shortLinkConfig) {
         return shortLinkConfigRepository.save(shortLinkConfig);
     }
