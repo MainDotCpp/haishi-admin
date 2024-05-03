@@ -17,6 +17,7 @@ import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import java.util.List;
 
 @Slf4j
@@ -63,10 +64,12 @@ public class LoadingConfigService {
         return true;
     }
 
-    @Cacheable(value = "loadingConfig", key = "#path")
+    @Cacheable(cacheNames = {"loadingConfig"}, key = "#path")
     public LoadingConfig getByPath(String path) {
-        return jpaQueryFactory.selectFrom(QLoadingConfig.loadingConfig)
+        LoadingConfig loadingConfig = jpaQueryFactory.selectFrom(QLoadingConfig.loadingConfig)
                 .where(QLoadingConfig.loadingConfig.path.eq(path))
                 .fetchOne();
+        log.info("loadingConfig: {}", loadingConfig);
+        return loadingConfig;
     }
 }

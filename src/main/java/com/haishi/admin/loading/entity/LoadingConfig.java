@@ -5,13 +5,14 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "l_loading_config")
-public class LoadingConfig {
+public class LoadingConfig implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)

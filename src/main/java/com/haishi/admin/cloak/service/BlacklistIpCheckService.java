@@ -2,7 +2,6 @@ package com.haishi.admin.cloak.service;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.date.TimeInterval;
-import cn.hutool.core.net.Ipv4Util;
 import com.haishi.admin.cloak.dao.BlacklistIpRepository;
 import com.haishi.admin.cloak.entity.*;
 import com.haishi.admin.cloak.enums.CheckStatus;
@@ -63,7 +62,10 @@ public class BlacklistIpCheckService extends CloakCheckHandleIntercept {
         return true;
     }
 
-    boolean collectBlacklistIp(RBloomFilter<Object> visitorFilter, CloakLog cloakLog) {
+    boolean collectBlacklistIp(RBloomFilter<Object> visitorFilter, RBloomFilter<Object> blacklistFilter, CloakLog cloakLog) {
+        if (blacklistFilter.contains(cloakLog.getIp())) {
+            return true;
+        }
         if (visitorFilter.contains(cloakLog.getIp())) {
             log.info("黑名单IP检查，添加黑名单IP：{}", cloakLog.getIp());
             BlacklistIp entity = new BlacklistIp();
@@ -73,6 +75,7 @@ public class BlacklistIpCheckService extends CloakCheckHandleIntercept {
                 log.error("黑名单IP转换失败", e);
             }
             blacklistIpRepository.save(entity);
+            blacklistFilter.add(cloakLog.getIp());
             return true;
         }
         return false;
@@ -85,17 +88,16 @@ public class BlacklistIpCheckService extends CloakCheckHandleIntercept {
         RBloomFilter<Object> blacklistIpFilter = redissonClient.getBloomFilter("blacklistIp");
 
         boolean flag = false;
-        long total = visitorFilter.count();
-        log.info("黑名单IP检查，访客IP数量：{}", total);
-        if (cloakConfig.getEnableBlacklistIpDetection() && blacklistIpFilter.contains(cloakLog.getIp())) {
-            log.info("黑名单IP检查，拦截IP：{}", cloakLog.getIp());
+        if (blacklistIpFilter.contains(cloakLog.getIp())) {
+            log.info("黑名单IP命中：{}", cloakLog.getIp());
             flag = true;
         }
-        if (cloakConfig.getEnableBlacklistIpCollection()) {
-            flag = collectBlacklistIp(visitorFilter, cloakLog);
+        if (!flag && cloakConfig.getEnableBlacklistIpCollection()) {
+            flag = collectBlacklistIp(visitorFilter, blacklistIpFilter, cloakLog);
         }
 
         visitorFilter.add(cloakLog.getIp());
+        if (!cloakConfig.getEnableBlacklistIpDetection()) return null;
         return flag ? CheckStatus.FORBID_BY_BLACKLIST_IP : null;
     }
 }

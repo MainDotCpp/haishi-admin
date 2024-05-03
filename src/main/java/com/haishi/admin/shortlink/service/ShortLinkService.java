@@ -11,10 +11,12 @@ import com.haishi.admin.shortlink.entity.QShortLinkConfig;
 import com.haishi.admin.shortlink.entity.ShortLinkConfig;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
@@ -33,6 +35,9 @@ public class ShortLinkService {
     private final ShortLinkConfigRepository shortLinkConfigRepository;
     private final CloakService cloakService;
     private final JPAQueryFactory jpaQueryFactory;
+
+    @Resource
+    private ShortLinkService _this;
 
     public ShortLinkConfig getById(Long id) {
         return shortLinkConfigRepository.findById(id).orElse(null);
@@ -67,7 +72,7 @@ public class ShortLinkService {
     public Object access(String key, HttpServletRequest request, Boolean preview) {
         log.info("短链接访问，key：{}，preview：{}", key, preview);
         if ("favicon.ico".equals(key)) return "404";
-        ShortLinkConfig shortLinkConfig = getByKey(key);
+        ShortLinkConfig shortLinkConfig = _this.getByKey(key);
         if (shortLinkConfig == null) throw new BizException(BizExceptionEnum.SHORT_LINK_NOT_EXIST);
         if (shortLinkConfig.getCloakId() == null) throw new BizException(BizExceptionEnum.CLOAK_LINK_NOT_CONFIG);
 

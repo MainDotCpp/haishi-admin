@@ -4,11 +4,16 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.jsontype.impl.LaissezFaireSubTypeValidator;
+import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
+import org.redisson.codec.JsonJacksonCodec;
 import org.redisson.config.Config;
 import org.redisson.config.SingleServerConfig;
 import org.redisson.config.TransportMode;
+import org.redisson.spring.cache.RedissonSpringCacheManager;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.cache.CacheProperties;
+import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,7 +26,7 @@ import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 @Configuration
-public class RedisConfig extends CachingConfigurerSupport {
+public class RedisConfig {
 
     @Bean
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
@@ -53,42 +58,22 @@ public class RedisConfig extends CachingConfigurerSupport {
         return new GenericJackson2JsonRedisSerializer(objectMapper);
     }
 
+
     @Bean
-    public RedisCacheConfiguration redisCacheConfiguration(CacheProperties cacheProperties, RedisSerializer redisSerializer) {
-
-        CacheProperties.Redis redisProperties = cacheProperties.getRedis();
-        RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig();
-
-        // 序列化值
-        config = config.serializeValuesWith(RedisSerializationContext.SerializationPair
-                .fromSerializer(redisSerializer));
-
-        if (redisProperties.getTimeToLive() != null) {
-            config = config.entryTtl(redisProperties.getTimeToLive());
-        }
-        if (redisProperties.getKeyPrefix() != null) {
-            config = config.prefixCacheNameWith(redisProperties.getKeyPrefix());
-        }
-        if (!redisProperties.isCacheNullValues()) {
-            config = config.disableCachingNullValues();
-        }
-        if (!redisProperties.isUseKeyPrefix()) {
-            config = config.disableKeyPrefix();
-        }
-
-        return config;
+    public RedissonClient redissonClient() {
+        Config config = new Config();
+        config.setTransportMode(TransportMode.NIO)
+                .setCodec(new JsonJacksonCodec())
+                .useSingleServer()
+                .setAddress("redis://localhost:6379")
+                .setPassword("jhkdjhkjdhsIUTYURTU_nsKkdX")
+                .setDatabase(0);
+        return Redisson.create(config);
     }
 
-//    @Bean
-//    public RedissonClient redissonClient(){
-//        Config config = new Config();
-//        config.setTransportMode(TransportMode.NIO);
-//        SingleServerConfig singleServerConfig = config.useSingleServer();
-//        //可以用"rediss://"来启用SSL连接
-//        singleServerConfig.setAddress("redis://127.0.0.1:6379");
-//        singleServerConfig.setPassword("jhkdjhkjdhsIUTYURTU_nsKkdX");
-//        RedissonClient redisson = Redisson.create(config);
-//        return redisson;
-//    }
+    @Bean
+    public CacheManager cacheManager() {
+        return new RedissonSpringCacheManager(redissonClient());
+    }
 
 }
