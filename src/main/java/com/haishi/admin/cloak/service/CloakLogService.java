@@ -38,6 +38,8 @@ public class CloakLogService {
         if (queryDTO.getIsCrawler() != null) predicates.add(QCloakLog.cloakLog.isCrawler.eq(queryDTO.getIsCrawler()));
         if (queryDTO.getIsMobile() != null) predicates.add(QCloakLog.cloakLog.isMobile.eq(queryDTO.getIsMobile()));
         if (queryDTO.getIsProxy() != null) predicates.add(QCloakLog.cloakLog.isProxy.eq(queryDTO.getIsProxy()));
+        if (queryDTO.getCountryCode() != null)
+            predicates.add(QCloakLog.cloakLog.countryCode.eq(queryDTO.getCountryCode()));
 
         query.orderBy(QCloakLog.cloakLog.id.desc());
         query.where(predicates.toArray(Predicate[]::new));
