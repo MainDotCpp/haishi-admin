@@ -1,8 +1,11 @@
 package com.haishi.admin.cloak.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.net.InetAddress;
 
 @Getter
 @Setter
@@ -14,6 +17,8 @@ public class BlacklistIp {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "ip", nullable = false, columnDefinition = "inet")
-    private String ip;
+    @NotNull
+    @Column(name = "ip", nullable = false)
+    private InetAddress ip;
+
 }

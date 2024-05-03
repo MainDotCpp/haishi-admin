@@ -2,6 +2,7 @@ package com.haishi.admin.cloak.service;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.date.TimeInterval;
+import cn.hutool.core.net.Ipv4Util;
 import com.haishi.admin.cloak.dao.BlacklistIpRepository;
 import com.haishi.admin.cloak.entity.*;
 import com.haishi.admin.cloak.enums.CheckStatus;
@@ -13,6 +14,9 @@ import org.redisson.api.RBloomFilter;
 import org.redisson.api.RedissonClient;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 @Slf4j
 @Service
@@ -27,6 +31,11 @@ public class BlacklistIpCheckService extends CloakCheckHandleIntercept {
     @Override
     String checkName() {
         return "黑名单IP检查";
+    }
+
+    @Override
+    protected boolean isEnable(CloakLog cloakLog, CloakConfig cloakConfig) {
+        return cloakConfig.getEnableBlacklistIpDetection() || cloakConfig.getEnableBlacklistIpCollection();
     }
 
     @PostConstruct
@@ -54,27 +63,39 @@ public class BlacklistIpCheckService extends CloakCheckHandleIntercept {
         return true;
     }
 
+    boolean collectBlacklistIp(RBloomFilter<Object> visitorFilter, CloakLog cloakLog) {
+        if (visitorFilter.contains(cloakLog.getIp())) {
+            log.info("黑名单IP检查，添加黑名单IP：{}", cloakLog.getIp());
+            BlacklistIp entity = new BlacklistIp();
+            try {
+                entity.setIp(InetAddress.getByName(cloakLog.getIp()));
+            } catch (UnknownHostException e) {
+                log.error("黑名单IP转换失败", e);
+            }
+            blacklistIpRepository.save(entity);
+            return true;
+        }
+        return false;
+    }
+
     @Override
     @Transactional(rollbackFor = Exception.class)
     CheckStatus check(CloakLog cloakLog, CloakConfig cloakConfig) {
         RBloomFilter<Object> visitorFilter = redissonClient.getBloomFilter("visitorIp");
         RBloomFilter<Object> blacklistIpFilter = redissonClient.getBloomFilter("blacklistIp");
 
+        boolean flag = false;
         long total = visitorFilter.count();
         log.info("黑名单IP检查，访客IP数量：{}", total);
-        if (blacklistIpFilter.contains(cloakLog.getIp())) {
+        if (cloakConfig.getEnableBlacklistIpDetection() && blacklistIpFilter.contains(cloakLog.getIp())) {
             log.info("黑名单IP检查，拦截IP：{}", cloakLog.getIp());
-            return CheckStatus.FORBID_BY_BLACKLIST_IP;
+            flag = true;
         }
-        if (visitorFilter.contains(cloakLog.getIp())) {
-            blacklistIpFilter.add(cloakLog.getIp());
-            log.info("黑名单IP检查，添加黑名单IP：{}", cloakLog.getIp());
-            BlacklistIp entity = new BlacklistIp();
-            entity.setIp(cloakLog.getIp());
-            blacklistIpRepository.save(entity);
-            return CheckStatus.FORBID_BY_BLACKLIST_IP;
+        if (cloakConfig.getEnableBlacklistIpCollection()) {
+            flag = collectBlacklistIp(visitorFilter, cloakLog);
         }
+
         visitorFilter.add(cloakLog.getIp());
-        return null;
+        return flag ? CheckStatus.FORBID_BY_BLACKLIST_IP : null;
     }
 }

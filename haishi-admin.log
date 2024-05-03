@@ -6649,3 +6649,371 @@ Original Stack Trace:
 2024-05-03T14:30:01.429+08:00  INFO 87371 --- [haishi-admin] [scheduling-1] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
 2024-05-03T14:30:01.972+08:00  INFO 87371 --- [haishi-admin] [scheduling-1] c.h.admin.shortlink.task.ShortlinkTask   : 开始统计短链接的pv和uv
 2024-05-03T14:30:10.755+08:00  INFO 87371 --- [haishi-admin] [scheduling-1] c.h.admin.shortlink.task.ShortlinkTask   : 统计短链接的pv和uv结束
+2024-05-03T14:35:00.039+08:00  INFO 87371 --- [haishi-admin] [scheduling-1] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-05-03T14:35:00.046+08:00  INFO 87371 --- [haishi-admin] [scheduling-1] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 5 ms. Found 0 Redis repository interfaces.
+2024-05-03T14:35:00.047+08:00  INFO 87371 --- [haishi-admin] [scheduling-1] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-05-03T14:35:00.051+08:00  INFO 87371 --- [haishi-admin] [scheduling-1] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 3 ms. Found 0 JPA repository interfaces.
+2024-05-03T14:35:00.128+08:00  INFO 87371 --- [haishi-admin] [scheduling-1] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-05-03T14:35:00.140+08:00  INFO 87371 --- [haishi-admin] [scheduling-1] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-05-03T14:35:00.341+08:00  WARN 87371 --- [haishi-admin] [scheduling-1] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-05-03T14:35:01.116+08:00  INFO 87371 --- [haishi-admin] [scheduling-1] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-05-03T14:35:01.718+08:00  INFO 87371 --- [haishi-admin] [scheduling-1] c.h.admin.shortlink.task.ShortlinkTask   : 开始统计短链接的pv和uv
+2024-05-03T14:35:10.189+08:00  INFO 87371 --- [haishi-admin] [scheduling-1] c.h.admin.shortlink.task.ShortlinkTask   : 统计短链接的pv和uv结束
+2024-05-03T14:35:50.986+08:00  INFO 87642 --- [haishi-admin] [main] c.haishi.admin.HaishiAdminApplication    : Starting HaishiAdminApplication using Java 17.0.10 with PID 87642 (/Users/yangyang/Projects/HaiShi/haishi-admin/target/classes started by yangyang in /Users/yangyang/Projects/HaiShi/haishi-admin)
+2024-05-03T14:35:50.989+08:00 DEBUG 87642 --- [haishi-admin] [main] c.haishi.admin.HaishiAdminApplication    : Running with Spring Boot v3.2.5, Spring v6.1.6
+2024-05-03T14:35:50.990+08:00  INFO 87642 --- [haishi-admin] [main] c.haishi.admin.HaishiAdminApplication    : The following 1 profile is active: "dev"
+2024-05-03T14:35:52.309+08:00  INFO 87642 --- [haishi-admin] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-05-03T14:35:52.311+08:00  INFO 87642 --- [haishi-admin] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-05-03T14:35:52.615+08:00  INFO 87642 --- [haishi-admin] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 297 ms. Found 5 JPA repository interfaces.
+2024-05-03T14:35:52.632+08:00  INFO 87642 --- [haishi-admin] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-05-03T14:35:52.634+08:00  INFO 87642 --- [haishi-admin] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-05-03T14:35:52.647+08:00  INFO 87642 --- [haishi-admin] [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.haishi.admin.cloak.dao.BlacklistIpRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-05-03T14:35:52.647+08:00  INFO 87642 --- [haishi-admin] [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.haishi.admin.cloak.dao.CloakConfigRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-05-03T14:35:52.647+08:00  INFO 87642 --- [haishi-admin] [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.haishi.admin.cloak.dao.CloakLogRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-05-03T14:35:52.648+08:00  INFO 87642 --- [haishi-admin] [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.haishi.admin.loading.dao.LoadingConfigRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-05-03T14:35:52.648+08:00  INFO 87642 --- [haishi-admin] [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.haishi.admin.shortlink.dao.ShortLinkConfigRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-05-03T14:35:52.648+08:00  INFO 87642 --- [haishi-admin] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 6 ms. Found 0 Redis repository interfaces.
+2024-05-03T14:35:53.183+08:00  WARN 87642 --- [haishi-admin] [main] trationDelegate$BeanPostProcessorChecker : Bean 'redisConfig' of type [com.haishi.admin.common.config.RedisConfig$$SpringCGLIB$$0] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [meterRegistryPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2024-05-03T14:35:53.713+08:00  INFO 87642 --- [haishi-admin] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8888 (http)
+2024-05-03T14:35:53.726+08:00  INFO 87642 --- [haishi-admin] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-05-03T14:35:53.727+08:00  INFO 87642 --- [haishi-admin] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.20]
+2024-05-03T14:35:53.803+08:00  INFO 87642 --- [haishi-admin] [main] o.a.c.c.C.[Tomcat].[localhost].[/api]    : Initializing Spring embedded WebApplicationContext
+2024-05-03T14:35:53.803+08:00  INFO 87642 --- [haishi-admin] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2746 ms
+2024-05-03T14:35:54.174+08:00  INFO 87642 --- [haishi-admin] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-05-03T14:35:54.227+08:00  INFO 87642 --- [haishi-admin] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.4.Final
+2024-05-03T14:35:54.259+08:00  INFO 87642 --- [haishi-admin] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-05-03T14:35:54.477+08:00  INFO 87642 --- [haishi-admin] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-05-03T14:35:54.499+08:00  INFO 87642 --- [haishi-admin] [main] com.zaxxer.hikari.HikariDataSource       : HikariCP - Starting...
+2024-05-03T14:35:56.373+08:00  INFO 87642 --- [haishi-admin] [main] com.zaxxer.hikari.pool.HikariPool        : HikariCP - Added connection org.postgresql.jdbc.PgConnection@58e46572
+2024-05-03T14:35:56.376+08:00  INFO 87642 --- [haishi-admin] [main] com.zaxxer.hikari.HikariDataSource       : HikariCP - Start completed.
+2024-05-03T14:35:56.571+08:00  WARN 87642 --- [haishi-admin] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-05-03T14:35:57.995+08:00  INFO 87642 --- [haishi-admin] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-05-03T14:35:59.208+08:00  INFO 87642 --- [haishi-admin] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-05-03T14:35:59.926+08:00  INFO 87642 --- [haishi-admin] [main] org.redisson.Version                     : Redisson 3.22.1
+2024-05-03T14:35:59.971+08:00 ERROR 87642 --- [haishi-admin] [main] i.n.r.d.DnsServerAddressStreamProviders  : Unable to load io.netty.resolver.dns.macos.MacOSDnsServerAddressStreamProvider, fallback to system defaults. This may result in incorrect DNS resolutions on MacOS. Check whether you have a dependency on 'io.netty:netty-resolver-dns-native-macos'. Use DEBUG level to see the full stack: java.lang.UnsatisfiedLinkError: failed to load the required native library
+2024-05-03T14:36:00.654+08:00  INFO 87642 --- [haishi-admin] [redisson-netty-2-7] o.r.c.pool.MasterPubSubConnectionPool    : 1 connections initialized for localhost/127.0.0.1:6379
+2024-05-03T14:36:09.959+08:00  INFO 87642 --- [haishi-admin] [redisson-netty-2-20] o.r.c.pool.MasterConnectionPool          : 24 connections initialized for localhost/127.0.0.1:6379
+2024-05-03T14:36:10.555+08:00  WARN 87642 --- [haishi-admin] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-05-03T14:36:11.557+08:00  INFO 87642 --- [haishi-admin] [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint(s) beneath base path '/actuator'
+2024-05-03T14:36:11.657+08:00  INFO 87642 --- [haishi-admin] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8888 (http) with context path '/api'
+2024-05-03T14:36:11.680+08:00  INFO 87642 --- [haishi-admin] [main] c.haishi.admin.HaishiAdminApplication    : Started HaishiAdminApplication in 21.298 seconds (process running for 23.631)
+2024-05-03T14:36:18.478+08:00  INFO 87642 --- [haishi-admin] [http-nio-8888-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/api]    : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-05-03T14:36:18.479+08:00  INFO 87642 --- [haishi-admin] [http-nio-8888-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-05-03T14:36:18.483+08:00  INFO 87642 --- [haishi-admin] [http-nio-8888-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
+2024-05-03T14:36:18.637+08:00  INFO 87642 --- [haishi-admin] [http-nio-8888-exec-2] c.h.a.cloak.service.CloakServiceImpl     : [CLOAK] 请求参数 key:d21ea79d-3063-4028-acef-e143ff60557f
+2024-05-03T14:36:20.532+08:00  INFO 87642 --- [haishi-admin] [http-nio-8888-exec-2] c.h.a.cloak.service.CloakServiceImpl     : [CLOAK] ip2location 接口返回结果:IpLocationDTO(ip=225.173.69.255, countryCode=-, countryName=-, regionName=-, cityName=-, latitude=null, longitude=null, zipCode=-, timeZone=-, asn=-, as=-, isProxy=false)
+2024-05-03T14:36:20.565+08:00  INFO 87642 --- [haishi-admin] [http-nio-8888-exec-2] c.h.admin.cloak.service.UaCheckService   : [CLOAK] 检测 UA: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36
+2024-05-03T14:36:20.565+08:00  INFO 87642 --- [haishi-admin] [http-nio-8888-exec-2] c.h.a.c.s.CloakCheckHandleIntercept      : [CLOAK] O UA检测检测结果: 通过
+2024-05-03T14:36:20.565+08:00  INFO 87642 --- [haishi-admin] [http-nio-8888-exec-2] c.h.a.c.s.CloakCheckHandleIntercept      : [CLOAK] O 未开启地区检测模块
+2024-05-03T14:36:20.565+08:00  INFO 87642 --- [haishi-admin] [http-nio-8888-exec-2] c.h.a.c.s.CloakCheckHandleIntercept      : [CLOAK] O 代理检测检测结果: 通过
+2024-05-03T14:36:20.786+08:00  INFO 87642 --- [haishi-admin] [http-nio-8888-exec-2] c.h.a.c.service.BlacklistIpCheckService  : 黑名单IP检查，访客IP数量：410
+2024-05-03T14:36:21.236+08:00  INFO 87642 --- [haishi-admin] [http-nio-8888-exec-2] c.h.a.c.service.BlacklistIpCheckService  : 黑名单IP检查，拦截IP：225.173.69.255
+2024-05-03T14:36:21.237+08:00  INFO 87642 --- [haishi-admin] [http-nio-8888-exec-2] c.h.a.c.s.CloakCheckHandleIntercept      : [CLOAK] X 黑名单IP检查检测结果: 黑名单IP
+2024-05-03T14:36:26.922+08:00  INFO 87642 --- [haishi-admin] [http-nio-8888-exec-3] c.h.a.cloak.service.CloakServiceImpl     : [CLOAK] 请求参数 key:d21ea79d-3063-4028-acef-e143ff60557f
+2024-05-03T14:36:28.073+08:00  INFO 87642 --- [haishi-admin] [http-nio-8888-exec-3] c.h.a.cloak.service.CloakServiceImpl     : [CLOAK] ip2location 接口返回结果:IpLocationDTO(ip=225.173.79.255, countryCode=-, countryName=-, regionName=-, cityName=-, latitude=null, longitude=null, zipCode=-, timeZone=-, asn=-, as=-, isProxy=false)
+2024-05-03T14:36:28.074+08:00  INFO 87642 --- [haishi-admin] [http-nio-8888-exec-3] c.h.admin.cloak.service.UaCheckService   : [CLOAK] 检测 UA: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36
+2024-05-03T14:36:28.074+08:00  INFO 87642 --- [haishi-admin] [http-nio-8888-exec-3] c.h.a.c.s.CloakCheckHandleIntercept      : [CLOAK] O UA检测检测结果: 通过
+2024-05-03T14:36:28.074+08:00  INFO 87642 --- [haishi-admin] [http-nio-8888-exec-3] c.h.a.c.s.CloakCheckHandleIntercept      : [CLOAK] O 未开启地区检测模块
+2024-05-03T14:36:28.075+08:00  INFO 87642 --- [haishi-admin] [http-nio-8888-exec-3] c.h.a.c.s.CloakCheckHandleIntercept      : [CLOAK] O 代理检测检测结果: 通过
+2024-05-03T14:36:28.272+08:00  INFO 87642 --- [haishi-admin] [http-nio-8888-exec-3] c.h.a.c.service.BlacklistIpCheckService  : 黑名单IP检查，访客IP数量：410
+2024-05-03T14:36:29.064+08:00  INFO 87642 --- [haishi-admin] [http-nio-8888-exec-3] c.h.a.c.s.CloakCheckHandleIntercept      : [CLOAK] O 黑名单IP检查检测结果: 通过
+2024-05-03T14:36:30.806+08:00  INFO 87642 --- [haishi-admin] [http-nio-8888-exec-4] c.h.a.cloak.service.CloakServiceImpl     : [CLOAK] 请求参数 key:d21ea79d-3063-4028-acef-e143ff60557f
+2024-05-03T14:36:31.612+08:00  INFO 87642 --- [haishi-admin] [http-nio-8888-exec-4] c.h.a.cloak.service.CloakServiceImpl     : [CLOAK] ip2location 接口返回结果:IpLocationDTO(ip=225.173.79.255, countryCode=-, countryName=-, regionName=-, cityName=-, latitude=null, longitude=null, zipCode=-, timeZone=-, asn=-, as=-, isProxy=false)
+2024-05-03T14:36:31.614+08:00  INFO 87642 --- [haishi-admin] [http-nio-8888-exec-4] c.h.admin.cloak.service.UaCheckService   : [CLOAK] 检测 UA: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36
+2024-05-03T14:36:31.614+08:00  INFO 87642 --- [haishi-admin] [http-nio-8888-exec-4] c.h.a.c.s.CloakCheckHandleIntercept      : [CLOAK] O UA检测检测结果: 通过
+2024-05-03T14:36:31.614+08:00  INFO 87642 --- [haishi-admin] [http-nio-8888-exec-4] c.h.a.c.s.CloakCheckHandleIntercept      : [CLOAK] O 未开启地区检测模块
+2024-05-03T14:36:31.615+08:00  INFO 87642 --- [haishi-admin] [http-nio-8888-exec-4] c.h.a.c.s.CloakCheckHandleIntercept      : [CLOAK] O 代理检测检测结果: 通过
+2024-05-03T14:36:31.808+08:00  INFO 87642 --- [haishi-admin] [http-nio-8888-exec-4] c.h.a.c.service.BlacklistIpCheckService  : 黑名单IP检查，访客IP数量：411
+2024-05-03T14:36:32.557+08:00  INFO 87642 --- [haishi-admin] [http-nio-8888-exec-4] c.h.a.c.service.BlacklistIpCheckService  : 黑名单IP检查，添加黑名单IP：225.173.79.255
+2024-05-03T14:36:32.559+08:00 ERROR 87642 --- [haishi-admin] [http-nio-8888-exec-4] c.h.a.c.service.BlacklistIpCheckService  : 黑名单IP转换失败
+
+java.net.UnknownHostException: addr is of illegal length
+	at java.base/java.net.InetAddress.getByAddress(InetAddress.java:1216) ~[na:na]
+	at java.base/java.net.InetAddress.getByAddress(InetAddress.java:1599) ~[na:na]
+	at com.haishi.admin.cloak.service.BlacklistIpCheckService.check(BlacklistIpCheckService.java:77) ~[classes/:na]
+	at com.haishi.admin.cloak.service.CloakCheckHandleIntercept.execute(CloakCheckHandleIntercept.java:31) ~[classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:354) ~[spring-aop-6.1.6.jar:6.1.6]
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:716) ~[spring-aop-6.1.6.jar:6.1.6]
+	at com.haishi.admin.cloak.service.BlacklistIpCheckService$$SpringCGLIB$$0.execute(<generated>) ~[classes/:na]
+	at com.haishi.admin.cloak.service.CloakCheckChainService.execute(CloakCheckChainService.java:33) ~[classes/:na]
+	at com.haishi.admin.cloak.service.CloakServiceImpl.check(CloakServiceImpl.java:66) ~[classes/:na]
+	at com.haishi.admin.cloak.controller.CloakController.check(CloakController.java:24) ~[classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:255) ~[spring-web-6.1.6.jar:6.1.6]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:188) ~[spring-web-6.1.6.jar:6.1.6]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118) ~[spring-webmvc-6.1.6.jar:6.1.6]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:926) ~[spring-webmvc-6.1.6.jar:6.1.6]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:831) ~[spring-webmvc-6.1.6.jar:6.1.6]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-6.1.6.jar:6.1.6]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089) ~[spring-webmvc-6.1.6.jar:6.1.6]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979) ~[spring-webmvc-6.1.6.jar:6.1.6]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014) ~[spring-webmvc-6.1.6.jar:6.1.6]
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914) ~[spring-webmvc-6.1.6.jar:6.1.6]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590) ~[tomcat-embed-core-10.1.20.jar:6.0]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885) ~[spring-webmvc-6.1.6.jar:6.1.6]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658) ~[tomcat-embed-core-10.1.20.jar:6.0]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:206) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:150) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51) ~[tomcat-embed-websocket-10.1.20.jar:10.1.20]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:175) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:150) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-6.1.6.jar:6.1.6]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.6.jar:6.1.6]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:175) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:150) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-6.1.6.jar:6.1.6]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.6.jar:6.1.6]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:175) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:150) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.springframework.web.filter.ServerHttpObservationFilter.doFilterInternal(ServerHttpObservationFilter.java:109) ~[spring-web-6.1.6.jar:6.1.6]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.6.jar:6.1.6]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:175) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:150) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-6.1.6.jar:6.1.6]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.6.jar:6.1.6]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:175) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:150) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.catalina.core.StandardContextValve.__invoke(StandardContextValve.java:90) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:41002) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:391) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:896) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1736) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63) ~[tomcat-embed-core-10.1.20.jar:10.1.20]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+2024-05-03T14:38:44.001+08:00  INFO 87701 --- [haishi-admin] [main] c.haishi.admin.HaishiAdminApplication    : Starting HaishiAdminApplication using Java 17.0.10 with PID 87701 (/Users/yangyang/Projects/HaiShi/haishi-admin/target/classes started by yangyang in /Users/yangyang/Projects/HaiShi/haishi-admin)
+2024-05-03T14:38:44.003+08:00 DEBUG 87701 --- [haishi-admin] [main] c.haishi.admin.HaishiAdminApplication    : Running with Spring Boot v3.2.5, Spring v6.1.6
+2024-05-03T14:38:44.003+08:00  INFO 87701 --- [haishi-admin] [main] c.haishi.admin.HaishiAdminApplication    : The following 1 profile is active: "dev"
+2024-05-03T14:38:45.175+08:00  INFO 87701 --- [haishi-admin] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-05-03T14:38:45.177+08:00  INFO 87701 --- [haishi-admin] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-05-03T14:38:45.454+08:00  INFO 87701 --- [haishi-admin] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 271 ms. Found 5 JPA repository interfaces.
+2024-05-03T14:38:45.477+08:00  INFO 87701 --- [haishi-admin] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-05-03T14:38:45.479+08:00  INFO 87701 --- [haishi-admin] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-05-03T14:38:45.501+08:00  INFO 87701 --- [haishi-admin] [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.haishi.admin.cloak.dao.BlacklistIpRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-05-03T14:38:45.501+08:00  INFO 87701 --- [haishi-admin] [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.haishi.admin.cloak.dao.CloakConfigRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-05-03T14:38:45.502+08:00  INFO 87701 --- [haishi-admin] [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.haishi.admin.cloak.dao.CloakLogRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-05-03T14:38:45.502+08:00  INFO 87701 --- [haishi-admin] [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.haishi.admin.loading.dao.LoadingConfigRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-05-03T14:38:45.503+08:00  INFO 87701 --- [haishi-admin] [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.haishi.admin.shortlink.dao.ShortLinkConfigRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-05-03T14:38:45.503+08:00  INFO 87701 --- [haishi-admin] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 11 ms. Found 0 Redis repository interfaces.
+2024-05-03T14:38:46.279+08:00  WARN 87701 --- [haishi-admin] [main] trationDelegate$BeanPostProcessorChecker : Bean 'redisConfig' of type [com.haishi.admin.common.config.RedisConfig$$SpringCGLIB$$0] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [meterRegistryPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2024-05-03T14:38:46.947+08:00  INFO 87701 --- [haishi-admin] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8888 (http)
+2024-05-03T14:38:46.959+08:00  INFO 87701 --- [haishi-admin] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-05-03T14:38:46.959+08:00  INFO 87701 --- [haishi-admin] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.20]
+2024-05-03T14:38:47.029+08:00  INFO 87701 --- [haishi-admin] [main] o.a.c.c.C.[Tomcat].[localhost].[/api]    : Initializing Spring embedded WebApplicationContext
+2024-05-03T14:38:47.029+08:00  INFO 87701 --- [haishi-admin] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2968 ms
+2024-05-03T14:38:47.376+08:00  INFO 87701 --- [haishi-admin] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-05-03T14:38:47.419+08:00  INFO 87701 --- [haishi-admin] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.4.Final
+2024-05-03T14:38:47.469+08:00  INFO 87701 --- [haishi-admin] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-05-03T14:38:47.684+08:00  INFO 87701 --- [haishi-admin] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-05-03T14:38:47.707+08:00  INFO 87701 --- [haishi-admin] [main] com.zaxxer.hikari.HikariDataSource       : HikariCP - Starting...
+2024-05-03T14:38:49.596+08:00  INFO 87701 --- [haishi-admin] [main] com.zaxxer.hikari.pool.HikariPool        : HikariCP - Added connection org.postgresql.jdbc.PgConnection@5f59b6c5
+2024-05-03T14:38:49.598+08:00  INFO 87701 --- [haishi-admin] [main] com.zaxxer.hikari.HikariDataSource       : HikariCP - Start completed.
+2024-05-03T14:38:49.797+08:00  WARN 87701 --- [haishi-admin] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-05-03T14:38:51.056+08:00  INFO 87701 --- [haishi-admin] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-05-03T14:38:52.297+08:00  INFO 87701 --- [haishi-admin] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-05-03T14:38:52.958+08:00  INFO 87701 --- [haishi-admin] [main] org.redisson.Version                     : Redisson 3.22.1
+2024-05-03T14:38:53.007+08:00 ERROR 87701 --- [haishi-admin] [main] i.n.r.d.DnsServerAddressStreamProviders  : Unable to load io.netty.resolver.dns.macos.MacOSDnsServerAddressStreamProvider, fallback to system defaults. This may result in incorrect DNS resolutions on MacOS. Check whether you have a dependency on 'io.netty:netty-resolver-dns-native-macos'. Use DEBUG level to see the full stack: java.lang.UnsatisfiedLinkError: failed to load the required native library
+2024-05-03T14:38:53.813+08:00  INFO 87701 --- [haishi-admin] [redisson-netty-2-7] o.r.c.pool.MasterPubSubConnectionPool    : 1 connections initialized for localhost/127.0.0.1:6379
+2024-05-03T14:39:01.964+08:00  INFO 87701 --- [haishi-admin] [redisson-netty-2-20] o.r.c.pool.MasterConnectionPool          : 24 connections initialized for localhost/127.0.0.1:6379
+2024-05-03T14:39:02.495+08:00  WARN 87701 --- [haishi-admin] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-05-03T14:39:03.503+08:00  INFO 87701 --- [haishi-admin] [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint(s) beneath base path '/actuator'
+2024-05-03T14:39:03.608+08:00  INFO 87701 --- [haishi-admin] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8888 (http) with context path '/api'
+2024-05-03T14:39:03.631+08:00  INFO 87701 --- [haishi-admin] [main] c.haishi.admin.HaishiAdminApplication    : Started HaishiAdminApplication in 20.113 seconds (process running for 22.492)
+2024-05-03T14:39:52.301+08:00  INFO 87701 --- [haishi-admin] [http-nio-8888-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/api]    : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-05-03T14:39:52.302+08:00  INFO 87701 --- [haishi-admin] [http-nio-8888-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-05-03T14:39:52.309+08:00  INFO 87701 --- [haishi-admin] [http-nio-8888-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 7 ms
+2024-05-03T14:39:52.435+08:00  INFO 87701 --- [haishi-admin] [http-nio-8888-exec-2] c.h.a.cloak.service.CloakServiceImpl     : [CLOAK] 请求参数 key:d21ea79d-3063-4028-acef-e143ff60557f
+2024-05-03T14:39:54.233+08:00  INFO 87701 --- [haishi-admin] [http-nio-8888-exec-2] c.h.a.cloak.service.CloakServiceImpl     : [CLOAK] ip2location 接口返回结果:IpLocationDTO(ip=225.173.89.255, countryCode=-, countryName=-, regionName=-, cityName=-, latitude=null, longitude=null, zipCode=-, timeZone=-, asn=-, as=-, isProxy=false)
+2024-05-03T14:39:54.262+08:00  INFO 87701 --- [haishi-admin] [http-nio-8888-exec-2] c.h.admin.cloak.service.UaCheckService   : [CLOAK] 检测 UA: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36
+2024-05-03T14:39:54.263+08:00  INFO 87701 --- [haishi-admin] [http-nio-8888-exec-2] c.h.a.c.s.CloakCheckHandleIntercept      : [CLOAK] O UA检测检测结果: 通过
+2024-05-03T14:39:54.263+08:00  INFO 87701 --- [haishi-admin] [http-nio-8888-exec-2] c.h.a.c.s.CloakCheckHandleIntercept      : [CLOAK] O 未开启地区检测模块
+2024-05-03T14:39:54.263+08:00  INFO 87701 --- [haishi-admin] [http-nio-8888-exec-2] c.h.a.c.s.CloakCheckHandleIntercept      : [CLOAK] O 代理检测检测结果: 通过
+2024-05-03T14:39:54.435+08:00  INFO 87701 --- [haishi-admin] [http-nio-8888-exec-2] c.h.a.c.service.BlacklistIpCheckService  : 黑名单IP检查，访客IP数量：411
+2024-05-03T14:39:55.229+08:00  INFO 87701 --- [haishi-admin] [http-nio-8888-exec-2] c.h.a.c.s.CloakCheckHandleIntercept      : [CLOAK] O 黑名单IP检查检测结果: 通过
+2024-05-03T14:39:57.085+08:00  INFO 87701 --- [haishi-admin] [http-nio-8888-exec-3] c.h.a.cloak.service.CloakServiceImpl     : [CLOAK] 请求参数 key:d21ea79d-3063-4028-acef-e143ff60557f
+2024-05-03T14:39:57.898+08:00  INFO 87701 --- [haishi-admin] [http-nio-8888-exec-3] c.h.a.cloak.service.CloakServiceImpl     : [CLOAK] ip2location 接口返回结果:IpLocationDTO(ip=225.173.89.255, countryCode=-, countryName=-, regionName=-, cityName=-, latitude=null, longitude=null, zipCode=-, timeZone=-, asn=-, as=-, isProxy=false)
+2024-05-03T14:39:57.899+08:00  INFO 87701 --- [haishi-admin] [http-nio-8888-exec-3] c.h.admin.cloak.service.UaCheckService   : [CLOAK] 检测 UA: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36
+2024-05-03T14:39:57.899+08:00  INFO 87701 --- [haishi-admin] [http-nio-8888-exec-3] c.h.a.c.s.CloakCheckHandleIntercept      : [CLOAK] O UA检测检测结果: 通过
+2024-05-03T14:39:57.899+08:00  INFO 87701 --- [haishi-admin] [http-nio-8888-exec-3] c.h.a.c.s.CloakCheckHandleIntercept      : [CLOAK] O 未开启地区检测模块
+2024-05-03T14:39:57.899+08:00  INFO 87701 --- [haishi-admin] [http-nio-8888-exec-3] c.h.a.c.s.CloakCheckHandleIntercept      : [CLOAK] O 代理检测检测结果: 通过
+2024-05-03T14:39:58.093+08:00  INFO 87701 --- [haishi-admin] [http-nio-8888-exec-3] c.h.a.c.service.BlacklistIpCheckService  : 黑名单IP检查，访客IP数量：412
+2024-05-03T14:39:58.823+08:00  INFO 87701 --- [haishi-admin] [http-nio-8888-exec-3] c.h.a.c.service.BlacklistIpCheckService  : 黑名单IP检查，添加黑名单IP：225.173.89.255
+2024-05-03T14:39:59.385+08:00  INFO 87701 --- [haishi-admin] [http-nio-8888-exec-3] c.h.a.c.s.CloakCheckHandleIntercept      : [CLOAK] X 黑名单IP检查检测结果: 黑名单IP
+2024-05-03T14:40:00.010+08:00  INFO 87701 --- [haishi-admin] [scheduling-1] c.h.admin.shortlink.task.ShortlinkTask   : 开始统计短链接的pv和uv
+2024-05-03T14:40:08.700+08:00  INFO 87701 --- [haishi-admin] [scheduling-1] c.h.admin.shortlink.task.ShortlinkTask   : 统计短链接的pv和uv结束
+2024-05-03T14:41:12.262+08:00  INFO 87835 --- [haishi-admin] [main] c.haishi.admin.HaishiAdminApplication    : Starting HaishiAdminApplication using Java 17.0.10 with PID 87835 (/Users/yangyang/Projects/HaiShi/haishi-admin/target/classes started by yangyang in /Users/yangyang/Projects/HaiShi/haishi-admin)
+2024-05-03T14:41:12.267+08:00 DEBUG 87835 --- [haishi-admin] [main] c.haishi.admin.HaishiAdminApplication    : Running with Spring Boot v3.2.5, Spring v6.1.6
+2024-05-03T14:41:12.268+08:00  INFO 87835 --- [haishi-admin] [main] c.haishi.admin.HaishiAdminApplication    : The following 1 profile is active: "dev"
+2024-05-03T14:41:14.180+08:00  INFO 87835 --- [haishi-admin] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-05-03T14:41:14.183+08:00  INFO 87835 --- [haishi-admin] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-05-03T14:41:14.526+08:00  INFO 87835 --- [haishi-admin] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 337 ms. Found 5 JPA repository interfaces.
+2024-05-03T14:41:14.541+08:00  INFO 87835 --- [haishi-admin] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-05-03T14:41:14.542+08:00  INFO 87835 --- [haishi-admin] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-05-03T14:41:14.554+08:00  INFO 87835 --- [haishi-admin] [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.haishi.admin.cloak.dao.BlacklistIpRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-05-03T14:41:14.554+08:00  INFO 87835 --- [haishi-admin] [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.haishi.admin.cloak.dao.CloakConfigRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-05-03T14:41:14.555+08:00  INFO 87835 --- [haishi-admin] [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.haishi.admin.cloak.dao.CloakLogRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-05-03T14:41:14.555+08:00  INFO 87835 --- [haishi-admin] [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.haishi.admin.loading.dao.LoadingConfigRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-05-03T14:41:14.555+08:00  INFO 87835 --- [haishi-admin] [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.haishi.admin.shortlink.dao.ShortLinkConfigRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-05-03T14:41:14.555+08:00  INFO 87835 --- [haishi-admin] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 6 ms. Found 0 Redis repository interfaces.
+2024-05-03T14:41:15.082+08:00  WARN 87835 --- [haishi-admin] [main] trationDelegate$BeanPostProcessorChecker : Bean 'redisConfig' of type [com.haishi.admin.common.config.RedisConfig$$SpringCGLIB$$0] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [meterRegistryPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2024-05-03T14:41:15.591+08:00  INFO 87835 --- [haishi-admin] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8888 (http)
+2024-05-03T14:41:15.607+08:00  INFO 87835 --- [haishi-admin] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-05-03T14:41:15.608+08:00  INFO 87835 --- [haishi-admin] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.20]
+2024-05-03T14:41:15.736+08:00  INFO 87835 --- [haishi-admin] [main] o.a.c.c.C.[Tomcat].[localhost].[/api]    : Initializing Spring embedded WebApplicationContext
+2024-05-03T14:41:15.737+08:00  INFO 87835 --- [haishi-admin] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3372 ms
+2024-05-03T14:41:16.126+08:00  INFO 87835 --- [haishi-admin] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-05-03T14:41:16.170+08:00  INFO 87835 --- [haishi-admin] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.4.Final
+2024-05-03T14:41:16.198+08:00  INFO 87835 --- [haishi-admin] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-05-03T14:41:16.431+08:00  INFO 87835 --- [haishi-admin] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-05-03T14:41:16.454+08:00  INFO 87835 --- [haishi-admin] [main] com.zaxxer.hikari.HikariDataSource       : HikariCP - Starting...
+2024-05-03T14:41:18.344+08:00  INFO 87835 --- [haishi-admin] [main] com.zaxxer.hikari.pool.HikariPool        : HikariCP - Added connection org.postgresql.jdbc.PgConnection@4ebe6c24
+2024-05-03T14:41:18.348+08:00  INFO 87835 --- [haishi-admin] [main] com.zaxxer.hikari.HikariDataSource       : HikariCP - Start completed.
+2024-05-03T14:41:18.558+08:00  WARN 87835 --- [haishi-admin] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-05-03T14:41:20.327+08:00  INFO 87835 --- [haishi-admin] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-05-03T14:41:21.636+08:00  INFO 87835 --- [haishi-admin] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-05-03T14:41:22.445+08:00  INFO 87835 --- [haishi-admin] [main] org.redisson.Version                     : Redisson 3.22.1
+2024-05-03T14:41:22.491+08:00 ERROR 87835 --- [haishi-admin] [main] i.n.r.d.DnsServerAddressStreamProviders  : Unable to load io.netty.resolver.dns.macos.MacOSDnsServerAddressStreamProvider, fallback to system defaults. This may result in incorrect DNS resolutions on MacOS. Check whether you have a dependency on 'io.netty:netty-resolver-dns-native-macos'. Use DEBUG level to see the full stack: java.lang.UnsatisfiedLinkError: failed to load the required native library
+2024-05-03T14:41:23.077+08:00  INFO 87835 --- [haishi-admin] [redisson-netty-2-7] o.r.c.pool.MasterPubSubConnectionPool    : 1 connections initialized for localhost/127.0.0.1:6379
+2024-05-03T14:41:32.076+08:00  INFO 87835 --- [haishi-admin] [redisson-netty-2-20] o.r.c.pool.MasterConnectionPool          : 24 connections initialized for localhost/127.0.0.1:6379
+2024-05-03T14:41:32.799+08:00  WARN 87835 --- [haishi-admin] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-05-03T14:41:34.848+08:00  INFO 87835 --- [haishi-admin] [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint(s) beneath base path '/actuator'
+2024-05-03T14:41:35.108+08:00  INFO 87835 --- [haishi-admin] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8888 (http) with context path '/api'
+2024-05-03T14:41:35.145+08:00  INFO 87835 --- [haishi-admin] [main] c.haishi.admin.HaishiAdminApplication    : Started HaishiAdminApplication in 23.412 seconds (process running for 26.01)
+2024-05-03T14:44:25.969+08:00  INFO 87835 --- [haishi-admin] [rebel-change-detector-thread] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-05-03T14:44:25.994+08:00  INFO 87835 --- [haishi-admin] [rebel-change-detector-thread] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 23 ms. Found 0 JPA repository interfaces.
+2024-05-03T14:44:26.073+08:00  INFO 87835 --- [haishi-admin] [rebel-change-detector-thread] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-05-03T14:44:26.087+08:00  INFO 87835 --- [haishi-admin] [rebel-change-detector-thread] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 13 ms. Found 0 Redis repository interfaces.
+2024-05-03T14:45:00.143+08:00  INFO 87835 --- [haishi-admin] [scheduling-1] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-05-03T14:45:00.159+08:00  INFO 87835 --- [haishi-admin] [scheduling-1] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-05-03T14:45:00.357+08:00  WARN 87835 --- [haishi-admin] [scheduling-1] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-05-03T14:45:01.228+08:00  INFO 87835 --- [haishi-admin] [scheduling-1] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-05-03T14:45:02.677+08:00  INFO 87835 --- [haishi-admin] [scheduling-1] c.h.admin.shortlink.task.ShortlinkTask   : 开始统计短链接的pv和uv
+2024-05-03T14:45:12.943+08:00  INFO 87835 --- [haishi-admin] [scheduling-1] c.h.admin.shortlink.task.ShortlinkTask   : 统计短链接的pv和uv结束
+2024-05-03T14:45:48.846+08:00  INFO 87835 --- [haishi-admin] [rebel-change-detector-thread] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-05-03T14:45:48.856+08:00  INFO 87835 --- [haishi-admin] [rebel-change-detector-thread] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 7 ms. Found 0 JPA repository interfaces.
+2024-05-03T14:45:48.906+08:00  INFO 87835 --- [haishi-admin] [rebel-change-detector-thread] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-05-03T14:45:48.916+08:00  INFO 87835 --- [haishi-admin] [rebel-change-detector-thread] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 8 ms. Found 0 Redis repository interfaces.
+2024-05-03T14:46:24.838+08:00  INFO 87835 --- [haishi-admin] [rebel-change-detector-thread] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-05-03T14:46:24.851+08:00  INFO 87835 --- [haishi-admin] [rebel-change-detector-thread] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 11 ms. Found 0 JPA repository interfaces.
+2024-05-03T14:46:24.893+08:00  INFO 87835 --- [haishi-admin] [rebel-change-detector-thread] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-05-03T14:46:24.902+08:00  INFO 87835 --- [haishi-admin] [rebel-change-detector-thread] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 7 ms. Found 0 Redis repository interfaces.
+2024-05-03T14:46:56.271+08:00  INFO 87835 --- [haishi-admin] [rebel-change-detector-thread] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-05-03T14:46:56.282+08:00  INFO 87835 --- [haishi-admin] [rebel-change-detector-thread] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 10 ms. Found 0 JPA repository interfaces.
+2024-05-03T14:46:56.324+08:00  INFO 87835 --- [haishi-admin] [rebel-change-detector-thread] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-05-03T14:46:56.330+08:00  INFO 87835 --- [haishi-admin] [rebel-change-detector-thread] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 6 ms. Found 0 Redis repository interfaces.
+2024-05-03T14:47:25.450+08:00  INFO 87835 --- [haishi-admin] [rebel-change-detector-thread] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-05-03T14:47:25.464+08:00  INFO 87835 --- [haishi-admin] [rebel-change-detector-thread] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 12 ms. Found 0 JPA repository interfaces.
+2024-05-03T14:47:25.479+08:00  INFO 87835 --- [haishi-admin] [rebel-change-detector-thread] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-05-03T14:47:25.489+08:00  INFO 87835 --- [haishi-admin] [rebel-change-detector-thread] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 10 ms. Found 0 Redis repository interfaces.
+2024-05-03T14:49:59.977+08:00  INFO 87835 --- [haishi-admin] [scheduling-1] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-05-03T14:49:59.990+08:00  INFO 87835 --- [haishi-admin] [scheduling-1] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 11 ms. Found 0 JPA repository interfaces.
+2024-05-03T14:50:00.038+08:00  INFO 87835 --- [haishi-admin] [scheduling-1] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-05-03T14:50:00.045+08:00  INFO 87835 --- [haishi-admin] [scheduling-1] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 5 ms. Found 0 Redis repository interfaces.
+2024-05-03T14:50:00.276+08:00  INFO 87835 --- [haishi-admin] [scheduling-1] c.h.admin.shortlink.task.ShortlinkTask   : 开始统计短链接的pv和uv
+2024-05-03T14:50:09.850+08:00  INFO 87835 --- [haishi-admin] [scheduling-1] c.h.admin.shortlink.task.ShortlinkTask   : 统计短链接的pv和uv结束
+2024-05-03T14:55:00.019+08:00  INFO 87835 --- [haishi-admin] [scheduling-1] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-05-03T14:55:00.052+08:00  INFO 87835 --- [haishi-admin] [scheduling-1] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 25 ms. Found 0 JPA repository interfaces.
+2024-05-03T14:55:00.096+08:00  INFO 87835 --- [haishi-admin] [scheduling-1] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-05-03T14:55:00.102+08:00  INFO 87835 --- [haishi-admin] [scheduling-1] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 5 ms. Found 0 Redis repository interfaces.
+2024-05-03T14:55:00.308+08:00  INFO 87835 --- [haishi-admin] [scheduling-1] c.h.admin.shortlink.task.ShortlinkTask   : 开始统计短链接的pv和uv
+2024-05-03T14:55:08.395+08:00  INFO 87835 --- [haishi-admin] [scheduling-1] c.h.admin.shortlink.task.ShortlinkTask   : 统计短链接的pv和uv结束
+2024-05-03T15:00:00.016+08:00  INFO 87835 --- [haishi-admin] [scheduling-1] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-05-03T15:00:00.031+08:00  INFO 87835 --- [haishi-admin] [scheduling-1] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 13 ms. Found 0 JPA repository interfaces.
+2024-05-03T15:00:00.089+08:00  INFO 87835 --- [haishi-admin] [scheduling-1] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-05-03T15:00:00.095+08:00  INFO 87835 --- [haishi-admin] [scheduling-1] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 5 ms. Found 0 Redis repository interfaces.
+2024-05-03T15:00:00.355+08:00  INFO 87835 --- [haishi-admin] [scheduling-1] c.h.admin.shortlink.task.ShortlinkTask   : 开始统计短链接的pv和uv
+2024-05-03T15:00:08.740+08:00  INFO 87835 --- [haishi-admin] [scheduling-1] c.h.admin.shortlink.task.ShortlinkTask   : 统计短链接的pv和uv结束
+2024-05-03T15:05:00.141+08:00  INFO 87835 --- [haishi-admin] [scheduling-1] c.h.admin.shortlink.task.ShortlinkTask   : 开始统计短链接的pv和uv
+2024-05-03T15:05:08.224+08:00  INFO 87835 --- [haishi-admin] [scheduling-1] c.h.admin.shortlink.task.ShortlinkTask   : 统计短链接的pv和uv结束
+2024-05-03T15:08:43.817+08:00  INFO 87835 --- [haishi-admin] [http-nio-8888-exec-1] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-05-03T15:08:43.825+08:00  INFO 87835 --- [haishi-admin] [http-nio-8888-exec-1] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 7 ms. Found 0 JPA repository interfaces.
+2024-05-03T15:08:43.866+08:00  INFO 87835 --- [haishi-admin] [http-nio-8888-exec-1] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-05-03T15:08:43.873+08:00  INFO 87835 --- [haishi-admin] [http-nio-8888-exec-1] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 6 ms. Found 0 Redis repository interfaces.
+2024-05-03T15:08:43.922+08:00  INFO 87835 --- [haishi-admin] [http-nio-8888-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/api]    : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-05-03T15:08:43.923+08:00  INFO 87835 --- [haishi-admin] [http-nio-8888-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-05-03T15:08:43.928+08:00  INFO 87835 --- [haishi-admin] [http-nio-8888-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
+2024-05-03T15:08:43.993+08:00  INFO 87835 --- [haishi-admin] [http-nio-8888-exec-1] c.h.a.s.service.ShortLinkService         : 短链接访问，key：dd，preview：null
+2024-05-03T15:08:44.427+08:00  INFO 87835 --- [haishi-admin] [http-nio-8888-exec-1] c.h.a.cloak.service.CloakServiceImpl     : [CLOAK] 请求参数 key:d21ea79d-3063-4028-acef-e143ff60557f
+2024-05-03T15:08:46.447+08:00  INFO 87835 --- [haishi-admin] [http-nio-8888-exec-1] c.h.a.cloak.service.CloakServiceImpl     : [CLOAK] ip2location 接口返回结果:IpLocationDTO(ip=0000:0000:0000:0000:0000:0000:0000:0001, countryCode=-, countryName=-, regionName=-, cityName=-, latitude=null, longitude=null, zipCode=-, timeZone=-, asn=-, as=-, isProxy=false)
+2024-05-03T15:08:46.474+08:00  INFO 87835 --- [haishi-admin] [http-nio-8888-exec-1] c.h.admin.cloak.service.UaCheckService   : [CLOAK] 检测 UA: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36
+2024-05-03T15:08:46.474+08:00  INFO 87835 --- [haishi-admin] [http-nio-8888-exec-1] c.h.a.c.s.CloakCheckHandleIntercept      : [CLOAK] O UA检测检测结果: 通过
+2024-05-03T15:08:46.474+08:00  INFO 87835 --- [haishi-admin] [http-nio-8888-exec-1] c.h.a.c.s.CloakCheckHandleIntercept      : [CLOAK] O 未开启地区检测模块
+2024-05-03T15:08:46.474+08:00  INFO 87835 --- [haishi-admin] [http-nio-8888-exec-1] c.h.a.c.s.CloakCheckHandleIntercept      : [CLOAK] O 代理检测检测结果: 通过
+2024-05-03T15:08:46.475+08:00  INFO 87835 --- [haishi-admin] [http-nio-8888-exec-1] c.h.a.c.s.CloakCheckHandleIntercept      : [CLOAK] O 未开启黑名单IP检查模块
+2024-05-03T15:08:46.476+08:00  INFO 87835 --- [haishi-admin] [http-nio-8888-exec-1] c.h.admin.cloak.service.UaCheckService   : [CLOAK] 检测 UA: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36
+2024-05-03T15:08:46.476+08:00  INFO 87835 --- [haishi-admin] [http-nio-8888-exec-1] c.h.a.c.s.CloakCheckHandleIntercept      : [CLOAK] O UA检测检测结果: 通过
+2024-05-03T15:08:46.476+08:00  INFO 87835 --- [haishi-admin] [http-nio-8888-exec-1] c.h.a.c.s.CloakCheckHandleIntercept      : [CLOAK] O 未开启地区检测模块
+2024-05-03T15:08:46.476+08:00  INFO 87835 --- [haishi-admin] [http-nio-8888-exec-1] c.h.a.c.s.CloakCheckHandleIntercept      : [CLOAK] O 代理检测检测结果: 通过
+2024-05-03T15:08:46.476+08:00  INFO 87835 --- [haishi-admin] [http-nio-8888-exec-1] c.h.a.c.s.CloakCheckHandleIntercept      : [CLOAK] O 未开启黑名单IP检查模块
+2024-05-03T15:08:46.477+08:00  INFO 87835 --- [haishi-admin] [http-nio-8888-exec-1] c.h.a.c.s.CloakCheckHandleIntercept      : [CLOAK] O 未开启第三方检测(FANGYU)模块
+2024-05-03T15:08:59.914+08:00  INFO 88392 --- [haishi-admin] [main] c.haishi.admin.HaishiAdminApplication    : Starting HaishiAdminApplication using Java 17.0.10 with PID 88392 (/Users/yangyang/Projects/HaiShi/haishi-admin/target/classes started by yangyang in /Users/yangyang/Projects/HaiShi/haishi-admin)
+2024-05-03T15:08:59.917+08:00 DEBUG 88392 --- [haishi-admin] [main] c.haishi.admin.HaishiAdminApplication    : Running with Spring Boot v3.2.5, Spring v6.1.6
+2024-05-03T15:08:59.918+08:00  INFO 88392 --- [haishi-admin] [main] c.haishi.admin.HaishiAdminApplication    : The following 1 profile is active: "dev"
+2024-05-03T15:09:01.640+08:00  INFO 88392 --- [haishi-admin] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-05-03T15:09:01.643+08:00  INFO 88392 --- [haishi-admin] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-05-03T15:09:01.913+08:00  INFO 88392 --- [haishi-admin] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 262 ms. Found 5 JPA repository interfaces.
+2024-05-03T15:09:01.928+08:00  INFO 88392 --- [haishi-admin] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-05-03T15:09:01.929+08:00  INFO 88392 --- [haishi-admin] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-05-03T15:09:01.942+08:00  INFO 88392 --- [haishi-admin] [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.haishi.admin.cloak.dao.BlacklistIpRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-05-03T15:09:01.942+08:00  INFO 88392 --- [haishi-admin] [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.haishi.admin.cloak.dao.CloakConfigRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-05-03T15:09:01.943+08:00  INFO 88392 --- [haishi-admin] [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.haishi.admin.cloak.dao.CloakLogRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-05-03T15:09:01.943+08:00  INFO 88392 --- [haishi-admin] [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.haishi.admin.loading.dao.LoadingConfigRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-05-03T15:09:01.943+08:00  INFO 88392 --- [haishi-admin] [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.haishi.admin.shortlink.dao.ShortLinkConfigRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-05-03T15:09:01.944+08:00  INFO 88392 --- [haishi-admin] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 6 ms. Found 0 Redis repository interfaces.
+2024-05-03T15:09:02.452+08:00  WARN 88392 --- [haishi-admin] [main] trationDelegate$BeanPostProcessorChecker : Bean 'redisConfig' of type [com.haishi.admin.common.config.RedisConfig$$SpringCGLIB$$0] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [meterRegistryPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2024-05-03T15:09:02.991+08:00  INFO 88392 --- [haishi-admin] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8888 (http)
+2024-05-03T15:09:03.017+08:00  INFO 88392 --- [haishi-admin] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-05-03T15:09:03.018+08:00  INFO 88392 --- [haishi-admin] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.20]
+2024-05-03T15:09:03.088+08:00  INFO 88392 --- [haishi-admin] [main] o.a.c.c.C.[Tomcat].[localhost].[/api]    : Initializing Spring embedded WebApplicationContext
+2024-05-03T15:09:03.088+08:00  INFO 88392 --- [haishi-admin] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3111 ms
+2024-05-03T15:09:03.446+08:00  INFO 88392 --- [haishi-admin] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-05-03T15:09:03.492+08:00  INFO 88392 --- [haishi-admin] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.4.Final
+2024-05-03T15:09:03.521+08:00  INFO 88392 --- [haishi-admin] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-05-03T15:09:03.750+08:00  INFO 88392 --- [haishi-admin] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-05-03T15:09:03.773+08:00  INFO 88392 --- [haishi-admin] [main] com.zaxxer.hikari.HikariDataSource       : HikariCP - Starting...
+2024-05-03T15:09:05.667+08:00  INFO 88392 --- [haishi-admin] [main] com.zaxxer.hikari.pool.HikariPool        : HikariCP - Added connection org.postgresql.jdbc.PgConnection@19cad9f0
+2024-05-03T15:09:05.668+08:00  INFO 88392 --- [haishi-admin] [main] com.zaxxer.hikari.HikariDataSource       : HikariCP - Start completed.
+2024-05-03T15:09:05.894+08:00  WARN 88392 --- [haishi-admin] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-05-03T15:09:07.267+08:00  INFO 88392 --- [haishi-admin] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-05-03T15:09:08.759+08:00  INFO 88392 --- [haishi-admin] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-05-03T15:09:09.402+08:00  INFO 88392 --- [haishi-admin] [main] org.redisson.Version                     : Redisson 3.22.1
+2024-05-03T15:09:09.444+08:00 ERROR 88392 --- [haishi-admin] [main] i.n.r.d.DnsServerAddressStreamProviders  : Unable to load io.netty.resolver.dns.macos.MacOSDnsServerAddressStreamProvider, fallback to system defaults. This may result in incorrect DNS resolutions on MacOS. Check whether you have a dependency on 'io.netty:netty-resolver-dns-native-macos'. Use DEBUG level to see the full stack: java.lang.UnsatisfiedLinkError: failed to load the required native library
+2024-05-03T15:09:10.129+08:00  INFO 88392 --- [haishi-admin] [redisson-netty-2-7] o.r.c.pool.MasterPubSubConnectionPool    : 1 connections initialized for localhost/127.0.0.1:6379
+2024-05-03T15:09:18.722+08:00  INFO 88392 --- [haishi-admin] [redisson-netty-2-20] o.r.c.pool.MasterConnectionPool          : 24 connections initialized for localhost/127.0.0.1:6379
+2024-05-03T15:09:19.265+08:00  WARN 88392 --- [haishi-admin] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-05-03T15:09:20.253+08:00  INFO 88392 --- [haishi-admin] [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint(s) beneath base path '/actuator'
+2024-05-03T15:09:20.357+08:00  INFO 88392 --- [haishi-admin] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8888 (http) with context path '/api'
+2024-05-03T15:09:20.378+08:00  INFO 88392 --- [haishi-admin] [main] c.haishi.admin.HaishiAdminApplication    : Started HaishiAdminApplication in 21.141 seconds (process running for 23.575)
+2024-05-03T15:09:22.481+08:00  INFO 88392 --- [haishi-admin] [http-nio-8888-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/api]    : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-05-03T15:09:22.481+08:00  INFO 88392 --- [haishi-admin] [http-nio-8888-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-05-03T15:09:22.484+08:00  INFO 88392 --- [haishi-admin] [http-nio-8888-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2024-05-03T15:09:22.521+08:00  INFO 88392 --- [haishi-admin] [http-nio-8888-exec-1] c.h.a.s.c.ShortLinkEngineController      : 访问根路径
+2024-05-03T15:10:00.537+08:00  INFO 88392 --- [haishi-admin] [scheduling-1] c.h.admin.shortlink.task.ShortlinkTask   : 开始统计短链接的pv和uv
+2024-05-03T15:10:09.472+08:00  INFO 88392 --- [haishi-admin] [scheduling-1] c.h.admin.shortlink.task.ShortlinkTask   : 统计短链接的pv和uv结束
+2024-05-03T15:15:00.015+08:00  INFO 88392 --- [haishi-admin] [scheduling-1] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-05-03T15:15:00.031+08:00  INFO 88392 --- [haishi-admin] [scheduling-1] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 13 ms. Found 0 JPA repository interfaces.
+2024-05-03T15:15:00.032+08:00  INFO 88392 --- [haishi-admin] [scheduling-1] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-05-03T15:15:00.038+08:00  INFO 88392 --- [haishi-admin] [scheduling-1] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 5 ms. Found 0 Redis repository interfaces.
+2024-05-03T15:15:00.208+08:00  INFO 88392 --- [haishi-admin] [scheduling-1] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-05-03T15:15:00.221+08:00  INFO 88392 --- [haishi-admin] [scheduling-1] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-05-03T15:15:00.332+08:00  WARN 88392 --- [haishi-admin] [scheduling-1] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-05-03T15:15:01.082+08:00  INFO 88392 --- [haishi-admin] [scheduling-1] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-05-03T15:15:01.989+08:00  INFO 88392 --- [haishi-admin] [scheduling-1] c.h.admin.shortlink.task.ShortlinkTask   : 开始统计短链接的pv和uv
+2024-05-03T15:15:10.074+08:00  INFO 88392 --- [haishi-admin] [scheduling-1] c.h.admin.shortlink.task.ShortlinkTask   : 统计短链接的pv和uv结束

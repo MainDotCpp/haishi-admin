@@ -70,4 +70,12 @@ public class CloakConfig {
     @Column(name = "enable_ua_detection")
     private Boolean enableUaDetection;
 
+    @Schema(description = "是否启用黑名单IP检测")
+    @Column(name = "enable_blacklist_ip_detection")
+    private Boolean enableBlacklistIpDetection;
+
+    @Schema(description = "是否启用黑名单IP收集")
+    @Column(name = "enable_blacklist_ip_collection")
+    private Boolean enableBlacklistIpCollection;
+
 }

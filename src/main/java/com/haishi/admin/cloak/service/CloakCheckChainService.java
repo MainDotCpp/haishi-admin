@@ -25,7 +25,7 @@ public class CloakCheckChainService {
         handleList.add(regionCheckService);
         handleList.add(proxyCheckService);
         handleList.add(blacklistIpCheckService);
-//        handleList.add(fangYuCloakService);
+        handleList.add(fangYuCloakService);
     }
 
     public CloakCheckContext execute(CloakCheckContext context) {
