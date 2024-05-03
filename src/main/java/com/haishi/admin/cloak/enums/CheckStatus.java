@@ -13,7 +13,8 @@ public enum CheckStatus {
     FORBID_BY_SPIDER(5, "爬虫访问"),
     FORBID_BY_USER_AGENT(6, "UA黑名单"),
     FORBID_BY_REFERER(7, "来源黑名单"),
-    FORBID_BY_THIRD_CLOAK(8, "第三方CLOAK"),;
+    FORBID_BY_THIRD_CLOAK(8, "第三方CLOAK"),
+    FORBID_BY_BLACKLIST_IP(9, "黑名单IP");
 
 
     private final int code;

@@ -15,6 +15,7 @@ public class CloakCheckChainService {
     private final ProxyCheckService proxyCheckService;
     private final UaCheckService uaCheckService;
     private final FangYuCloakService fangYuCloakService;
+    private final BlacklistIpCheckService blacklistIpCheckService;
 
     private List<CloakCheckHandleIntercept> handleList = new ArrayList<CloakCheckHandleIntercept>();
 
@@ -23,7 +24,8 @@ public class CloakCheckChainService {
         handleList.add(uaCheckService);
         handleList.add(regionCheckService);
         handleList.add(proxyCheckService);
-        handleList.add(fangYuCloakService);
+        handleList.add(blacklistIpCheckService);
+//        handleList.add(fangYuCloakService);
     }
 
     public CloakCheckContext execute(CloakCheckContext context) {
