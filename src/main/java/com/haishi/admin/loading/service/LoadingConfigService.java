@@ -15,9 +15,9 @@ import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.ConcurrentModificationException;
 import java.util.List;
 
 @Slf4j
@@ -27,6 +27,7 @@ public class LoadingConfigService {
     private final LoadingConfigRepository loadingConfigRepository;
     private final JPAQueryFactory jpaQueryFactory;
 
+    @Transactional(readOnly = true, rollbackFor = Exception.class)
     public LoadingConfig getById(Long id) {
         return loadingConfigRepository.findById(id).orElse(null);
     }
@@ -38,11 +39,13 @@ public class LoadingConfigService {
         return query;
     }
 
+    @Transactional(readOnly = true, rollbackFor = Exception.class)
     public List<LoadingConfig> list(LoadingConfigQueryDTO queryDTO) {
         JPAQuery<LoadingConfig> query = buildQuery(queryDTO);
         return query.fetch();
     }
 
+    @Transactional(readOnly = true, rollbackFor = Exception.class)
     public PageDTO<LoadingConfig> page(LoadingConfigQueryDTO queryDTO) {
         JPAQuery<LoadingConfig> query = buildQuery(queryDTO);
         queryDTO.setTotal(query.fetchCount());
@@ -52,7 +55,7 @@ public class LoadingConfigService {
     }
 
     @Caching(put = {
-            @CachePut(value = "loadingConfig", key = "#loadingConfig.path", condition = "#loadingConfig.path != null")
+            @CachePut(value = "loadingConfig", key = "#loadingConfig.domain + #loadingConfig.path")
     })
     public LoadingConfig save(LoadingConfig loadingConfig) {
         return loadingConfigRepository.save(loadingConfig);
@@ -64,10 +67,14 @@ public class LoadingConfigService {
         return true;
     }
 
-    @Cacheable(cacheNames = {"loadingConfig"}, key = "#path")
-    public LoadingConfig getByPath(String path) {
+    @Cacheable(value = "loadingConfig", key = "#domain + #path")
+    @Transactional(readOnly = true, rollbackFor = Exception.class)
+    public LoadingConfig getByPath(String domain, String path) {
         LoadingConfig loadingConfig = jpaQueryFactory.selectFrom(QLoadingConfig.loadingConfig)
-                .where(QLoadingConfig.loadingConfig.path.eq(path))
+                .where(
+                        QLoadingConfig.loadingConfig.domain.eq(domain),
+                        QLoadingConfig.loadingConfig.path.eq(path)
+                )
                 .fetchOne();
         log.info("loadingConfig: {}", loadingConfig);
         return loadingConfig;

@@ -28,8 +28,8 @@ public class LoadingConfigController {
 
     @Operation(summary = "根据key获取落地页配置")
     @GetMapping("/getByPath")
-    public HttpResult<LoadingConfig> getByKey(String path) {
-        LoadingConfig loadingConfig = loadingConfigService.getByPath(path);
+    public HttpResult<LoadingConfig> getByKey(String domain, String path) {
+        LoadingConfig loadingConfig = loadingConfigService.getByPath(domain, path);
         return HttpResult.success(loadingConfig);
     }
 

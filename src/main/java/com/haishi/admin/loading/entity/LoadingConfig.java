@@ -29,4 +29,20 @@ public class LoadingConfig implements Serializable {
     @Column(name = "cloak_id")
     private UUID cloakId;
 
+    @Schema(description = "标题")
+    @Column(name = "title")
+    private String title;
+
+    @Schema(description = "目标链接")
+    @Column(name = "target_link")
+    private String targetLink;
+
+    @Schema(description = "域名")
+    @Column(name = "domain")
+    private String domain;
+
+    @Schema(description = "像素代码")
+    @Lob
+    @Column(name = "pixel_code", columnDefinition = "text")
+    private String pixelCode;
 }
