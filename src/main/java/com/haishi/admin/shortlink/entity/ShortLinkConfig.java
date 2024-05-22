@@ -47,4 +47,8 @@ public class ShortLinkConfig implements Serializable {
     @Column(name = "uv", nullable = false, columnDefinition = "int default 0")
     private Integer uv;
 
+    @Schema(description = "分组ID")
+    @Column(name = "group_id")
+    private Long groupId;
+
 }

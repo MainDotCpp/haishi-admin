@@ -1,11 +1,12 @@
+# -*- coding: utf-8 -*-
 from pathlib import Path
 import jinja2
 
 data = {
-    "package": "loading",
-    "biz_name": "landingTemplate",
-    "biz_name_upper": "LandingTemplate",
-    "comment": "落地页模板"
+    "package": "shortlink",
+    "biz_name": "shortLinkGroup",
+    "biz_name_upper": "ShortLinkGroup",
+    "comment": "短链接组",
 }
 # 更改当前工作目录
 work_dir = Path(__file__).parent.parent
@@ -26,14 +27,14 @@ def render_all_templates():
         for key in data:
             out_path = out_path.replace("{{" + key + "}}", data[key])
         # 读取模板文件
-        with open(template_path, "r") as f:
+        with open(template_path, "r",encoding="utf-8") as f:
             template = jinja2.Template(f.read())
         # 渲染模板
         rendered = template.render(data)
         print(out_path)
         # 写入文件
         Path(out_path).parent.mkdir(parents=True, exist_ok=True)
-        with open(out_path, "w") as f:
+        with open(out_path, "w", encoding='utf-8') as f:
             f.write(rendered)
 
 
