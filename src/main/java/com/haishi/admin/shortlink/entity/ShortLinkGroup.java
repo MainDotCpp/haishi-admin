@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "s_short_link_group")
+@Table(name = "sl_group")
 @Schema(description = "短链接分组")
 public class ShortLinkGroup {
     @Id

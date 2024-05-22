@@ -2,6 +2,7 @@ package com.haishi.admin.shortlink.controller;
 
 import com.haishi.admin.common.dto.HttpResult;
 import com.haishi.admin.common.dto.PageDTO;
+import com.haishi.admin.shortlink.dto.ShortLinkConfigQueryDTO;
 import com.haishi.admin.shortlink.entity.ShortLinkConfig;
 import com.haishi.admin.shortlink.service.ShortLinkService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -34,7 +35,7 @@ public class ShortLinkController {
 
     @Operation(summary = "分页查询短链接配置")
     @GetMapping("/page")
-    public HttpResult<PageDTO<ShortLinkConfig>> page(PageDTO<ShortLinkConfig> pageDTO) {
+    public HttpResult<PageDTO<ShortLinkConfig>> page(ShortLinkConfigQueryDTO pageDTO) {
         return HttpResult.success(
                 shortLinkService.getPage(pageDTO)
         );

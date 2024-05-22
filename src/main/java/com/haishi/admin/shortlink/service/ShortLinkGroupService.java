@@ -33,6 +33,7 @@ public class ShortLinkGroupService {
         JPAQuery<ShortLinkGroup> query = jpaQueryFactory.selectFrom(QShortLinkGroup.shortLinkGroup);
         ArrayList<Predicate> predicates = new ArrayList<>();
         query.where(predicates.toArray(Predicate[]::new));
+        query.orderBy(QShortLinkGroup.shortLinkGroup.id.asc());
         return query;
     }
 

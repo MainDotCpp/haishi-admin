@@ -7,8 +7,13 @@ import com.haishi.admin.common.dto.PageDTO;
 import com.haishi.admin.common.exception.BizException;
 import com.haishi.admin.common.exception.BizExceptionEnum;
 import com.haishi.admin.shortlink.dao.ShortLinkConfigRepository;
+import com.haishi.admin.shortlink.dto.ShortLinkConfigQueryDTO;
+import com.haishi.admin.shortlink.dto.ShortLinkGroupQueryDTO;
 import com.haishi.admin.shortlink.entity.QShortLinkConfig;
+import com.haishi.admin.shortlink.entity.QShortLinkGroup;
 import com.haishi.admin.shortlink.entity.ShortLinkConfig;
+import com.haishi.admin.shortlink.entity.ShortLinkGroup;
+import com.querydsl.core.types.Predicate;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.annotation.Resource;
@@ -16,16 +21,14 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Slf4j
@@ -48,15 +51,25 @@ public class ShortLinkService {
         return shortLinkConfigRepository.findByKey(key);
     }
 
-    public PageDTO<ShortLinkConfig> getPage(PageDTO<ShortLinkConfig> pageDTO) {
-        QShortLinkConfig q = QShortLinkConfig.shortLinkConfig;
-        JPAQuery<ShortLinkConfig> query = jpaQueryFactory.selectFrom(q);
-        query.orderBy(q.id.desc());
-        pageDTO.setTotal(query.fetchCount());
-        query.offset((long) (pageDTO.getCurrent() - 1) * pageDTO.getPageSize()).limit(pageDTO.getPageSize());
-        pageDTO.setData(query.fetch());
-        return pageDTO;
+    private JPAQuery<ShortLinkConfig> buildQuery(ShortLinkConfigQueryDTO queryDTO) {
+        QShortLinkConfig shortLinkConfig = QShortLinkConfig.shortLinkConfig;
+        JPAQuery<ShortLinkConfig> query = jpaQueryFactory.selectFrom(shortLinkConfig);
+        ArrayList<Predicate> predicates = new ArrayList<>();
+        if (queryDTO.getGroupId() != null) predicates.add(shortLinkConfig.groupId.eq(queryDTO.getGroupId()));
+        query.where(predicates.toArray(Predicate[]::new));
+        query.orderBy(shortLinkConfig.id.asc());
+        return query;
     }
+
+    public PageDTO<ShortLinkConfig> getPage(ShortLinkConfigQueryDTO queryDTO) {
+        JPAQuery<ShortLinkConfig> query = buildQuery(queryDTO);
+        queryDTO.setTotal(query.fetchCount());
+        List<ShortLinkConfig> data = query.offset((long) (queryDTO.getCurrent() - 1) * queryDTO.getPageSize()).limit(queryDTO.getPageSize()).fetch();
+        queryDTO.setData(data);
+        return queryDTO;
+    }
+
+
 
     @CachePut(value = "shortLinkConfig", key = "#shortLinkConfig.key")
     public ShortLinkConfig save(ShortLinkConfig shortLinkConfig) {
