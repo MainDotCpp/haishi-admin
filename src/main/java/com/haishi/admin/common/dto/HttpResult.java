@@ -1,7 +1,6 @@
 package com.haishi.admin.common.dto;
 
 import com.haishi.admin.common.exception.BizException;
-import com.haishi.admin.common.exception.BizExceptionEnum;
 import lombok.Data;
 
 @Data
@@ -25,7 +24,11 @@ public class HttpResult<T> {
     }
 
     static public <Z> HttpResult<Z> success(Z data) {
-        return new HttpResult<>(200, "success", data);
+        return success(data, "success");
+    }
+
+    static public <Z> HttpResult<Z> success(Z data, String message) {
+        return new HttpResult<>(200, message, data);
     }
 
     static public <Z> HttpResult<Z> error(BizException e) {

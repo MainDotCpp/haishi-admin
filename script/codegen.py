@@ -2,19 +2,33 @@
 from pathlib import Path
 import jinja2
 
-data = {
-    "package": "shortlink",
-    "biz_name": "shortLinkGroup",
-    "biz_name_upper": "ShortLinkGroup",
-    "comment": "短链接组",
-}
+tasks = [
+    {
+        "package": "system",
+        "biz_name": "user",
+        "biz_name_upper": "User",
+        "comment": "用户",
+    },
+    {
+        "package": "system",
+        "biz_name": "role",
+        "biz_name_upper": "Role",
+        "comment": "角色",
+    },
+    {
+        "package": "system",
+        "biz_name": "permission",
+        "biz_name_upper": "Permission",
+        "comment": "权限",
+    }
+]
 # 更改当前工作目录
 work_dir = Path(__file__).parent.parent
 output_dir = work_dir.joinpath("generate")
 template_dir = work_dir.joinpath("script/templates")
 
 
-def render_all_templates():
+def render_all_templates(data):
     """
     将模板目录下的所有模板渲染到输出目录
     :return:
@@ -27,7 +41,7 @@ def render_all_templates():
         for key in data:
             out_path = out_path.replace("{{" + key + "}}", data[key])
         # 读取模板文件
-        with open(template_path, "r",encoding="utf-8") as f:
+        with open(template_path, "r", encoding="utf-8") as f:
             template = jinja2.Template(f.read())
         # 渲染模板
         rendered = template.render(data)
@@ -39,4 +53,5 @@ def render_all_templates():
 
 
 if __name__ == '__main__':
-    render_all_templates()
+    for task in tasks:
+        render_all_templates(task)
