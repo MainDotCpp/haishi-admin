@@ -1,4 +1,4 @@
-package com.haishi.admin.config;
+package com.haishi.admin.common.config;
 
 import com.haishi.admin.cloak.service.FangYuHttpClient;
 import com.haishi.admin.cloak.service.IpService;

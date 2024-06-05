@@ -38,28 +38,35 @@ public class AuthenticationSessionFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         log.info("================ AuthenticationSessionFilter =================");
         // 通过请求头中的token获取用户信息
-        String accessToken = request.getHeader("access_token");
-        if (accessToken == null) {
-            throwError(response);
-            return;
-        }
-        boolean exists = redissonClient.getBucket("token:" + accessToken).isExists();
-        boolean verify = JWTUtil.verify(accessToken, "haishi".getBytes());
-        if (!exists || !verify) {
-            throwError(response);
-            return;
-        }
-        JWT jwt = JWTUtil.parseToken(accessToken);
-        String username = (String) jwt.getPayload("username");
+        try {
 
-        // 查询redis中是否存在该用户的token
-        UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(accessToken, username);
-        SecurityContextHolder.getContext().setAuthentication(auth);
+            String accessToken = request.getHeader("Access-Token");
+            if (accessToken == null) {
+                throwError(response);
+                return;
+            }
+            boolean exists = redissonClient.getBucket("token:" + accessToken).isExists();
+            boolean verify = JWTUtil.verify(accessToken, "haishi".getBytes());
+            if (!exists || !verify) {
+                throwError(response);
+                return;
+            }
+            JWT jwt = JWTUtil.parseToken(accessToken);
+            String username = (String) jwt.getPayload("username");
+
+            // 查询redis中是否存在该用户的token
+            UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(accessToken, username);
+            SecurityContextHolder.getContext().setAuthentication(auth);
+        } catch (Exception e) {
+            log.error("AuthenticationSessionFilter error", e);
+            throwError(response);
+            return;
+        }
         filterChain.doFilter(request, response);
     }
 
     private static void throwError(HttpServletResponse response) {
-        response.setStatus(403);
+        response.setStatus(200);
         HttpResult<Object> result = HttpResult.error(new BizException(BizExceptionEnum.USER_NOT_LOGIN));
         ObjectMapper om = new ObjectMapper();
         response.setHeader("Content-Type", "application/json;charset=UTF-8");

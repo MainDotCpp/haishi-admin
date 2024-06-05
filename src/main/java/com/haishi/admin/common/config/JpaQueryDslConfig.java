@@ -1,4 +1,4 @@
-package com.haishi.admin.config;
+package com.haishi.admin.common.config;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;

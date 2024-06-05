@@ -6,8 +6,15 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
+import java.time.Instant;
+import java.util.Date;
 import java.util.UUID;
 
 @Getter
@@ -16,6 +23,7 @@ import java.util.UUID;
 @DynamicInsert
 @DynamicUpdate
 @Table(name = "sl_config")
+@EntityListeners(AuditingEntityListener.class)
 public class ShortLinkConfig implements Serializable {
 
 
@@ -50,5 +58,21 @@ public class ShortLinkConfig implements Serializable {
     @Schema(description = "分组ID")
     @Column(name = "group_id")
     private Long groupId;
+
+    @CreatedBy
+    @Column(name = "created_by")
+    private Long createdBy;
+
+    @CreatedDate
+    @Column(name = "created_date")
+    private Date createdDate;
+
+    @LastModifiedBy
+    @Column(name = "last_modified_by")
+    private Long lastModifiedBy;
+
+    @LastModifiedDate
+    @Column(name = "last_modified_date")
+    private Date lastModifiedDate;
 
 }
