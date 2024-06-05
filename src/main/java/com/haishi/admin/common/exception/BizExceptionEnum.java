@@ -15,7 +15,9 @@ public enum BizExceptionEnum {
     USER_FORBIDDEN(1003, "用户被禁用"),
     // 斗篷异常 10000
     SHORT_LINK_NOT_EXIST(10001, "配置不存在"),
-    CLOAK_LINK_NOT_CONFIG(10002, "功能未开启"), USER_NOT_LOGIN(1004, "用户未登录");
+    CLOAK_LINK_NOT_CONFIG(10002, "功能未开启"),
+    USER_NOT_LOGIN(1004, "用户未登录"),
+    USERNAME_EXIST(1005, "用户名已存在");
 
     private final int code;
     private final String message;

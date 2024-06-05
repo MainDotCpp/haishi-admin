@@ -2,6 +2,8 @@ package com.haishi.admin.system.controller;
 
 import com.haishi.admin.common.ThreadUserinfo;
 import com.haishi.admin.common.dto.PageDTO;
+import com.haishi.admin.system.dto.UserDto;
+import com.haishi.admin.system.dto.UserMapper;
 import com.haishi.admin.system.dto.UserQueryDTO;
 import com.haishi.admin.common.dto.HttpResult;
 import com.haishi.admin.system.dto.Userinfo;
@@ -13,6 +15,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Tag(name = "user", description = "用户控制器")
 @RestController
@@ -20,35 +23,37 @@ import java.util.List;
 @AllArgsConstructor
 public class UserController {
     private final UserService userService;
+    private final UserMapper userMapper;
 
     @Operation(summary = "根据ID获取用户")
     @GetMapping("/getById")
-    public HttpResult<User> get(Long id) {
+    public HttpResult<UserDto> get(Long id) {
         User user = userService.getById(id);
-        return HttpResult.success(user);
+        return HttpResult.success(userMapper.toDto(user));
     }
 
     @Operation(summary = "用户列表")
     @GetMapping("/list")
-    public HttpResult<List<User>> list(UserQueryDTO queryDTO) {
+    public HttpResult<List<UserDto>> list(UserQueryDTO queryDTO) {
         return HttpResult.success(
-                userService.list(queryDTO)
+                userService.list(queryDTO).stream().map(userMapper::toDto).collect(Collectors.toList())
         );
     }
 
     @Operation(summary = "分页查询用户")
     @GetMapping("/page")
-    public HttpResult<PageDTO<User>> page(UserQueryDTO queryDTO) {
+    public HttpResult<PageDTO<UserDto>> page(UserQueryDTO queryDTO) {
+        PageDTO<UserDto> page = userService.page(queryDTO);
         return HttpResult.success(
-                userService.page(queryDTO)
+                page
         );
     }
 
     @Operation(summary = "保存用户")
     @PostMapping("/save")
-    public HttpResult<User> save(@RequestBody User user) {
+    public HttpResult<UserDto> save(@RequestBody UserDto userDto) {
         return HttpResult.success(
-                userService.save(user)
+                userService.save(userDto)
         );
     }
 

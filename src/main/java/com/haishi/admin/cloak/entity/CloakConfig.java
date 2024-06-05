@@ -1,5 +1,7 @@
 package com.haishi.admin.cloak.entity;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.haishi.admin.cloak.enums.CloakProvider;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;

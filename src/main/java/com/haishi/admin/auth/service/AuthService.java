@@ -19,6 +19,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
@@ -73,10 +74,30 @@ public class AuthService implements UserDetailsService {
         RBucket<Object> tokenBucket = redissonClient.getBucket("token:" + token);
         tokenBucket.set(user.getId());
         tokenBucket.expire(Duration.of(7, ChronoUnit.DAYS));
+        user.setAccessToken(token);
+        userService.save(user);
         return token;
     }
 
     public String login(LoginReqDTO loginReqDTO) {
         return login(loginReqDTO.username(), loginReqDTO.password());
+    }
+
+    public boolean logout(String accessToken) {
+        Long userId = (Long) redissonClient.getBucket("token:" + accessToken).getAndDelete();
+        redissonClient.getMap("session").remove(userId);
+        return true;
+    }
+
+    public boolean logout() {
+        return logout(ThreadUserinfo.get().getId());
+    }
+
+    public boolean logout(Long userId) {
+        com.haishi.admin.system.entity.User user = userService.getById(userId);
+        logout(user.getAccessToken());
+        user.setAccessToken(null);
+        userService.save(user);
+        return true;
     }
 }

@@ -26,4 +26,10 @@ public class AuthController {
         return HttpResult.success(token);
     }
 
+    @Operation(summary = "登出")
+    @PostMapping("/logout")
+    public HttpResult<Boolean> logout() {
+        return HttpResult.success(authService.logout());
+    }
+
 }

@@ -10,5 +10,5 @@ import lombok.Data;
  */
 @Data
 @Schema(description = "用户查询对象")
-public class UserQueryDTO extends PageDTO<User> {
+public class UserQueryDTO extends PageDTO<UserDto> {
 }
