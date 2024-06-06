@@ -51,6 +51,7 @@ public class UserService {
         JPAQuery<User> query = jpaQueryFactory.selectFrom(QUser.user);
         ArrayList<Predicate> predicates = new ArrayList<>();
         query.where(predicates.toArray(Predicate[]::new));
+        query.orderBy(QUser.user.id.desc());
         return query;
     }
 

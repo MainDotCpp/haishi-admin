@@ -2,9 +2,14 @@ package com.haishi.admin.cloak.service;
 
 import com.haishi.admin.cloak.dto.CloakConfigQueryDTO;
 import com.haishi.admin.cloak.entity.QCloakConfig;
+import com.haishi.admin.cloak.mapper.CloakConfigMapper;
+import com.haishi.admin.common.ThreadUserinfo;
 import com.haishi.admin.common.dto.PageDTO;
 import com.haishi.admin.cloak.dao.CloakConfigRepository;
 import com.haishi.admin.cloak.entity.CloakConfig;
+import com.haishi.admin.common.exception.BizException;
+import com.haishi.admin.common.exception.BizExceptionEnum;
+import com.haishi.admin.system.constants.PermissionCode;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -12,16 +17,19 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class CloakConfigService {
+    private final CloakConfigMapper cloakConfigMapper;
     private final CloakConfigRepository cloakConfigRepository;
     private final JPAQueryFactory jpaQueryFactory;
 
@@ -33,6 +41,8 @@ public class CloakConfigService {
         JPAQuery<CloakConfig> query = jpaQueryFactory.selectFrom(QCloakConfig.cloakConfig);
         ArrayList<Predicate> predicates = new ArrayList<>();
         query.where(predicates.toArray(Predicate[]::new));
+        query.orderBy(QCloakConfig.cloakConfig.id.desc());
+
         return query;
     }
 
@@ -50,7 +60,12 @@ public class CloakConfigService {
     }
 
     public CloakConfig save(CloakConfig cloakConfig) {
-        return cloakConfigRepository.save(cloakConfig);
+        CloakConfig config = new CloakConfig();
+        if (cloakConfig.getId() != null) {
+            config = cloakConfigRepository.findById(cloakConfig.getId()).orElseThrow(() -> new BizException(BizExceptionEnum.CLOAK_CONFIG_NOT_FOUND));
+        }
+        cloakConfigMapper.partialUpdate(cloakConfig,config);
+        return cloakConfigRepository.save(config);
     }
 
     public boolean delete(UUID id) {

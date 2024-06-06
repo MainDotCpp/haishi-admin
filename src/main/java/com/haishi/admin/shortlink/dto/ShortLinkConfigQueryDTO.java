@@ -7,10 +7,11 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
- * DTO for {@link ShortLinkGroup}
+ * DTO for {@link ShortLinkConfig}
  */
 @Data
 @Schema(description = "短链配置查询对象")
 public class ShortLinkConfigQueryDTO extends PageDTO<ShortLinkConfig> {
     private Long groupId;
+    private Long createdBy;
 }

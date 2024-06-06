@@ -33,6 +33,7 @@ public class {{biz_name_upper}}Service {
         JPAQuery<{{biz_name_upper}}> query = jpaQueryFactory.selectFrom(Q{{biz_name_upper}}.{{biz_name}});
         ArrayList<Predicate> predicates = new ArrayList<>();
         query.where(predicates.toArray(Predicate[]::new));
+        query.orderBy(Q{{biz_name_upper}}.{{biz_name}}.id.desc());
         return query;
     }
 
