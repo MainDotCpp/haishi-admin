@@ -1,6 +1,7 @@
 package com.haishi.admin.cloak.controller;
 
 import com.haishi.admin.cloak.dto.CloakConfigQueryDTO;
+import com.haishi.admin.cloak.entity.CloakConfigUpdateDTO;
 import com.haishi.admin.common.dto.HttpResult;
 import com.haishi.admin.cloak.entity.CloakConfig;
 import com.haishi.admin.cloak.service.CloakConfigService;
@@ -43,7 +44,7 @@ public class CloakConfigController {
 
     @Operation(summary = "保存斗篷配置 ")
     @PostMapping("/save")
-    public HttpResult<CloakConfig> save(@RequestBody CloakConfig cloakConfig) {
+    public HttpResult<CloakConfig> save(@RequestBody CloakConfigUpdateDTO cloakConfig) {
         return HttpResult.success(
                 cloakConfigService.save(cloakConfig)
         );

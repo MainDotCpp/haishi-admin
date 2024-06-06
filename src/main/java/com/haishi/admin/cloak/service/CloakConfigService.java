@@ -1,6 +1,7 @@
 package com.haishi.admin.cloak.service;
 
 import com.haishi.admin.cloak.dto.CloakConfigQueryDTO;
+import com.haishi.admin.cloak.entity.CloakConfigUpdateDTO;
 import com.haishi.admin.cloak.entity.QCloakConfig;
 import com.haishi.admin.cloak.mapper.CloakConfigMapper;
 import com.haishi.admin.common.ThreadUserinfo;
@@ -59,12 +60,12 @@ public class CloakConfigService {
         return queryDTO;
     }
 
-    public CloakConfig save(CloakConfig cloakConfig) {
+    public CloakConfig save(CloakConfigUpdateDTO updateDTO) {
         CloakConfig config = new CloakConfig();
-        if (cloakConfig.getId() != null) {
-            config = cloakConfigRepository.findById(cloakConfig.getId()).orElseThrow(() -> new BizException(BizExceptionEnum.CLOAK_CONFIG_NOT_FOUND));
+        if (updateDTO.getId() != null) {
+            config = cloakConfigRepository.findById(updateDTO.getId()).orElseThrow(() -> new BizException(BizExceptionEnum.CLOAK_CONFIG_NOT_FOUND));
         }
-        cloakConfigMapper.partialUpdate(cloakConfig,config);
+        cloakConfigMapper.partialUpdate(updateDTO,config);
         return cloakConfigRepository.save(config);
     }
 

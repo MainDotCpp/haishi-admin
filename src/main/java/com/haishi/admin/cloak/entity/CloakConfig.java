@@ -32,8 +32,8 @@ public class CloakConfig {
     private String allowRegion;
 
     @Schema(description = "是否使用Cloak服务")
-    @Column(name = "use_cloak_provider")
-    private Boolean useCloakProvider;
+    @Column(name = "use_cloak_provider" ,columnDefinition = "boolean default false")
+    private Boolean useCloakProvider = Boolean.FALSE;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "cloak_provider")
@@ -53,31 +53,31 @@ public class CloakConfig {
     private String previewSecret;
 
     @Schema(description = "是否启用地区检测")
-    @Column(name = "enable_region_detection")
-    private Boolean enableRegionDetection;
+    @Column(name = "enable_region_detection",columnDefinition = "boolean default false")
+    private Boolean enableRegionDetection = Boolean.FALSE;
 
     @Schema(description = "是否启用爬虫检测")
-    @Column(name = "enable_spider_detection")
-    private Boolean enableSpiderDetection;
+    @Column(name = "enable_spider_detection",columnDefinition = "boolean default false")
+    private Boolean enableSpiderDetection = Boolean.FALSE;
 
     @Schema(description = "是否启用语言检测")
-    @Column(name = "enable_language_detection")
-    private Boolean enableLanguageDetection;
+    @Column(name = "enable_language_detection",columnDefinition = "boolean default false")
+    private Boolean enableLanguageDetection = Boolean.FALSE;
 
     @Schema(description = "是否启用代理检测")
-    @Column(name = "enable_proxy_detection")
-    private Boolean enableProxyDetection;
+    @Column(name = "enable_proxy_detection",columnDefinition = "boolean default false")
+    private Boolean enableProxyDetection = Boolean.FALSE;
 
     @Schema(description = "是否启用UA检测")
-    @Column(name = "enable_ua_detection")
-    private Boolean enableUaDetection;
+    @Column(name = "enable_ua_detection",columnDefinition = "boolean default false")
+    private Boolean enableUaDetection = Boolean.FALSE;
 
     @Schema(description = "是否启用黑名单IP检测")
-    @Column(name = "enable_blacklist_ip_detection")
-    private Boolean enableBlacklistIpDetection;
+    @Column(name = "enable_blacklist_ip_detection",columnDefinition = "boolean default false")
+    private Boolean enableBlacklistIpDetection = Boolean.FALSE;
 
     @Schema(description = "是否启用黑名单IP收集")
-    @Column(name = "enable_blacklist_ip_collection")
-    private Boolean enableBlacklistIpCollection;
+    @Column(name = "enable_blacklist_ip_collection",columnDefinition = "boolean default false")
+    private Boolean enableBlacklistIpCollection= Boolean.FALSE;
 
 }

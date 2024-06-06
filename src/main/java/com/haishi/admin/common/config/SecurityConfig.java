@@ -61,13 +61,13 @@ public class SecurityConfig {
                 .requestMatchers("auth/login")
                 .requestMatchers("v3/api-docs")
                 .requestMatchers("cloak/check/*")
-                .requestMatchers("l/");
+                .requestMatchers("l/*");
     }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
-                .cors(Customizer.withDefaults())
+                .cors(AbstractHttpConfigurer::disable)
                 .sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeRequests(auth -> auth
                         .requestMatchers("POST", "auth/login").permitAll()

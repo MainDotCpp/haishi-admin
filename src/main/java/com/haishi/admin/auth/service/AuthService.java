@@ -65,6 +65,9 @@ public class AuthService implements UserDetailsService {
         if (!bCryptPasswordEncoder.matches(password, user.getPassword()))
             throw new BizException(BizExceptionEnum.USER_PASSWORD_ERROR);
 
+        // 退出登录
+        logout(user.getId());
+
         // 登录成功, 生成token
         HashMap<String, Object> payload = new HashMap<>();
         payload.put("uid", user.getId());
@@ -76,6 +79,7 @@ public class AuthService implements UserDetailsService {
         tokenBucket.expire(Duration.of(7, ChronoUnit.DAYS));
         user.setAccessToken(token);
         userService.save(user);
+
         return token;
     }
 
@@ -84,8 +88,12 @@ public class AuthService implements UserDetailsService {
     }
 
     public boolean logout(String accessToken) {
-        Long userId = (Long) redissonClient.getBucket("token:" + accessToken).getAndDelete();
-        redissonClient.getMap("session").remove(userId);
+        try {
+            Long userId = (Long) redissonClient.getBucket("token:" + accessToken).getAndDelete();
+            redissonClient.getMap("session").remove(userId);
+        } catch (Exception e) {
+            log.error("用户缓存不存在");
+        }
         return true;
     }
 
