@@ -1,0 +1,4 @@
+insert into sys_permission (id, code, name)
+values (4, 'DEPT__VIEW', '部门:查看'),
+       (5, 'DEPT__EDIT', '部门:编辑'),
+       (6, 'DEPT__DELETE', '部门:删除');

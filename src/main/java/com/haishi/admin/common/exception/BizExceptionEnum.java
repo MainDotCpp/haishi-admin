@@ -17,7 +17,7 @@ public enum BizExceptionEnum {
     SHORT_LINK_NOT_EXIST(10001, "配置不存在"),
     CLOAK_LINK_NOT_CONFIG(10002, "功能未开启"),
     USER_NOT_LOGIN(1004, "用户未登录"),
-    USERNAME_EXIST(1005, "用户名已存在"), CLOAK_CONFIG_NOT_FOUND(10003, "配置不存在");
+    USERNAME_EXIST(1005, "用户名已存在"), CLOAK_CONFIG_NOT_FOUND(10003, "配置不存在"), PERMISSION_DENIED(403, "权限不足");
 
     private final int code;
     private final String message;

@@ -1,0 +1,66 @@
+package com.haishi.admin.{{ package }}.controller;
+
+import com.haishi.admin.common.dto.PageDTO;
+import com.haishi.admin.{{ package }}.dto.{{ Biz }}QueryDTO;
+import com.haishi.admin.common.dto.HttpResult;
+import com.haishi.admin.{{ package }}.entity.{{ Biz }};
+import com.haishi.admin.{{ package }}.service.{{ Biz }}Service;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.AllArgsConstructor;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.security.access.prepost.PreAuthorize;
+
+import java.util.List;
+
+@Tag(name = "{{ biz }}", description = "{{ comment }}控制器")
+@RestController
+@RequestMapping("/{{ biz }}")
+@AllArgsConstructor
+public class {{ Biz }}Controller {
+    private final {{ Biz }}Service {{ biz }}Service;
+
+    @Operation(summary = "根据ID获取{{ comment }}")
+    @GetMapping("/getById")
+    public HttpResult<{{ Biz }}> get(Long id) {
+        {{ Biz }} {{ biz }} = {{ biz }}Service.getById(id);
+        return HttpResult.success({{ biz }});
+    }
+
+    @Operation(summary = "{{ comment }}列表")
+    @GetMapping("/list")
+    @PreAuthorize("hasAnyAuthority('{{ B_I_Z }}__VIEW')")
+    public HttpResult<List<{{ Biz }}>> list({{ Biz }}QueryDTO queryDTO) {
+        return HttpResult.success(
+                {{ biz }}Service.list(queryDTO)
+        );
+    }
+
+    @Operation(summary = "分页查询{{ comment }}")
+    @GetMapping("/page")
+    @PreAuthorize("hasAnyAuthority('{{ B_I_Z }}__VIEW')")
+    public HttpResult<PageDTO<{{ Biz }}>> page({{ Biz }}QueryDTO queryDTO) {
+        return HttpResult.success(
+                {{ biz }}Service.page(queryDTO)
+        );
+    }
+
+    @Operation(summary = "保存{{ comment }}")
+    @PostMapping("/save")
+    @PreAuthorize("hasAnyAuthority('{{ B_I_Z }}__EDIT')")
+    public HttpResult<{{ Biz }}> save(@RequestBody {{ Biz }} {{ biz }}) {
+        return HttpResult.success(
+                {{ biz }}Service.save({{ biz }})
+        );
+    }
+
+    @Operation(summary = "通过ID删除{{ comment }}")
+    @PostMapping("/deleteById")
+    @PreAuthorize("hasAnyAuthority('{{ B_I_Z }}__DELETE')")
+    public HttpResult<Boolean> delete(Long id) {
+        return HttpResult.success(
+                {{ biz }}Service.delete(id)
+        );
+    }
+
+}

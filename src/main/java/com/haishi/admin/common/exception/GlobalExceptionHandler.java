@@ -1,12 +1,11 @@
 package com.haishi.admin.common.exception;
 
-import cn.hutool.core.io.resource.NoResourceException;
 import com.haishi.admin.common.dto.HttpResult;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 /**
@@ -24,11 +23,22 @@ public class GlobalExceptionHandler {
         return HttpResult.error(e);
     }
 
+    @ExceptionHandler(value = AccessDeniedException.class)
+    @ResponseBody
+    public HttpResult<Object> handleAccessDeniedException(AccessDeniedException e) {
+        log.error(e.getMessage());
+        return HttpResult.error(new BizException(BizExceptionEnum.PERMISSION_DENIED));
+    }
+
+
     @ExceptionHandler(value = NoResourceFoundException.class)
     public Object handleNoResourceException(NoResourceFoundException e) {
         log.error(e.getMessage());
         return "404";
     }
+
+
+
 
     @ExceptionHandler(value = Exception.class)
     @ResponseBody

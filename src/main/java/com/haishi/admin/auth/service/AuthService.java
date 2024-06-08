@@ -19,7 +19,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
@@ -88,12 +87,8 @@ public class AuthService implements UserDetailsService {
     }
 
     public boolean logout(String accessToken) {
-        try {
-            Long userId = (Long) redissonClient.getBucket("token:" + accessToken).getAndDelete();
-            redissonClient.getMap("session").remove(userId);
-        } catch (Exception e) {
-            log.error("用户缓存不存在");
-        }
+        Long userId = (Long) redissonClient.getBucket("token:" + accessToken).getAndDelete();
+        clearSession(userId);
         return true;
     }
 
@@ -107,5 +102,19 @@ public class AuthService implements UserDetailsService {
         user.setAccessToken(null);
         userService.save(user);
         return true;
+    }
+
+    public void clearSession(Long userId) {
+        if (userId == null) return;
+        try {
+            redissonClient.getMap("session").remove(userId);
+        } catch (Exception e) {
+            log.error("用户缓存不存在");
+        }
+    }
+
+    public void clearSession(String accessToken) {
+        Long userId = (Long) redissonClient.getBucket("token:" + accessToken).get();
+        clearSession(userId);
     }
 }

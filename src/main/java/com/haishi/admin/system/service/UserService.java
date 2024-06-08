@@ -89,13 +89,13 @@ public class UserService {
         }
         userRepository.save(user);
         // 删除session
-        authService.logout(user.getId());
+        authService.clearSession(user.getId());
         return userMapper.toDto(user);
     }
 
     public boolean delete(Long id) {
-        userRepository.deleteById(id);
         authService.logout(id);
+        userRepository.deleteById(id);
         return true;
     }
 

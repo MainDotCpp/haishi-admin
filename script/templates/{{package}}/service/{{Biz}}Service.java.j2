@@ -1,0 +1,61 @@
+package com.haishi.admin.{{ package }}.service;
+
+import com.haishi.admin.{{ package }}.dto.{{Biz}}QueryDTO;
+import com.haishi.admin.{{ package }}.entity.Q{{Biz}};
+import com.haishi.admin.common.dto.PageDTO;
+import com.haishi.admin.{{ package }}.dao.{{Biz}}Repository;
+import com.haishi.admin.{{ package }}.entity.{{Biz}};
+import com.querydsl.core.types.Predicate;
+import com.querydsl.jpa.impl.JPAQuery;
+import com.querydsl.jpa.impl.JPAQueryFactory;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
+@Slf4j
+@Service
+@RequiredArgsConstructor
+public class {{Biz}}Service {
+    private final {{Biz}}Repository {{biz}}Repository;
+    private final JPAQueryFactory jpaQueryFactory;
+
+    public {{Biz}} getById(Long id) {
+        return {{biz}}Repository.findById(id).orElse(null);
+    }
+
+    private JPAQuery<{{Biz}}> buildQuery({{Biz}}QueryDTO queryDTO) {
+        JPAQuery<{{Biz}}> query = jpaQueryFactory.selectFrom(Q{{Biz}}.{{biz}});
+        ArrayList<Predicate> predicates = new ArrayList<>();
+        query.where(predicates.toArray(Predicate[]::new));
+        query.orderBy(Q{{Biz}}.{{biz}}.id.desc());
+        return query;
+    }
+
+    public List<{{Biz}}> list({{Biz}}QueryDTO queryDTO) {
+        JPAQuery<{{Biz}}> query = buildQuery(queryDTO);
+        return query.fetch();
+    }
+
+    public PageDTO<{{Biz}}> page({{Biz}}QueryDTO queryDTO) {
+        JPAQuery<{{Biz}}> query = buildQuery(queryDTO);
+        queryDTO.setTotal(query.fetchCount());
+        List<{{Biz}}> data = query.offset((long) (queryDTO.getCurrent() - 1) * queryDTO.getPageSize()).limit(queryDTO.getPageSize()).fetch();
+        queryDTO.setData(data);
+        return queryDTO;
+    }
+
+    public {{Biz}} save({{Biz}} {{biz}}) {
+        return {{biz}}Repository.save({{biz}});
+    }
+
+    public boolean delete(Long id) {
+        {{biz}}Repository.deleteById(id);
+        return true;
+    }
+}

@@ -1,25 +1,13 @@
 # -*- coding: utf-8 -*-
 from pathlib import Path
 import jinja2
+import re
 
 tasks = [
     {
         "package": "system",
-        "biz_name": "user",
-        "biz_name_upper": "User",
-        "comment": "用户",
-    },
-    {
-        "package": "system",
-        "biz_name": "role",
-        "biz_name_upper": "Role",
-        "comment": "角色",
-    },
-    {
-        "package": "system",
-        "biz_name": "permission",
-        "biz_name_upper": "Permission",
-        "comment": "权限",
+        "biz": "dept",
+        "comment": "部门",
     }
 ]
 # 更改当前工作目录
@@ -27,12 +15,25 @@ work_dir = Path(__file__).parent.parent
 output_dir = work_dir.joinpath("generate")
 template_dir = work_dir.joinpath("script/templates")
 
+def first_upper(s):
+    return s[0].upper() + s[1:]
+
+def covert_to_camel(s):
+    return "".join([first_upper(x) for x in s.split("_")])
+
+# 驼峰转常亮命名
+def covert_to_const(s):
+    return re.sub(r'([A-Z])', r'_\1', s).upper()
+
 
 def render_all_templates(data):
     """
     将模板目录下的所有模板渲染到输出目录
     :return:
     """
+    data["Biz"] = data["biz"].capitalize()
+    data["BIZ"] = data["biz"].upper()
+    data["B_I_Z"] = covert_to_const(data["biz"])
     for template_path in Path.rglob(template_dir, "*.j2"):
         print(f"Rendering {template_path}...")
         out_path = output_dir / Path.relative_to(template_path, template_dir)
