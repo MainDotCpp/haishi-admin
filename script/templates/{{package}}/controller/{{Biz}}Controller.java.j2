@@ -29,7 +29,7 @@ public class {{ Biz }}Controller {
 
     @Operation(summary = "{{ comment }}列表")
     @GetMapping("/list")
-    @PreAuthorize("hasAnyAuthority('{{ B_I_Z }}__VIEW')")
+    @PreAuthorize("hasAnyAuthority('{{ B_I_Z }}')")
     public HttpResult<List<{{ Biz }}>> list({{ Biz }}QueryDTO queryDTO) {
         return HttpResult.success(
                 {{ biz }}Service.list(queryDTO)
@@ -38,7 +38,7 @@ public class {{ Biz }}Controller {
 
     @Operation(summary = "分页查询{{ comment }}")
     @GetMapping("/page")
-    @PreAuthorize("hasAnyAuthority('{{ B_I_Z }}__VIEW')")
+    @PreAuthorize("hasAnyAuthority('{{ B_I_Z }}')")
     public HttpResult<PageDTO<{{ Biz }}>> page({{ Biz }}QueryDTO queryDTO) {
         return HttpResult.success(
                 {{ biz }}Service.page(queryDTO)

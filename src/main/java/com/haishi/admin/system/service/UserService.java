@@ -114,11 +114,13 @@ public class UserService {
         userinfo.setId(user.getId());
         userinfo.setUsername(user.getUsername());
         userinfo.setNickname(user.getNickname());
+        userinfo.setDeptId(user.getDeptId());
         List<String> roles = new ArrayList<>();
         user.getRoles().forEach(role -> roles.add(role.getCode()));
         userinfo.setRoles(roles);
         List<String> permissions = new ArrayList<>();
         user.getRoles().forEach(role -> role.getPermissions().forEach(permission -> permissions.add(permission.getCode())));
+        permissions.add("DATA__" + user.getDataPermission());
         userinfo.setPermissions(permissions.stream().distinct().toList());
         return userinfo;
     }

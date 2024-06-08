@@ -11,5 +11,6 @@ public class Userinfo {
     private String nickname;
     private List<String> roles;
     private List<String> permissions;
+    private String deptId;
 }
 

@@ -30,7 +30,6 @@ public class DeptController {
 
     @Operation(summary = "部门列表")
     @GetMapping("/list")
-    @PreAuthorize("hasAnyAuthority('DEPT__VIEW')")
     public HttpResult<List<Dept>> list(DeptQueryDTO queryDTO) {
         return HttpResult.success(
                 deptService.list(queryDTO)
@@ -39,7 +38,6 @@ public class DeptController {
 
     @Operation(summary = "分页查询部门")
     @GetMapping("/page")
-    @PreAuthorize("hasAnyAuthority('DEPT__VIEW')")
     public HttpResult<PageDTO<Dept>> page(DeptQueryDTO queryDTO) {
         return HttpResult.success(
                 deptService.page(queryDTO)

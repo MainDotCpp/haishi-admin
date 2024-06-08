@@ -1,6 +1,13 @@
 package com.haishi.admin.system.constants;
 
 public interface PermissionCode {
+    // Data permission code
+    String DATA__ALL = "DATA__ALL";
+    String DATA__SELF = "DATA__SELF";
+    String DATA__DEPT = "DATA__DEPT";
+    String DATA__DEPT_AND_CHILD = "DATA__DEPT_AND_CHILD";
+
+    // Permission code
     String SHORT_LINK__VIEW = "SHORT_LINK__VIEW";
     String SHORT_LINK__EDIT = "SHORT_LINK__EDIT";
     String SHORT_LINK__DELETE = "SHORT_LINK__DELETE";

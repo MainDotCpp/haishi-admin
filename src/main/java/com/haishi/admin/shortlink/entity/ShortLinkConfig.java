@@ -1,5 +1,6 @@
 package com.haishi.admin.shortlink.entity;
 
+import com.haishi.admin.common.entity.BaseEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -24,13 +25,7 @@ import java.util.UUID;
 @DynamicUpdate
 @Table(name = "sl_config")
 @EntityListeners(AuditingEntityListener.class)
-public class ShortLinkConfig implements Serializable {
-
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id", nullable = false)
-    private Long id;
+public class ShortLinkConfig extends BaseEntity {
 
     @Schema(description = "配置KEY")
     @Column(name = "key", nullable = false, unique = true)
@@ -58,21 +53,5 @@ public class ShortLinkConfig implements Serializable {
     @Schema(description = "分组ID")
     @Column(name = "group_id")
     private Long groupId;
-
-    @CreatedBy
-    @Column(name = "created_by")
-    private Long createdBy;
-
-    @CreatedDate
-    @Column(name = "created_date")
-    private Date createdDate;
-
-    @LastModifiedBy
-    @Column(name = "last_modified_by")
-    private Long lastModifiedBy;
-
-    @LastModifiedDate
-    @Column(name = "last_modified_date")
-    private Date lastModifiedDate;
 
 }

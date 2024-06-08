@@ -3,11 +3,13 @@ package com.haishi.admin.shortlink.service;
 import com.haishi.admin.cloak.dto.CloakCheckResult;
 import com.haishi.admin.cloak.entity.QCloakConfig;
 import com.haishi.admin.cloak.enums.CloakScene;
+import com.haishi.admin.cloak.mapper.CloakConfigMapper;
 import com.haishi.admin.cloak.service.CloakService;
 import com.haishi.admin.common.ThreadUserinfo;
 import com.haishi.admin.common.dto.PageDTO;
 import com.haishi.admin.common.exception.BizException;
 import com.haishi.admin.common.exception.BizExceptionEnum;
+import com.haishi.admin.common.utils.QueryUtils;
 import com.haishi.admin.shortlink.dao.ShortLinkConfigRepository;
 import com.haishi.admin.shortlink.dto.ShortLinkConfigQueryDTO;
 import com.haishi.admin.shortlink.dto.ShortLinkGroupQueryDTO;
@@ -16,6 +18,7 @@ import com.haishi.admin.shortlink.entity.QShortLinkGroup;
 import com.haishi.admin.shortlink.entity.ShortLinkConfig;
 import com.haishi.admin.shortlink.entity.ShortLinkGroup;
 import com.haishi.admin.system.constants.PermissionCode;
+import com.haishi.admin.system.entity.QUser;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -38,6 +41,7 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class ShortLinkService {
+    private final CloakConfigMapper cloakConfigMapper;
     private final ShortLinkConfigRepository shortLinkConfigRepository;
     private final CloakService cloakService;
     private final JPAQueryFactory jpaQueryFactory;
@@ -58,13 +62,10 @@ public class ShortLinkService {
         QShortLinkConfig shortLinkConfig = QShortLinkConfig.shortLinkConfig;
         JPAQuery<ShortLinkConfig> query = jpaQueryFactory.selectFrom(shortLinkConfig);
         ArrayList<Predicate> predicates = new ArrayList<>();
-        if (queryDTO.getGroupId() != null) predicates.add(shortLinkConfig.groupId.eq(queryDTO.getGroupId()));
+        QueryUtils.dataPermissionFilter(shortLinkConfig._super, predicates);
         if (queryDTO.getCreatedBy() != null) predicates.add(shortLinkConfig.createdBy.eq(queryDTO.getCreatedBy()));
         query.where(predicates.toArray(Predicate[]::new));
         query.orderBy(shortLinkConfig.id.asc());
-        if (!ThreadUserinfo.get().getPermissions().contains(PermissionCode.SHORT_LINK__ALL_DATA)) {
-            query.where(shortLinkConfig.createdBy.eq(ThreadUserinfo.get().getId()));
-        }
         return query;
     }
 
@@ -77,9 +78,15 @@ public class ShortLinkService {
     }
 
 
-
     @CachePut(value = "shortLinkConfig", key = "#shortLinkConfig.key")
     public ShortLinkConfig save(ShortLinkConfig shortLinkConfig) {
+        if (shortLinkConfig.getId() != null) {
+            ShortLinkConfig exist = shortLinkConfigRepository.findById(shortLinkConfig.getId()).orElseThrow();
+            cloakConfigMapper.partialUpdate(shortLinkConfig, exist);
+            String deptId = jpaQueryFactory.select(QUser.user.deptId).from(QUser.user).where(QUser.user.id.eq(shortLinkConfig.getCreatedBy())).fetchFirst();
+            exist.setDeptId(deptId);
+            shortLinkConfig = exist;
+        }
         return shortLinkConfigRepository.save(shortLinkConfig);
     }
 

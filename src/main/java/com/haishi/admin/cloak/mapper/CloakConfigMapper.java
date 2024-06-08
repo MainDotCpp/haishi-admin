@@ -6,6 +6,8 @@ import com.haishi.admin.cloak.entity.CloakCheckDTO;
 import com.haishi.admin.cloak.entity.CloakConfig;
 import com.haishi.admin.cloak.entity.CloakConfigUpdateDTO;
 import com.haishi.admin.cloak.entity.CloakLog;
+import com.haishi.admin.shortlink.dto.ShortLinkConfigUpdateDTO;
+import com.haishi.admin.shortlink.entity.ShortLinkConfig;
 import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
 
@@ -22,4 +24,14 @@ public interface CloakConfigMapper {
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     CloakConfig partialUpdate(CloakConfigUpdateDTO cloakConfigUpdateDTO, @MappingTarget CloakConfig cloakConfig);
+
+    ShortLinkConfig toShortLinkConfig(ShortLinkConfigUpdateDTO shortLinkConfigUpdateDTO);
+
+    ShortLinkConfigUpdateDTO toShortLinkConfigUpdateDTO(ShortLinkConfig shortLinkConfig);
+
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    ShortLinkConfig partialUpdate(ShortLinkConfigUpdateDTO shortLinkConfigUpdateDTO, @MappingTarget ShortLinkConfig shortLinkConfig);
+
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    void partialUpdate(ShortLinkConfig shortLinkConfig,@MappingTarget ShortLinkConfig exist);
 }
