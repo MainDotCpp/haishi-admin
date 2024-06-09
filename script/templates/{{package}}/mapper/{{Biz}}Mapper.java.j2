@@ -1,0 +1,26 @@
+package com.haishi.admin.{{package}}.mapper;
+
+import com.haishi.admin.{{package}}.dto.DomainDTO;
+import com.haishi.admin.{{package}}.entity.Domain;
+import org.mapstruct.*;
+
+import java.util.List;
+
+@Mapper(
+        unmappedTargetPolicy = ReportingPolicy.IGNORE,
+        componentModel = MappingConstants.ComponentModel.SPRING
+)
+public interface DomainMapper {
+
+    Domain toDomain(DomainDTO {{biz}}DTO);
+
+    @InheritInverseConfiguration(name = "toDomain")
+    DomainDTO toDomainDTO(Domain {{biz}});
+
+    List<Domain> toDomainList(List<DomainDTO> {{biz}}DTOList);
+
+    List<DomainDTO> toDomainDTOList(List<Domain> {{biz}}List);
+
+    @InheritConfiguration(name = "toDomain")
+    Domain partialUpdate(DomainDTO {{biz}}DTO, @MappingTarget Domain {{biz}});
+}

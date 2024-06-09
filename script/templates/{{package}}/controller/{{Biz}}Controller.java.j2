@@ -1,10 +1,9 @@
-package com.haishi.admin.{{ package }}.controller;
+package com.haishi.admin.{{package}}.controller;
 
 import com.haishi.admin.common.dto.PageDTO;
-import com.haishi.admin.{{ package }}.dto.{{ Biz }}QueryDTO;
 import com.haishi.admin.common.dto.HttpResult;
-import com.haishi.admin.{{ package }}.entity.{{ Biz }};
-import com.haishi.admin.{{ package }}.service.{{ Biz }}Service;
+import com.haishi.admin.{{package}}.dto.{{Biz}}DTO;
+import com.haishi.admin.{{package}}.service.{{Biz}}Service;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
@@ -13,53 +12,52 @@ import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.util.List;
 
-@Tag(name = "{{ biz }}", description = "{{ comment }}控制器")
+@Tag(name = "{{biz}}", description = "{{comment}}控制器")
 @RestController
-@RequestMapping("/{{ biz }}")
+@RequestMapping("/{{biz}}")
 @AllArgsConstructor
-public class {{ Biz }}Controller {
-    private final {{ Biz }}Service {{ biz }}Service;
+public class {{Biz}}Controller {
+    private final {{Biz}}Service {{biz}}Service;
 
-    @Operation(summary = "根据ID获取{{ comment }}")
+    @Operation(summary = "根据ID获取{{comment}}")
     @GetMapping("/getById")
-    public HttpResult<{{ Biz }}> get(Long id) {
-        {{ Biz }} {{ biz }} = {{ biz }}Service.getById(id);
-        return HttpResult.success({{ biz }});
+    public HttpResult<{{Biz}}DTO> get(Long id) {
+        return HttpResult.success({{biz}}Service.getById(id));
     }
 
-    @Operation(summary = "{{ comment }}列表")
+    @Operation(summary = "{{comment}}列表")
     @GetMapping("/list")
-    @PreAuthorize("hasAnyAuthority('{{ B_I_Z }}')")
-    public HttpResult<List<{{ Biz }}>> list({{ Biz }}QueryDTO queryDTO) {
+    @PreAuthorize("hasAnyAuthority('SERVER')")
+    public HttpResult<List<{{Biz}}DTO>> list({{Biz}}DTO queryDTO) {
         return HttpResult.success(
-                {{ biz }}Service.list(queryDTO)
+                {{biz}}Service.list(queryDTO)
         );
     }
 
-    @Operation(summary = "分页查询{{ comment }}")
+    @Operation(summary = "分页查询{{comment}}")
     @GetMapping("/page")
-    @PreAuthorize("hasAnyAuthority('{{ B_I_Z }}')")
-    public HttpResult<PageDTO<{{ Biz }}>> page({{ Biz }}QueryDTO queryDTO) {
+    @PreAuthorize("hasAnyAuthority('SERVER')")
+    public HttpResult<PageDTO<{{Biz}}DTO>> page({{Biz}}DTO queryDTO, Integer current, Integer pageSize) {
         return HttpResult.success(
-                {{ biz }}Service.page(queryDTO)
+                {{biz}}Service.page(queryDTO, current, pageSize)
         );
     }
 
-    @Operation(summary = "保存{{ comment }}")
+    @Operation(summary = "保存{{comment}}")
     @PostMapping("/save")
-    @PreAuthorize("hasAnyAuthority('{{ B_I_Z }}__EDIT')")
-    public HttpResult<{{ Biz }}> save(@RequestBody {{ Biz }} {{ biz }}) {
+    @PreAuthorize("hasAnyAuthority('SERVER__EDIT')")
+    public HttpResult<{{Biz}}DTO> save(@RequestBody {{Biz}}DTO {{biz}}UpdateDTO) {
         return HttpResult.success(
-                {{ biz }}Service.save({{ biz }})
+                {{biz}}Service.save({{biz}}UpdateDTO)
         );
     }
 
-    @Operation(summary = "通过ID删除{{ comment }}")
+    @Operation(summary = "通过ID删除{{comment}}")
     @PostMapping("/deleteById")
-    @PreAuthorize("hasAnyAuthority('{{ B_I_Z }}__DELETE')")
+    @PreAuthorize("hasAnyAuthority('SERVER__DELETE')")
     public HttpResult<Boolean> delete(Long id) {
         return HttpResult.success(
-                {{ biz }}Service.delete(id)
+                {{biz}}Service.delete(id)
         );
     }
 

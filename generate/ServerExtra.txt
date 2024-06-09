@@ -1,0 +1,7 @@
+insert into sys_permission (code, name)
+values
+('SERVER', '服务器'),
+('SERVER__VIEW', '服务器:查看'),
+
+       ('SERVER__EDIT', '服务器:编辑'),
+       ('SERVER__DELETE', '服务器:删除');

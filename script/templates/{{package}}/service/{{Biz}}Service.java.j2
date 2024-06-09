@@ -1,59 +1,106 @@
-package com.haishi.admin.{{ package }}.service;
+package com.haishi.admin.{{package}}.service;
 
-import com.haishi.admin.{{ package }}.dto.{{Biz}}QueryDTO;
-import com.haishi.admin.{{ package }}.entity.Q{{Biz}};
 import com.haishi.admin.common.dto.PageDTO;
-import com.haishi.admin.{{ package }}.dao.{{Biz}}Repository;
-import com.haishi.admin.{{ package }}.entity.{{Biz}};
+import com.haishi.admin.{{package}}.dao.{{Biz}}Repository;
+import com.haishi.admin.{{package}}.dto.{{Biz}}DTO;
+import com.haishi.admin.{{package}}.entity.{{Biz}};
+import com.haishi.admin.{{package}}.entity.Q{{Biz}};
+import com.haishi.admin.{{package}}.mapper.{{Biz}}Mapper;
+import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
+/**
+ * Service for {@link {{Biz}}}
+ */
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class {{Biz}}Service {
     private final {{Biz}}Repository {{biz}}Repository;
+    private final {{Biz}}Mapper {{biz}}Mapper;
     private final JPAQueryFactory jpaQueryFactory;
 
-    public {{Biz}} getById(Long id) {
-        return {{biz}}Repository.findById(id).orElse(null);
+    /**
+     * 根据ID获取{{comment}}
+     *
+     * @param id ID
+     * @return {@link {{Biz}}DTO}
+     */
+    public {{Biz}}DTO getById(Long id) {
+        return {{biz}}Mapper.to{{Biz}}DTO({{biz}}Repository.findById(id).orElse(null));
     }
 
-    private JPAQuery<{{Biz}}> buildQuery({{Biz}}QueryDTO queryDTO) {
-        JPAQuery<{{Biz}}> query = jpaQueryFactory.selectFrom(Q{{Biz}}.{{biz}});
-        ArrayList<Predicate> predicates = new ArrayList<>();
-        query.where(predicates.toArray(Predicate[]::new));
-        query.orderBy(Q{{Biz}}.{{biz}}.id.desc());
+    /**
+     * 构建查询
+     *
+     * @param dto 查询条件
+     * @return {@link JPAQuery<{{Biz}}>}
+     */
+    private JPAQuery<{{Biz}}> buildQuery({{Biz}}DTO dto) {
+        Q{{Biz}} q{{biz}} = Q{{Biz}}.{{biz}};
+        JPAQuery<{{Biz}}> query = jpaQueryFactory.selectFrom(q{{biz}});
+        query.where(new Predicate[]{
+                dto.id() != null ? q{{biz}}.id.eq(dto.id()) : null,
+        });
+        query.orderBy(q{{biz}}.id.desc());
         return query;
     }
 
-    public List<{{Biz}}> list({{Biz}}QueryDTO queryDTO) {
-        JPAQuery<{{Biz}}> query = buildQuery(queryDTO);
-        return query.fetch();
+    /**
+     * {{comment}}列表
+     *
+     * @param dto 查询条件
+     * @return {@link List<{{Biz}}DTO>}
+     */
+    public List<{{Biz}}DTO> list({{Biz}}DTO dto) {
+        JPAQuery<{{Biz}}> query = buildQuery(dto);
+        return {{biz}}Mapper.to{{Biz}}DTO(query.fetch());
     }
 
-    public PageDTO<{{Biz}}> page({{Biz}}QueryDTO queryDTO) {
-        JPAQuery<{{Biz}}> query = buildQuery(queryDTO);
-        queryDTO.setTotal(query.fetchCount());
-        List<{{Biz}}> data = query.offset((long) (queryDTO.getCurrent() - 1) * queryDTO.getPageSize()).limit(queryDTO.getPageSize()).fetch();
-        queryDTO.setData(data);
-        return queryDTO;
+    /**
+     * 分页查询{{comment}}
+     *
+     * @param dto      查询条件
+     * @param current  当前页
+     * @param pageSize 每页大小
+     * @return {@link PageDTO<{{Biz}}DTO>}
+     */
+    public PageDTO<{{Biz}}DTO> page({{Biz}}DTO dto, Integer current, Integer pageSize) {
+        JPAQuery<{{Biz}}> query = buildQuery(dto);
+        query.offset((long) (current - 1) * pageSize).limit(pageSize);
+        QueryResults<{{Biz}}> results = query.fetchResults();
+        return new PageDTO<>(current, pageSize, {{biz}}Mapper.to{{Biz}}DTO(results.getResults()), results.getTotal());
     }
 
-    public {{Biz}} save({{Biz}} {{biz}}) {
-        return {{biz}}Repository.save({{biz}});
+    /**
+     * 保存{{comment}}
+     *
+     * @param dto {@link {{Biz}}DTO}
+     * @return {@link {{Biz}}DTO}
+     */
+    public {{Biz}}DTO save({{Biz}}DTO dto) {
+        {{Biz}} {{biz}} = {{biz}}Mapper.to{{Biz}}(dto);
+        if (dto.id() != null) {
+            {{biz}} = {{biz}}Repository.findById(dto.id()).orElse(null);
+        }
+        {{biz}}Mapper.partialUpdate(dto, {{biz}});
+        assert {{biz}} != null;
+        return {{biz}}Mapper.to{{Biz}}DTO({{biz}}Repository.save({{biz}}));
     }
 
+    /**
+     * 通过ID删除{{comment}}
+     *
+     * @param id ID
+     * @return boolean
+     */
     public boolean delete(Long id) {
         {{biz}}Repository.deleteById(id);
         return true;

@@ -5,10 +5,15 @@ import re
 
 tasks = [
     {
-        "package": "system",
-        "biz": "dept",
-        "comment": "部门",
-    }
+        "package": "resource",
+        "biz": "server",
+        "comment": "服务器",
+    },
+    {
+        "package": "resource",
+        "biz": "domain",
+        "comment": "域名",
+    },
 ]
 # 更改当前工作目录
 work_dir = Path(__file__).parent.parent
