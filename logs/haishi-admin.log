@@ -4560,3 +4560,9 @@ Caused by: org.hibernate.AnnotationException: Collection 'com.haishi.admin.resou
 2024-06-09T20:36:58.567+08:00  INFO 1012 --- [haishi-admin] [RMI TCP Connection(5)-198.18.0.1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2024-06-09T20:36:58.569+08:00  INFO 1012 --- [haishi-admin] [RMI TCP Connection(5)-198.18.0.1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
 2024-06-09T20:36:59.908+08:00  INFO 1012 --- [haishi-admin] [http-nio-8888-exec-2] c.h.a.a.s.AuthenticationSessionFilter    : ================ AuthenticationSessionFilter =================
+2024-06-09T20:37:29.942+08:00  INFO 1012 --- [haishi-admin] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2024-06-09T20:37:29.942+08:00  INFO 1012 --- [haishi-admin] [SpringApplicationShutdownHook] o.s.i.channel.PublishSubscribeChannel    : Channel 'haishi-admin.errorChannel' has 0 subscriber(s).
+2024-06-09T20:37:29.942+08:00  INFO 1012 --- [haishi-admin] [SpringApplicationShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean '_org.springframework.integration.errorLogger'
+2024-06-09T20:37:30.346+08:00  INFO 1012 --- [haishi-admin] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-06-09T20:37:30.348+08:00  INFO 1012 --- [haishi-admin] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariCP - Shutdown initiated...
+2024-06-09T20:37:30.349+08:00  INFO 1012 --- [haishi-admin] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariCP - Shutdown completed.
