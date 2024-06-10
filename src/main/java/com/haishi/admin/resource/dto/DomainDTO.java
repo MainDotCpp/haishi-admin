@@ -16,8 +16,9 @@ import java.io.Serializable;
 @Data
 public class DomainDTO implements Serializable {
     Long id;
-    String domain;
-    Short status;
+    @Size(max = 255)
+    private String domain;
+    private Short status;
     private UserDTO owner;
     private ServerDTO server;
 
@@ -29,6 +30,7 @@ public class DomainDTO implements Serializable {
     @NoArgsConstructor
     public static class UserDTO implements Serializable {
         private Long id;
+        private String username;
         private String nickname;
     }
 

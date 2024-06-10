@@ -3,8 +3,8 @@ package com.haishi.admin.resource.service;
 import com.haishi.admin.common.dto.PageDTO;
 import com.haishi.admin.resource.dao.ServerRepository;
 import com.haishi.admin.resource.dto.ServerDTO;
-import com.haishi.admin.resource.entity.Server;
 import com.haishi.admin.resource.entity.QServer;
+import com.haishi.admin.resource.entity.Server;
 import com.haishi.admin.resource.mapper.ServerMapper;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.Predicate;
@@ -13,6 +13,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -45,9 +46,10 @@ public class ServerService {
      */
     private JPAQuery<Server> buildQuery(ServerDTO dto) {
         QServer qserver = QServer.server;
-        JPAQuery<Server> query = jpaQueryFactory.selectFrom(qserver);
+        JPAQuery<Server> query = jpaQueryFactory
+                .selectFrom(qserver);
         query.where(new Predicate[]{
-                dto.id() != null ? qserver.id.eq(dto.id()) : null,
+                dto.getId() != null ? qserver.id.eq(dto.getId()) : null,
         });
         query.orderBy(qserver.id.desc());
         return query;
@@ -61,7 +63,7 @@ public class ServerService {
      */
     public List<ServerDTO> list(ServerDTO dto) {
         JPAQuery<Server> query = buildQuery(dto);
-        return serverMapper.toServerDTO(query.fetch());
+        return serverMapper.toServerDTOList(query.fetch());
     }
 
     /**
@@ -76,7 +78,7 @@ public class ServerService {
         JPAQuery<Server> query = buildQuery(dto);
         query.offset((long) (current - 1) * pageSize).limit(pageSize);
         QueryResults<Server> results = query.fetchResults();
-        return new PageDTO<>(current, pageSize, serverMapper.toServerDTO(results.getResults()), results.getTotal());
+        return new PageDTO<>(current, pageSize, serverMapper.toServerDTOList(results.getResults()), results.getTotal());
     }
 
     /**
@@ -85,13 +87,15 @@ public class ServerService {
      * @param dto {@link ServerDTO}
      * @return {@link ServerDTO}
      */
+    @Transactional(rollbackFor = Exception.class)
     public ServerDTO save(ServerDTO dto) {
-        Server server = serverMapper.toServer(dto);
-        if (dto.id() != null) {
-            server = serverRepository.findById(dto.id()).orElse(null);
+        Server server = new Server();
+        if (dto.getId() != null) {
+            QServer qServer = QServer.server;
+            Server exist = jpaQueryFactory.selectFrom(qServer).where(qServer.id.eq(dto.getId())).fetchOne();
+            server = serverMapper.copy(exist);
         }
         serverMapper.partialUpdate(dto, server);
-        assert server != null;
         return serverMapper.toServerDTO(serverRepository.save(server));
     }
 

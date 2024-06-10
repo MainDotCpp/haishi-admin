@@ -1,0 +1,19 @@
+package com.haishi.admin.{{package}}.dto;
+
+import com.haishi.admin.system.enums.DataPermission;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.Value;
+
+import java.io.Serializable;
+
+/**
+ * DTO for {@link com.haishi.admin.{{package}}.entity.{{Biz}}}
+ */
+@Data
+public class {{Biz}}DTO implements Serializable {
+    Long id;
+}

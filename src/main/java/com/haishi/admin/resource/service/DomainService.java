@@ -1,26 +1,17 @@
 package com.haishi.admin.resource.service;
 
-import cn.hutool.core.bean.BeanUtil;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.haishi.admin.common.dto.PageDTO;
 import com.haishi.admin.resource.dao.DomainRepository;
 import com.haishi.admin.resource.dto.DomainDTO;
-import com.haishi.admin.resource.entity.Domain;
 import com.haishi.admin.resource.entity.QDomain;
-import com.haishi.admin.resource.entity.QServer;
+import com.haishi.admin.resource.entity.Domain;
 import com.haishi.admin.resource.mapper.DomainMapper;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.Predicate;
-import com.querydsl.jpa.hibernate.HibernateUpdateClause;
-import com.querydsl.jpa.hibernate.HibernateUtil;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.SessionFactory;
-import org.springframework.data.jpa.provider.HibernateUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,7 +27,6 @@ public class DomainService {
     private final DomainRepository domainRepository;
     private final DomainMapper domainMapper;
     private final JPAQueryFactory jpaQueryFactory;
-    private final EntityManager entityManager;
 
     /**
      * 根据ID获取域名
@@ -101,7 +91,8 @@ public class DomainService {
     public DomainDTO save(DomainDTO dto) {
         Domain domain = new Domain();
         if (dto.getId() != null) {
-            Domain exist = jpaQueryFactory.selectFrom(QDomain.domain1).where(QDomain.domain1.id.eq(dto.getId())).fetchOne();
+            QDomain qDomain = QDomain.domain1;
+            Domain exist = jpaQueryFactory.selectFrom(qDomain).where(qDomain.id.eq(dto.getId())).fetchOne();
             domain = domainMapper.copy(exist);
         }
         domainMapper.partialUpdate(dto, domain);

@@ -10,19 +10,15 @@ import java.util.List;
 @Mapper(
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
         componentModel = MappingConstants.ComponentModel.SPRING,
-        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
-        nullValueMappingStrategy = NullValueMappingStrategy.RETURN_NULL,
-        nullValueIterableMappingStrategy = NullValueMappingStrategy.RETURN_NULL,
-        nullValueMapMappingStrategy = NullValueMappingStrategy.RETURN_NULL,
-        uses = {ServerMapper.class, UserMapper.class}
+        uses = {UserMapper.class, ServerMapper.class}
 )
 public interface DomainMapper {
+
 
     Domain toDomain(DomainDTO domainDTO);
 
     @InheritInverseConfiguration(name = "toDomain")
     DomainDTO toDomainDTO(Domain domain);
-
 
     List<Domain> toDomainList(List<DomainDTO> domainDTOList);
 

@@ -6,6 +6,11 @@ import re
 tasks = [
     {
         "package": "resource",
+        "biz": "server",
+        "comment": "服务器",
+    },
+    {
+        "package": "resource",
         "biz": "domain",
         "comment": "域名",
     }
@@ -91,5 +96,5 @@ def convert_dict(data):
 if __name__ == '__main__':
     for task in tasks:
         convert_dict(task)
-        # render_all_templates(task)
-        eject_template(task)
+        render_all_templates(task)
+        # eject_template(task)

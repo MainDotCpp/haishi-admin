@@ -55,7 +55,7 @@ public class {{Biz}}Service {
      * @return {@link JPAQuery<{{Biz}}>}
      */
     private JPAQuery<{{Biz}}> buildQuery({{Biz}}DTO dto) {
-        Q{{Biz}} q{{biz}} = Q{{Biz}}.{{biz}}1;
+        Q{{Biz}} q{{biz}} = Q{{Biz}}.{{biz}};
         JPAQuery<{{Biz}}> query = jpaQueryFactory
                 .selectFrom(q{{biz}});
         query.where(new Predicate[]{

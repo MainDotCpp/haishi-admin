@@ -27,7 +27,7 @@ public class DomainController {
 
     @Operation(summary = "域名列表")
     @GetMapping("/list")
-    @PreAuthorize("hasAnyAuthority('SERVER')")
+    @PreAuthorize("hasAnyAuthority('DOMAIN')")
     public HttpResult<List<DomainDTO>> list(DomainDTO queryDTO) {
         return HttpResult.success(
                 domainService.list(queryDTO)
@@ -36,7 +36,7 @@ public class DomainController {
 
     @Operation(summary = "分页查询域名")
     @GetMapping("/page")
-    @PreAuthorize("hasAnyAuthority('SERVER')")
+    @PreAuthorize("hasAnyAuthority('DOMAIN')")
     public HttpResult<PageDTO<DomainDTO>> page(DomainDTO queryDTO, Integer current, Integer pageSize) {
         return HttpResult.success(
                 domainService.page(queryDTO, current, pageSize)
@@ -45,7 +45,7 @@ public class DomainController {
 
     @Operation(summary = "保存域名")
     @PostMapping("/save")
-    @PreAuthorize("hasAnyAuthority('SERVER__EDIT')")
+    @PreAuthorize("hasAnyAuthority('DOMAIN__EDIT')")
     public HttpResult<DomainDTO> save(@RequestBody DomainDTO domainUpdateDTO) {
         return HttpResult.success(
                 domainService.save(domainUpdateDTO)
@@ -54,7 +54,7 @@ public class DomainController {
 
     @Operation(summary = "通过ID删除域名")
     @PostMapping("/deleteById")
-    @PreAuthorize("hasAnyAuthority('SERVER__DELETE')")
+    @PreAuthorize("hasAnyAuthority('DOMAIN__DELETE')")
     public HttpResult<Boolean> delete(Long id) {
         return HttpResult.success(
                 domainService.delete(id)
