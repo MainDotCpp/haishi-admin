@@ -6,13 +6,13 @@ import re
 tasks = [
     {
         "package": "resource",
-        "biz": "server",
-        "comment": "服务器",
+        "biz": "domain",
+        "comment": "域名",
     }
 ]
 # 更改当前工作目录
 work_dir = Path(__file__).parent.parent
-output_dir = work_dir.joinpath("generate")
+output_dir = work_dir.joinpath("src/main/java/com/haishi/admin")
 template_dir = work_dir.joinpath("script/templates")
 
 
@@ -67,10 +67,12 @@ def eject_template(data):
     for it in output_dir.rglob("*"):
         if it.is_dir():
             continue
-        print(f"Ejecting {it}...")
         output_path = Path.relative_to(it, output_dir)
+
         output_path = reverse_replace(str(output_path) + ".j2", data)
         output_path = work_dir / f"{template_dir}__{data.get('biz')}" / output_path
+        if "{{Biz}}" not in str(output_path):
+            continue
         print(output_path)
         output_path.parent.mkdir(parents=True, exist_ok=True)
         with open(it, "r", encoding="utf-8") as f:

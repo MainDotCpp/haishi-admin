@@ -1,5 +1,8 @@
 package com.haishi.admin.resource.service;
 
+import cn.hutool.core.bean.BeanUtil;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.haishi.admin.common.dto.PageDTO;
 import com.haishi.admin.resource.dao.DomainRepository;
 import com.haishi.admin.resource.dto.DomainDTO;
@@ -9,11 +12,17 @@ import com.haishi.admin.resource.entity.QServer;
 import com.haishi.admin.resource.mapper.DomainMapper;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.Predicate;
+import com.querydsl.jpa.hibernate.HibernateUpdateClause;
+import com.querydsl.jpa.hibernate.HibernateUtil;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.SessionFactory;
+import org.springframework.data.jpa.provider.HibernateUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -27,6 +36,7 @@ public class DomainService {
     private final DomainRepository domainRepository;
     private final DomainMapper domainMapper;
     private final JPAQueryFactory jpaQueryFactory;
+    private final EntityManager entityManager;
 
     /**
      * 根据ID获取域名
@@ -46,10 +56,8 @@ public class DomainService {
      */
     private JPAQuery<Domain> buildQuery(DomainDTO dto) {
         QDomain qdomain = QDomain.domain1;
-        QServer qserver = QServer.server;
         JPAQuery<Domain> query = jpaQueryFactory
-                .selectFrom(qdomain)
-                .innerJoin(qdomain.server).fetchJoin();
+                .selectFrom(qdomain);
         query.where(new Predicate[]{
                 dto.getId() != null ? qdomain.id.eq(dto.getId()) : null,
         });
@@ -89,13 +97,14 @@ public class DomainService {
      * @param dto {@link DomainDTO}
      * @return {@link DomainDTO}
      */
+    @Transactional(rollbackFor = Exception.class)
     public DomainDTO save(DomainDTO dto) {
-        Domain domain = domainMapper.toDomain(dto);
+        Domain domain = new Domain();
         if (dto.getId() != null) {
-            domain = domainRepository.findById(dto.getId()).orElse(null);
+            Domain exist = jpaQueryFactory.selectFrom(QDomain.domain1).where(QDomain.domain1.id.eq(dto.getId())).fetchOne();
+            domain = domainMapper.copy(exist);
         }
         domainMapper.partialUpdate(dto, domain);
-        assert domain != null;
         return domainMapper.toDomainDTO(domainRepository.save(domain));
     }
 

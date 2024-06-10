@@ -18,4 +18,6 @@ public interface ServerMapper {
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     Server partialUpdate(ServerDTO serverDTO, @MappingTarget Server server);
+
+    Server copy(Server server);
 }

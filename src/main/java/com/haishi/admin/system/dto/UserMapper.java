@@ -25,4 +25,6 @@ public interface UserMapper {
     default List<String> rolesToRoleNames(List<Role> roles) {
         return roles.stream().map(Role::getName).collect(Collectors.toList());
     }
+
+    User copy(User user);
 }

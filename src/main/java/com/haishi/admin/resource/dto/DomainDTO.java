@@ -18,16 +18,19 @@ public class DomainDTO implements Serializable {
     Long id;
     String domain;
     Short status;
+    private UserDTO owner;
     private ServerDTO server;
 
     /**
      * DTO for {@link com.haishi.admin.system.entity.User}
      */
     @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class UserDTO implements Serializable {
-        Long id;
+        private Long id;
+        private String nickname;
     }
-
 
     /**
      * DTO for {@link com.haishi.admin.resource.entity.Server}
@@ -37,9 +40,9 @@ public class DomainDTO implements Serializable {
     @NoArgsConstructor
     public static class ServerDTO implements Serializable {
         private Long id;
+        @Size(max = 255)
         private String ip;
+        @Size(max = 255)
         private String name;
-        private Integer port;
-        private String status;
     }
 }
