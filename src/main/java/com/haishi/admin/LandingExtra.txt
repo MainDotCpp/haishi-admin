@@ -1,0 +1,7 @@
+insert into sys_permission (code, name)
+values
+('LANDING', '落地页'),
+('LANDING__VIEW', '落地页:查看'),
+
+       ('LANDING__EDIT', '落地页:编辑'),
+       ('LANDING__DELETE', '落地页:删除');

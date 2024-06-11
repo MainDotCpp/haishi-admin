@@ -1,5 +1,6 @@
 package com.haishi.admin.resource.entity;
 
+import com.haishi.admin.resource.enums.ServerStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -27,12 +28,7 @@ public class Server {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "port", nullable = false)
-    private Integer port;
-
-    @Size(max = 255)
     @Column(name = "status", nullable = false)
-    private String status;
-
-
+    @Enumerated(EnumType.STRING)
+    private ServerStatus status = ServerStatus.DISCONNECTED;
 }

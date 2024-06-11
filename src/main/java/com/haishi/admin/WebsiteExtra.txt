@@ -1,0 +1,7 @@
+insert into sys_permission (code, name)
+values
+('WEBSITE', '网站'),
+('WEBSITE__VIEW', '网站:查看'),
+
+       ('WEBSITE__EDIT', '网站:编辑'),
+       ('WEBSITE__DELETE', '网站:删除');

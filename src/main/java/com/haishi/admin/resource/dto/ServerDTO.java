@@ -1,5 +1,7 @@
 package com.haishi.admin.resource.dto;
 
+import com.haishi.admin.resource.enums.ServerStatus;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -10,4 +12,8 @@ import java.io.Serializable;
 @Data
 public class ServerDTO implements Serializable {
     Long id;
+    String ip;
+    String name;
+    Integer port;
+    ServerStatus status;
 }

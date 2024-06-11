@@ -2,7 +2,6 @@ package com.haishi.admin.resource.mapper;
 
 import com.haishi.admin.resource.dto.ServerDTO;
 import com.haishi.admin.resource.entity.Server;
-import com.haishi.admin.system.dto.UserMapper;
 import org.mapstruct.*;
 
 import java.util.List;
@@ -13,19 +12,19 @@ import java.util.List;
 )
 public interface ServerMapper {
 
+    ServerDTO toServerDTO(Server server);
+
     Server toServer(ServerDTO serverDTO);
 
-    @InheritInverseConfiguration(name = "toServer")
-    ServerDTO toServerDTO(Server server);
-    
     List<Server> toServerList(List<ServerDTO> serverDTOList);
 
     List<ServerDTO> toServerDTOList(List<Server> serverList);
 
-    @InheritConfiguration(name = "toServer")
+    @InheritConfiguration
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     Server partialUpdate(ServerDTO serverDTO, @MappingTarget Server server);
 
     Server copy(Server server);
 
+    Server idToEntity(Long id);
 }

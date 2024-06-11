@@ -1,0 +1,7 @@
+insert into sys_permission (code, name)
+values
+('ORDER', '工单'),
+('ORDER__VIEW', '工单:查看'),
+
+       ('ORDER__EDIT', '工单:编辑'),
+       ('ORDER__DELETE', '工单:删除');

@@ -10,24 +10,31 @@ import java.util.List;
 @Mapper(
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
         componentModel = MappingConstants.ComponentModel.SPRING,
-        uses = {UserMapper.class, ServerMapper.class}
+        uses = {ServerMapper.class, UserMapper.class}
 )
 public interface DomainMapper {
 
+    @Mapping(source = "server.name", target = "serverName")
+    @Mapping(source = "server.ip", target = "serverIp")
+    @Mapping(source = "server.id", target = "serverId")
+    @Mapping(source = "owner.nickname", target = "ownerNickname")
+    @Mapping(source = "owner.id", target = "ownerId")
+    DomainDTO toDomainDTO(Domain domain);
 
+    @Mapping(source = "serverId", target = "server")
+    @Mapping(source = "ownerId", target = "owner")
     Domain toDomain(DomainDTO domainDTO);
 
-    @InheritInverseConfiguration(name = "toDomain")
-    DomainDTO toDomainDTO(Domain domain);
 
     List<Domain> toDomainList(List<DomainDTO> domainDTOList);
 
     List<DomainDTO> toDomainDTOList(List<Domain> domainList);
 
-    @InheritConfiguration(name = "toDomain")
+    @InheritConfiguration
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     Domain partialUpdate(DomainDTO domainDTO, @MappingTarget Domain domain);
 
     Domain copy(Domain domain);
 
+    Domain idToEntity(Long id);
 }

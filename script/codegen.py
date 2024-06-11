@@ -6,13 +6,17 @@ import re
 tasks = [
     {
         "package": "resource",
-        "biz": "server",
-        "comment": "服务器",
+        "biz": "order",
+        "comment": "工单",
     },
     {
         "package": "resource",
-        "biz": "domain",
-        "comment": "域名",
+        "biz": "landing",
+        "comment": "落地页",
+    }, {
+        "package": "resource",
+        "biz": "website",
+        "comment": "网站",
     }
 ]
 # 更改当前工作目录
@@ -60,6 +64,8 @@ def render_all_templates(data):
 
 def reverse_replace(s, data):
     for key in data:
+        s = s.replace("{{", "{ {")
+        s = s.replace("{" + key, "{ " + data[key])
         s = s.replace(data[key], "{{" + key + "}}")
     return s
 

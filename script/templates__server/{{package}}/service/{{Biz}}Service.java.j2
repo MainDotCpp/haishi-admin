@@ -1,6 +1,7 @@
 package com.haishi.admin.{{package}}.service;
 
 import com.haishi.admin.common.dto.PageDTO;
+import com.haishi.admin.common.exception.BizException;
 import com.haishi.admin.{{package}}.dao.{{Biz}}Repository;
 import com.haishi.admin.{{package}}.dto.{{Biz}}DTO;
 import com.haishi.admin.{{package}}.entity.Q{{Biz}};
@@ -90,11 +91,8 @@ public class {{Biz}}Service {
     @Transactional(rollbackFor = Exception.class)
     public {{Biz}}DTO save({{Biz}}DTO dto) {
         {{Biz}} {{biz}} = new {{Biz}}();
-        if (dto.getId() != null) {
-            Q{{Biz}} q{{Biz}} = Q{{Biz}}.{{biz}};
-            {{Biz}} exist = jpaQueryFactory.selectFrom(q{{Biz}}).where(q{{Biz}}.id.eq(dto.getId())).fetchOne();
-            {{biz}} = {{biz}}Mapper.copy(exist);
-        }
+        if (dto.getId() != null)
+            {{biz}} = {{biz}}Repository.findById(dto.getId()).orElseThrow(() -> new BizException("系统错误:{{comment}}不存在"));
         {{biz}}Mapper.partialUpdate(dto, {{biz}});
         return {{biz}}Mapper.to{{Biz}}DTO({{biz}}Repository.save({{biz}}));
     }

@@ -1,6 +1,7 @@
 package com.haishi.admin.resource.service;
 
 import com.haishi.admin.common.dto.PageDTO;
+import com.haishi.admin.common.exception.BizException;
 import com.haishi.admin.resource.dao.DomainRepository;
 import com.haishi.admin.resource.dto.DomainDTO;
 import com.haishi.admin.resource.entity.QDomain;
@@ -90,11 +91,8 @@ public class DomainService {
     @Transactional(rollbackFor = Exception.class)
     public DomainDTO save(DomainDTO dto) {
         Domain domain = new Domain();
-        if (dto.getId() != null) {
-            QDomain qDomain = QDomain.domain1;
-            Domain exist = jpaQueryFactory.selectFrom(qDomain).where(qDomain.id.eq(dto.getId())).fetchOne();
-            domain = domainMapper.copy(exist);
-        }
+        if (dto.getId() != null)
+            domain = domainRepository.findById(dto.getId()).orElseThrow(() -> new BizException("系统错误:域名不存在"));
         domainMapper.partialUpdate(dto, domain);
         return domainMapper.toDomainDTO(domainRepository.save(domain));
     }

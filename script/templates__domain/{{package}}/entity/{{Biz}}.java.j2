@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 
 @Getter
 @Setter
@@ -23,6 +24,10 @@ public class {{Biz}} {
 
     @Column(name = "status", nullable = false)
     private Short status;
+
+    @ColumnDefault("false")
+    @Column(name = "proxy_shortlink")
+    private Boolean proxyShortlink = false;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id")

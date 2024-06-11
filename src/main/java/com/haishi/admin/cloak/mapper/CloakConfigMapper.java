@@ -11,6 +11,8 @@ import com.haishi.admin.shortlink.entity.ShortLinkConfig;
 import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
 
+import java.util.UUID;
+
 @Mapper(componentModel = "spring", uses = {})
 public interface CloakConfigMapper {
     CloakConfigMapper INSTANCE = Mappers.getMapper(CloakConfigMapper.class);
@@ -33,5 +35,7 @@ public interface CloakConfigMapper {
     ShortLinkConfig partialUpdate(ShortLinkConfigUpdateDTO shortLinkConfigUpdateDTO, @MappingTarget ShortLinkConfig shortLinkConfig);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    void partialUpdate(ShortLinkConfig shortLinkConfig,@MappingTarget ShortLinkConfig exist);
+    void partialUpdate(ShortLinkConfig shortLinkConfig, @MappingTarget ShortLinkConfig exist);
+
+    CloakConfig idToEntity(UUID id);
 }

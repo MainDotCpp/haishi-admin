@@ -27,7 +27,7 @@ public class {{Biz}}Controller {
 
     @Operation(summary = "{{comment}}列表")
     @GetMapping("/list")
-    @PreAuthorize("hasAnyAuthority('SERVER')")
+    @PreAuthorize("hasAnyAuthority('{{BIZ}}')")
     public HttpResult<List<{{Biz}}DTO>> list({{Biz}}DTO queryDTO) {
         return HttpResult.success(
                 {{biz}}Service.list(queryDTO)
@@ -36,7 +36,7 @@ public class {{Biz}}Controller {
 
     @Operation(summary = "分页查询{{comment}}")
     @GetMapping("/page")
-    @PreAuthorize("hasAnyAuthority('SERVER')")
+    @PreAuthorize("hasAnyAuthority('{{BIZ}}')")
     public HttpResult<PageDTO<{{Biz}}DTO>> page({{Biz}}DTO queryDTO, Integer current, Integer pageSize) {
         return HttpResult.success(
                 {{biz}}Service.page(queryDTO, current, pageSize)
@@ -45,7 +45,7 @@ public class {{Biz}}Controller {
 
     @Operation(summary = "保存{{comment}}")
     @PostMapping("/save")
-    @PreAuthorize("hasAnyAuthority('SERVER__EDIT')")
+    @PreAuthorize("hasAnyAuthority('{{BIZ}}__EDIT')")
     public HttpResult<{{Biz}}DTO> save(@RequestBody {{Biz}}DTO {{biz}}UpdateDTO) {
         return HttpResult.success(
                 {{biz}}Service.save({{biz}}UpdateDTO)
@@ -54,7 +54,7 @@ public class {{Biz}}Controller {
 
     @Operation(summary = "通过ID删除{{comment}}")
     @PostMapping("/deleteById")
-    @PreAuthorize("hasAnyAuthority('SERVER__DELETE')")
+    @PreAuthorize("hasAnyAuthority('{{BIZ}}__DELETE')")
     public HttpResult<Boolean> delete(Long id) {
         return HttpResult.success(
                 {{biz}}Service.delete(id)

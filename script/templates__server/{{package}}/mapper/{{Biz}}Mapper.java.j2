@@ -2,7 +2,6 @@ package com.haishi.admin.{{package}}.mapper;
 
 import com.haishi.admin.{{package}}.dto.{{Biz}}DTO;
 import com.haishi.admin.{{package}}.entity.{{Biz}};
-import com.haishi.admin.system.dto.UserMapper;
 import org.mapstruct.*;
 
 import java.util.List;
@@ -13,19 +12,19 @@ import java.util.List;
 )
 public interface {{Biz}}Mapper {
 
+    {{Biz}}DTO to{{Biz}}DTO({{Biz}} {{biz}});
+
     {{Biz}} to{{Biz}}({{Biz}}DTO {{biz}}DTO);
 
-    @InheritInverseConfiguration(name = "to{{Biz}}")
-    {{Biz}}DTO to{{Biz}}DTO({{Biz}} {{biz}});
-    
     List<{{Biz}}> to{{Biz}}List(List<{{Biz}}DTO> {{biz}}DTOList);
 
     List<{{Biz}}DTO> to{{Biz}}DTOList(List<{{Biz}}> {{biz}}List);
 
-    @InheritConfiguration(name = "to{{Biz}}")
+    @InheritConfiguration
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     {{Biz}} partialUpdate({{Biz}}DTO {{biz}}DTO, @MappingTarget {{Biz}} {{biz}});
 
     {{Biz}} copy({{Biz}} {{biz}});
 
+    {{Biz}} idToEntity(Long id);
 }

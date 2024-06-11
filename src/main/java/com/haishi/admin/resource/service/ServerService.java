@@ -1,6 +1,7 @@
 package com.haishi.admin.resource.service;
 
 import com.haishi.admin.common.dto.PageDTO;
+import com.haishi.admin.common.exception.BizException;
 import com.haishi.admin.resource.dao.ServerRepository;
 import com.haishi.admin.resource.dto.ServerDTO;
 import com.haishi.admin.resource.entity.QServer;
@@ -90,11 +91,8 @@ public class ServerService {
     @Transactional(rollbackFor = Exception.class)
     public ServerDTO save(ServerDTO dto) {
         Server server = new Server();
-        if (dto.getId() != null) {
-            QServer qServer = QServer.server;
-            Server exist = jpaQueryFactory.selectFrom(qServer).where(qServer.id.eq(dto.getId())).fetchOne();
-            server = serverMapper.copy(exist);
-        }
+        if (dto.getId() != null)
+            server = serverRepository.findById(dto.getId()).orElseThrow(() -> new BizException("系统错误:服务器不存在"));
         serverMapper.partialUpdate(dto, server);
         return serverMapper.toServerDTO(serverRepository.save(server));
     }
