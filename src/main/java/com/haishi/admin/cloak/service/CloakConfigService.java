@@ -41,9 +41,9 @@ public class CloakConfigService {
     private JPAQuery<CloakConfig> buildQuery(CloakConfigQueryDTO queryDTO) {
         JPAQuery<CloakConfig> query = jpaQueryFactory.selectFrom(QCloakConfig.cloakConfig);
         ArrayList<Predicate> predicates = new ArrayList<>();
+        predicates.add(QCloakConfig.cloakConfig.hidden.eq(false));
         query.where(predicates.toArray(Predicate[]::new));
         query.orderBy(QCloakConfig.cloakConfig.id.desc());
-
         return query;
     }
 
@@ -65,7 +65,7 @@ public class CloakConfigService {
         if (updateDTO.getId() != null) {
             config = cloakConfigRepository.findById(updateDTO.getId()).orElseThrow(() -> new BizException(BizExceptionEnum.CLOAK_CONFIG_NOT_FOUND));
         }
-        cloakConfigMapper.partialUpdate(updateDTO,config);
+        cloakConfigMapper.partialUpdate(updateDTO, config);
         return cloakConfigRepository.save(config);
     }
 
