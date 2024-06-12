@@ -17,4 +17,5 @@ public class OrderDTO implements Serializable {
     private Date lastModifiedDate;
     private String deptId;
     private String link;
+    private Long orderGroupId;
 }

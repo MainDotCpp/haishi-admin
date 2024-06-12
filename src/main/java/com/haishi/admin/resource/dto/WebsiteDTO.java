@@ -27,6 +27,7 @@ public class WebsiteDTO implements Serializable {
     private String landingDescription;
     private Integer landingVersion;
     private Set<OrderDTO> orders = new LinkedHashSet<>();
+    private Long domainId;
 
     /**
      * DTO for {@link com.haishi.admin.resource.entity.Order}

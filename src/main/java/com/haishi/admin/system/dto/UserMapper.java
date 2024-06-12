@@ -29,4 +29,6 @@ public interface UserMapper {
     User copy(User user);
 
     User idToEntity(Long id);
+
+    UserIdAndNickNameDTO toUserIdAndNickNameDTO(User user);
 }

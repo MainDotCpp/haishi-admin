@@ -14,6 +14,7 @@ import java.util.List;
 )
 public interface WebsiteMapper {
 
+    @Mapping(source = "domain.id", target = "domainId")
     @Mapping(source = "landing.version", target = "landingVersion")
     @Mapping(source = "landing.description", target = "landingDescription")
     @Mapping(source = "landing.cover", target = "landingCover")
@@ -24,10 +25,10 @@ public interface WebsiteMapper {
     @Mapping(source = "cloakConfig.id", target = "cloakConfigId")
     WebsiteDTO toWebsiteDTO(Website website);
 
+    @Mapping(source = "domainId", target = "domain.id")
     @Mapping(source = "landingId", target = "landing")
     @Mapping(source = "cloakConfigId", target = "cloakConfig")
     Website toWebsite(WebsiteDTO websiteDTO);
-
 
     List<Website> toWebsiteList(List<WebsiteDTO> websiteDTOList);
 

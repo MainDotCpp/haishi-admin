@@ -6,22 +6,14 @@ import re
 tasks = [
     {
         "package": "resource",
-        "biz": "order",
-        "comment": "工单",
-    },
-    {
-        "package": "resource",
-        "biz": "landing",
-        "comment": "落地页",
-    }, {
-        "package": "resource",
-        "biz": "website",
-        "comment": "网站",
+        "biz": "orderGroup",
+        "comment": "工单组",
     }
 ]
 # 更改当前工作目录
 work_dir = Path(__file__).parent.parent
-output_dir = work_dir.joinpath("src/main/java/com/haishi/admin")
+# output_dir = work_dir.joinpath("src/main/java/com/haishi/admin")
+output_dir = work_dir.joinpath("generate")
 template_dir = work_dir.joinpath("script/templates")
 
 
@@ -30,7 +22,7 @@ def first_upper(s):
 
 
 def covert_to_camel(s):
-    return "".join([first_upper(x) for x in s.split("_")])
+    return re.sub(r'_(\w)', lambda x: x.group(1).upper(), s)
 
 
 # 驼峰转常亮命名
@@ -94,7 +86,7 @@ def eject_template(data):
 
 
 def convert_dict(data):
-    data["Biz"] = data["biz"].capitalize()
+    data["Biz"] = first_upper(data["biz"])
     data["BIZ"] = data["biz"].upper()
     data["B_I_Z"] = covert_to_const(data["biz"])
 

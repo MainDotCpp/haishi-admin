@@ -18,7 +18,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
-        private Long id;
+    private Long id;
 
     @Schema(description = "用户名")
     @Column(name = "username", nullable = false)
@@ -42,14 +42,14 @@ public class User {
 
     @Schema(description = "创建时间")
     @Column(name = "create_time")
-        private Long createTime;
+    private Long createTime;
 
     @Schema(description = "更新时间")
     @Column(name = "update_time")
     private Long updateTime;
 
     @Schema(description = "角色")
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "sys_user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Role> roles;
 
@@ -58,7 +58,7 @@ public class User {
     private DataPermission dataPermission;
 
     @Schema(description = "访问令牌")
-    @Column(name = "access_token",length = 1024)
+    @Column(name = "access_token", length = 1024)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String accessToken;
 }

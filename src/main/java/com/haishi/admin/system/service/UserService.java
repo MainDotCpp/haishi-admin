@@ -3,10 +3,7 @@ package com.haishi.admin.system.service;
 import com.haishi.admin.auth.service.AuthService;
 import com.haishi.admin.common.exception.BizException;
 import com.haishi.admin.common.exception.BizExceptionEnum;
-import com.haishi.admin.system.dto.UserDto;
-import com.haishi.admin.system.dto.UserMapper;
-import com.haishi.admin.system.dto.UserQueryDTO;
-import com.haishi.admin.system.dto.Userinfo;
+import com.haishi.admin.system.dto.*;
 import com.haishi.admin.system.entity.QUser;
 import com.haishi.admin.common.dto.PageDTO;
 import com.haishi.admin.system.dao.UserRepository;
@@ -49,8 +46,7 @@ public class UserService {
 
     private JPAQuery<User> buildQuery(UserQueryDTO queryDTO) {
         JPAQuery<User> query = jpaQueryFactory.selectFrom(QUser.user);
-        ArrayList<Predicate> predicates = new ArrayList<>();
-        query.where(predicates.toArray(Predicate[]::new));
+        query.where(QUser.user.status.eq(1));
         query.orderBy(QUser.user.id.desc());
         return query;
     }
@@ -58,6 +54,11 @@ public class UserService {
     public List<User> list(UserQueryDTO queryDTO) {
         JPAQuery<User> query = buildQuery(queryDTO);
         return query.fetch();
+    }
+
+    //    @Cacheable(value = "users", key = "'listUserIdAndNickName'")
+    public List<UserIdAndNickNameDTO> listUserIdAndNickName() {
+        return list(new UserQueryDTO()).stream().map(userMapper::toUserIdAndNickNameDTO).collect(Collectors.toList());
     }
 
     public PageDTO<UserDto> page(UserQueryDTO queryDTO) {
@@ -68,23 +69,24 @@ public class UserService {
         return queryDTO;
     }
 
+    @CacheEvict(value = "users", allEntries = true)
     public UserDto save(UserDto userDto) {
         boolean existsByUsername = userRepository.existsByUsername(userDto.username());
         User user = new User();
-        if (userDto.id() != null){
+        if (userDto.id() != null) {
             user = userRepository.findById(userDto.id()).orElseThrow(() -> new BizException(BizExceptionEnum.USER_NOT_FOUND));
-            if (existsByUsername &&  !user.getUsername().equals(userDto.username())){
-                    throw new BizException(BizExceptionEnum.USERNAME_EXIST);
+            if (existsByUsername && !user.getUsername().equals(userDto.username())) {
+                throw new BizException(BizExceptionEnum.USERNAME_EXIST);
             }
-        }else {
-            if (existsByUsername){
+        } else {
+            if (existsByUsername) {
                 throw new BizException(BizExceptionEnum.USERNAME_EXIST);
             }
         }
 
         userMapper.partialUpdate(userDto, user);
         user.setRoles(roleService.getByIds(userDto.roleIds()));
-        if (user.getPassword() != null && !user.getPassword().startsWith("$2a$")){ // 不是加密密码
+        if (user.getPassword() != null && !user.getPassword().startsWith("$2a$")) { // 不是加密密码
             user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         }
         userRepository.save(user);
@@ -130,8 +132,8 @@ public class UserService {
     public User saveRole(Long userId, List<Long> roleIds) {
         User user = getById(userId);
         roleService.getByIds(roleIds).forEach(role -> user.getRoles().add(role));
-         userRepository.save(user);
-         return user;
+        userRepository.save(user);
+        return user;
     }
 
 }

@@ -2,11 +2,8 @@ package com.haishi.admin.system.controller;
 
 import com.haishi.admin.common.ThreadUserinfo;
 import com.haishi.admin.common.dto.PageDTO;
-import com.haishi.admin.system.dto.UserDto;
-import com.haishi.admin.system.dto.UserMapper;
-import com.haishi.admin.system.dto.UserQueryDTO;
+import com.haishi.admin.system.dto.*;
 import com.haishi.admin.common.dto.HttpResult;
-import com.haishi.admin.system.dto.Userinfo;
 import com.haishi.admin.system.entity.User;
 import com.haishi.admin.system.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -80,4 +77,11 @@ public class UserController {
     public HttpResult<Userinfo> getUserinfo() {
         return HttpResult.success(ThreadUserinfo.get());
     }
+
+    @Operation(summary = "获取用户ID和昵称")
+    @GetMapping("/listUserIdAndNickName")
+    public HttpResult<List<UserIdAndNickNameDTO>> listUserIdAndNickName() {
+        return HttpResult.success(userService.listUserIdAndNickName());
+    }
+
 }

@@ -49,9 +49,10 @@ public class WebsiteService {
         QWebsite qwebsite = QWebsite.website;
         JPAQuery<Website> query = jpaQueryFactory
                 .selectFrom(qwebsite);
-        query.where(new Predicate[]{
+        query.where(
                 dto.getId() != null ? qwebsite.id.eq(dto.getId()) : null,
-        });
+                dto.getDomainId() != null ? qwebsite.domain.id.eq(dto.getDomainId()) : null
+        );
         query.orderBy(qwebsite.id.desc());
         return query;
     }

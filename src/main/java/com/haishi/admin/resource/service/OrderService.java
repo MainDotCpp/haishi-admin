@@ -49,9 +49,10 @@ public class OrderService {
         QOrder qorder = QOrder.order;
         JPAQuery<Order> query = jpaQueryFactory
                 .selectFrom(qorder);
-        query.where(new Predicate[]{
+        query.where(
                 dto.getId() != null ? qorder.id.eq(dto.getId()) : null,
-        });
+                dto.getOrderGroupId() != null ? qorder.orderGroup.id.eq(dto.getOrderGroupId()) : null
+        );
         query.orderBy(qorder.id.desc());
         return query;
     }

@@ -9,6 +9,9 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 @Getter
 @Setter
 @Entity
@@ -40,4 +43,6 @@ public class Domain {
     @JoinColumn(name = "server_id")
     private Server server;
 
+    @OneToMany(mappedBy = "domain", orphanRemoval = true)
+    private Set<Website> websites = new LinkedHashSet<>();
 }

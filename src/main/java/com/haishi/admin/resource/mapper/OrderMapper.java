@@ -8,12 +8,15 @@ import java.util.List;
 
 @Mapper(
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
-        componentModel = MappingConstants.ComponentModel.SPRING
+        componentModel = MappingConstants.ComponentModel.SPRING,
+        uses = {OrderGroupMapper.class}
 )
 public interface OrderMapper {
 
+    @Mapping(source = "orderGroup.id", target = "orderGroupId")
     OrderDTO toOrderDTO(Order order);
 
+    @Mapping(source = "orderGroupId", target = "orderGroup")
     Order toOrder(OrderDTO orderDTO);
 
     List<Order> toOrderList(List<OrderDTO> orderDTOList);
