@@ -1,6 +1,7 @@
 package com.haishi.admin.resource.entity;
 
 import com.haishi.admin.common.entity.BaseEntity;
+import com.haishi.admin.system.entity.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,6 +14,19 @@ import java.util.Objects;
 @Entity
 @Table(name = "r_order")
 public class Order extends BaseEntity {
+
+    @Column(name = "business_id")
+    private String businessId;
+
+    @Column(name = "business_name")
+    private String businessName;
+
+    @Column(name = "operator_nickname")
+    private String operatorNickname;
+
+    @JoinColumn(name = "operator_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User operator;
 
     @Column(name = "link", nullable = false)
     private String link;

@@ -72,11 +72,7 @@ public class SecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable)
                 .sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeRequests(auth -> auth
-                        .requestMatchers("POST", "auth/login").permitAll()
-                        .requestMatchers("GET", "l/").permitAll()
-                        .anyRequest().authenticated()
-                )
+                .authorizeRequests(auth -> auth.anyRequest().authenticated())
                 .authenticationManager(authenticationManager(authenticationConfiguration))
                 .addFilterBefore(authenticationSessionFilter(), UsernamePasswordAuthenticationFilter.class)
                 .formLogin(form -> {

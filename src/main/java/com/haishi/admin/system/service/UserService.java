@@ -4,9 +4,11 @@ import com.haishi.admin.auth.service.AuthService;
 import com.haishi.admin.common.exception.BizException;
 import com.haishi.admin.common.exception.BizExceptionEnum;
 import com.haishi.admin.system.dto.*;
+import com.haishi.admin.system.entity.Permission;
 import com.haishi.admin.system.entity.QUser;
 import com.haishi.admin.common.dto.PageDTO;
 import com.haishi.admin.system.dao.UserRepository;
+import com.haishi.admin.system.entity.Role;
 import com.haishi.admin.system.entity.User;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.jpa.impl.JPAQuery;
@@ -56,7 +58,8 @@ public class UserService {
         return query.fetch();
     }
 
-    //    @Cacheable(value = "users", key = "'listUserIdAndNickName'")
+    @Cacheable(value = "users", key = "'listUserIdAndNickName'")
+    @Transactional(rollbackFor = Exception.class, readOnly = true)
     public List<UserIdAndNickNameDTO> listUserIdAndNickName() {
         return list(new UserQueryDTO()).stream().map(userMapper::toUserIdAndNickNameDTO).collect(Collectors.toList());
     }
@@ -110,18 +113,25 @@ public class UserService {
     }
 
     @Cacheable(value = "session", key = "#userId")
+    @Transactional(rollbackFor = Exception.class, readOnly = true)
     public Userinfo getUserinfoByUserId(Long userId) {
-        User user = getById(userId);
+        log.info("getUserinfoByUserId: {}", userId);
+        User user = userRepository.findById(userId).orElseThrow(() -> new BizException(BizExceptionEnum.USER_NOT_FOUND));
         Userinfo userinfo = new Userinfo();
         userinfo.setId(user.getId());
         userinfo.setUsername(user.getUsername());
         userinfo.setNickname(user.getNickname());
         userinfo.setDeptId(user.getDeptId());
         List<String> roles = new ArrayList<>();
-        user.getRoles().forEach(role -> roles.add(role.getCode()));
-        userinfo.setRoles(roles);
         List<String> permissions = new ArrayList<>();
-        user.getRoles().forEach(role -> role.getPermissions().forEach(permission -> permissions.add(permission.getCode())));
+
+        for (Role role : user.getRoles()) {
+            roles.add(role.getCode());
+            for (Permission permission : role.getPermissions()) {
+                permissions.add(permission.getCode());
+            }
+        }
+        userinfo.setRoles(roles);
         permissions.add("DATA__" + user.getDataPermission());
         userinfo.setPermissions(permissions.stream().distinct().toList());
         return userinfo;

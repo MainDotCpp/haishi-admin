@@ -1,6 +1,9 @@
 package com.haishi.admin.auth.service;
 
+import cn.hutool.core.util.IdUtil;
 import cn.hutool.jwt.JWTUtil;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.haishi.admin.auth.dto.LoginReqDTO;
 import com.haishi.admin.common.ThreadUserinfo;
 import com.haishi.admin.common.exception.BizException;
@@ -24,6 +27,7 @@ import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @Service
@@ -40,8 +44,22 @@ public class AuthService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String accessToken) throws UsernameNotFoundException {
-        Long userId = (Long) redissonClient.getBucket("token:" + accessToken).get();
-        Userinfo userinfo = userService.getUserinfoByUserId(userId);
+        RBucket<Long> tokenBucket = redissonClient.getBucket("token:" + accessToken);
+        if (!tokenBucket.isExists()) throw new BizException(BizExceptionEnum.USER_NOT_LOGIN);
+        if (tokenBucket.get() == null) throw new BizException(BizExceptionEnum.USER_NOT_FOUND);
+        Userinfo userinfo;
+        try {
+            userinfo = userService.getUserinfoByUserId(tokenBucket.get());
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new BizException(BizExceptionEnum.USER_NOT_FOUND);
+        }
+        try {
+            ObjectMapper om = new ObjectMapper();
+            System.out.println(om.writeValueAsString(userinfo));
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
         ThreadUserinfo.set(userinfo);
 
         // 从redis获取用户信息和权限信息
@@ -53,7 +71,7 @@ public class AuthService implements UserDetailsService {
             authorities.add(new SimpleGrantedAuthority(permission));
         }
 
-        return new User(accessToken, bCryptPasswordEncoder.encode(userinfo.getUsername()), authorities);
+        return new User(accessToken, bCryptPasswordEncoder.encode("access"), authorities);
     }
 
     public String login(String username, String password) {
@@ -64,21 +82,21 @@ public class AuthService implements UserDetailsService {
         if (!bCryptPasswordEncoder.matches(password, user.getPassword()))
             throw new BizException(BizExceptionEnum.USER_PASSWORD_ERROR);
 
+        log.info("用户登录成功: {} {}", user.getId(), user.getUsername());
+
         // 退出登录
         logout(user.getId());
 
         // 登录成功, 生成token
-        HashMap<String, Object> payload = new HashMap<>();
-        payload.put("uid", user.getId());
-        payload.put("username", username);
-        payload.put("exp", System.currentTimeMillis() + 1000 * 60 * 60 * 24);
-        String token = JWTUtil.createToken(payload, "haishi".getBytes());
-        RBucket<Object> tokenBucket = redissonClient.getBucket("token:" + token);
-        tokenBucket.set(user.getId());
-        tokenBucket.expire(Duration.of(7, ChronoUnit.DAYS));
+//        HashMap<String, Object> payload = new HashMap<>();
+//        payload.put("uid", user.getId());
+//        payload.put("username", username);
+//        payload.put("exp", System.currentTimeMillis() + 1000 * 60 * 60 * 24);
+        String token = IdUtil.fastUUID();
+        RBucket<Long> tokenBucket = redissonClient.getBucket("token:" + token);
+        tokenBucket.set(user.getId(), 7, TimeUnit.DAYS);
         user.setAccessToken(token);
         userService.save(user);
-
         return token;
     }
 

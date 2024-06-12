@@ -1,5 +1,6 @@
 package com.haishi.admin.resource.dto;
 
+import com.haishi.admin.resource.enums.OrderGroupStatus;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -17,4 +18,5 @@ public class OrderGroupDTO implements Serializable {
     private Date lastModifiedDate;
     private String deptId;
     private String name;
+    private OrderGroupStatus status ;
 }

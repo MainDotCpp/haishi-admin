@@ -13,6 +13,7 @@ import org.redisson.config.TransportMode;
 import org.redisson.spring.cache.RedissonSpringCacheManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.cache.CacheProperties;
+import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.context.annotation.Bean;
@@ -60,20 +61,20 @@ public class RedisConfig {
 
 
     @Bean
-    public RedissonClient redissonClient() {
+    public RedissonClient redissonClient(RedisProperties redisProperties) {
         Config config = new Config();
         config.setTransportMode(TransportMode.NIO)
                 .setCodec(new JsonJacksonCodec())
                 .useSingleServer()
-                .setAddress("redis://localhost:6379")
-                .setPassword("jhkdjhkjdhsIUTYURTU_nsKkdX")
-                .setDatabase(0);
+                .setAddress("redis://" + redisProperties.getHost() + ":" + redisProperties.getPort())
+                .setPassword(redisProperties.getPassword())
+                .setDatabase(redisProperties.getDatabase());
         return Redisson.create(config);
     }
 
     @Bean
-    public CacheManager cacheManager() {
-        return new RedissonSpringCacheManager(redissonClient());
+    public CacheManager cacheManager(RedisProperties redisProperties) {
+        return new RedissonSpringCacheManager(redissonClient(redisProperties));
     }
 
 }

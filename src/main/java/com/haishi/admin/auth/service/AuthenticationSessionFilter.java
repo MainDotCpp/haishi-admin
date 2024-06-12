@@ -36,29 +36,22 @@ public class AuthenticationSessionFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        log.info("================ AuthenticationSessionFilter =================");
         // 通过请求头中的token获取用户信息
         try {
 
             String accessToken = request.getHeader("Access-Token");
+
             if (accessToken == null) {
                 throwError(response);
                 return;
             }
-            boolean exists = redissonClient.getBucket("token:" + accessToken).isExists();
-            boolean verify = JWTUtil.verify(accessToken, "haishi".getBytes());
-            if (!exists || !verify) {
-                throwError(response);
-                return;
-            }
-            JWT jwt = JWTUtil.parseToken(accessToken);
-            String username = (String) jwt.getPayload("username");
+            log.info("AuthenticationSessionFilter: {}", accessToken);
 
             // 查询redis中是否存在该用户的token
-            UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(accessToken, username);
+            UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(accessToken, "access");
             SecurityContextHolder.getContext().setAuthentication(auth);
         } catch (Exception e) {
-            log.error("AuthenticationSessionFilter error", e);
+            log.info("AuthenticationSessionFilter error", e);
             throwError(response);
             return;
         }
@@ -73,7 +66,7 @@ public class AuthenticationSessionFilter extends OncePerRequestFilter {
         try {
             response.getWriter().write(om.writeValueAsString(result));
         } catch (IOException e) {
-            log.error("AuthenticationSessionFilter error", e);
+            log.info("AuthenticationSessionFilter error", e);
         }
     }
 }

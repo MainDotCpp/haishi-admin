@@ -18,4 +18,8 @@ public class OrderDTO implements Serializable {
     private String deptId;
     private String link;
     private Long orderGroupId;
+    private String businessId;
+    private String businessName;
+    private String operatorNickname;
+    private Long operatorId;
 }

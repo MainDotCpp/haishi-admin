@@ -22,7 +22,7 @@ public class ShortlinkTask {
     private final JPAQueryFactory jpaQueryFactory;
 
 
-    @Scheduled(cron = "0 0/5 * * * ?")
+    @Scheduled(cron = "0 0/20 * * * ?")
     @Transactional(rollbackOn = Exception.class)
     public void CountPv() {
         log.info("开始统计短链接的pv和uv");
