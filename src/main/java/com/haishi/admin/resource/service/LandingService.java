@@ -1,5 +1,8 @@
 package com.haishi.admin.resource.service;
 
+import cn.hutool.core.util.IdUtil;
+import cn.hutool.core.util.StrUtil;
+import com.haishi.admin.common.HaishiConfig;
 import com.haishi.admin.common.dto.PageDTO;
 import com.haishi.admin.common.exception.BizException;
 import com.haishi.admin.resource.dao.LandingRepository;
@@ -16,6 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -28,6 +32,7 @@ public class LandingService {
     private final LandingRepository landingRepository;
     private final LandingMapper landingMapper;
     private final JPAQueryFactory jpaQueryFactory;
+    private final HaishiConfig haishiConfig;
 
     /**
      * 根据ID获取落地页
@@ -105,6 +110,28 @@ public class LandingService {
      */
     public boolean delete(Long id) {
         landingRepository.deleteById(id);
+        return true;
+    }
+
+    public boolean downloadWeb(String url) {
+        String webLibPath = haishiConfig.getWebLibPath();
+        log.info("下载落地页: web-path {}", webLibPath);
+        String path = IdUtil.fastUUID();
+        String command = StrUtil.format(
+                "mkdir -p {}/{} && cd {}/{} && wget -c -r -npH -k -nv '{}'",
+                webLibPath,
+                path,
+                webLibPath,
+                path,
+                url
+        );
+        log.info("command: {}", command);
+        try {
+            Runtime.getRuntime().exec(command);
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new BizException("下载失败");
+        }
         return true;
     }
 }

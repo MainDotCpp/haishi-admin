@@ -61,4 +61,15 @@ public class LandingController {
         );
     }
 
+
+    public record SaveByUrlDTO(String url) {
+    }
+
+    @Operation(summary = "通过URL保存落地页")
+    @PostMapping("saveByUrl")
+    @PreAuthorize("hasAnyAuthority('LANDING__EDIT')")
+    public HttpResult<Boolean> saveByUrl(@RequestBody SaveByUrlDTO dto) {
+        return HttpResult.success(landingService.downloadWeb(dto.url));
+    }
+
 }
