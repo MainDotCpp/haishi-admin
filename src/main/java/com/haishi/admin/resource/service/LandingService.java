@@ -134,4 +134,8 @@ public class LandingService {
         }
         return true;
     }
+
+    public String reformIndex(String indexContent){
+        return "";
+    }
 }
