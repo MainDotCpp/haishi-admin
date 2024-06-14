@@ -29,6 +29,7 @@ public class WebsiteDTO implements Serializable {
     private Set<OrderDTO> orders = new LinkedHashSet<>();
     private Long domainId;
 
+
     /**
      * DTO for {@link com.haishi.admin.resource.entity.Order}
      */
@@ -38,5 +39,6 @@ public class WebsiteDTO implements Serializable {
     public static class OrderDTO implements Serializable {
         private Long id;
         private String link;
+        private String businessName;
     }
 }

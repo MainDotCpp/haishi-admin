@@ -54,12 +54,7 @@ public class AuthService implements UserDetailsService {
             e.printStackTrace();
             throw new BizException(BizExceptionEnum.USER_NOT_FOUND);
         }
-        try {
-            ObjectMapper om = new ObjectMapper();
-            System.out.println(om.writeValueAsString(userinfo));
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
+
         ThreadUserinfo.set(userinfo);
 
         // 从redis获取用户信息和权限信息
@@ -87,11 +82,7 @@ public class AuthService implements UserDetailsService {
         // 退出登录
         logout(user.getId());
 
-        // 登录成功, 生成token
-//        HashMap<String, Object> payload = new HashMap<>();
-//        payload.put("uid", user.getId());
-//        payload.put("username", username);
-//        payload.put("exp", System.currentTimeMillis() + 1000 * 60 * 60 * 24);
+
         String token = IdUtil.fastUUID();
         RBucket<Long> tokenBucket = redissonClient.getBucket("token:" + token);
         tokenBucket.set(user.getId(), 7, TimeUnit.DAYS);

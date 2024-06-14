@@ -84,4 +84,14 @@ public class UserController {
         return HttpResult.success(userService.listUserIdAndNickName());
     }
 
+
+    @GetMapping("/demo01")
+    public HttpResult<User> demo01() {
+        return HttpResult.success(userService.getById(102L));
+    }
+
+    @GetMapping("/demo02")
+    public HttpResult<UserIdAndNickNameDTO> demo02() {
+        return HttpResult.success(userMapper.toUserIdAndNickNameDTO(userService.getById(102L)));
+    }
 }
