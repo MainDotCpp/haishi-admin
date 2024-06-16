@@ -33,10 +33,10 @@ public class Landing extends BaseEntity {
 
     @ColumnDefault("0")
     @Column(name = "version", nullable = false)
-    private Integer version;
+    private Integer version = 0;
 
     @ColumnDefault("false")
     @Column(name = "is_public", nullable = false)
-    private Boolean isPublic;
+    private Boolean isPublic = false;
 
 }

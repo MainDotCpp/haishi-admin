@@ -1,7 +1,10 @@
 package com.haishi.admin.resource.service;
 
+import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.extra.compress.CompressUtil;
 import com.haishi.admin.common.HaishiConfig;
 import com.haishi.admin.common.dto.PageDTO;
 import com.haishi.admin.common.exception.BizException;
@@ -19,8 +22,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Service for {@link Landing}
@@ -113,29 +118,49 @@ public class LandingService {
         return true;
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public boolean downloadWeb(String url) {
-        String webLibPath = haishiConfig.getWebLibPath();
-        log.info("下载落地页: web-path {}", webLibPath);
         String path = IdUtil.fastUUID();
+        Landing landing = new Landing();
+        String webLibPath = haishiConfig.getWebLibPath();
+        File webDir = FileUtil.file(webLibPath + "/" + path);
+        log.info("下载落地页: web-path {}", webDir);
+
         String command = StrUtil.format(
-                "mkdir -p {}/{} && cd {}/{} && wget -c -r -npH -k -nv '{}'",
-                webLibPath,
-                path,
-                webLibPath,
-                path,
+                "/usr/bin/wget -user-agent=\"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.104 Safari/537.36 Core/1.53.4482.400 QQBrowser/9.7.13001.400\" -r -q -L -nd -k -p  -P {} {}",
+                webDir.toString(),
                 url
         );
         log.info("command: {}", command);
         try {
-            Runtime.getRuntime().exec(command);
-        } catch (IOException e) {
+            Process process = Runtime.getRuntime().exec(command);
+            process.waitFor();
+
+            // 处理index文件
+            log.info("处理index文件");
+            // 生成压缩包
+            if (!webDir.exists()) {
+                throw new BizException("下载失败");
+            }
+
+            log.info("生成压缩包: {}", webDir + ".zip");
+            CompressUtil.createArchiver(CharsetUtil.CHARSET_UTF_8, "zip", FileUtil.file(webDir + ".zip"))
+                    .add(webDir)
+                    .finish()
+                    .close();
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
             throw new BizException("下载失败");
         }
+
+        landing.setName(url);
+        landing.setUuid(UUID.fromString(path));
+        landingRepository.save(landing);
         return true;
     }
 
-    public String reformIndex(String indexContent){
+    public String reformIndex(String indexContent) {
         return "";
     }
 }
+
