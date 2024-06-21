@@ -3,6 +3,7 @@ package com.haishi.admin.resource.controller;
 import com.haishi.admin.common.dto.PageDTO;
 import com.haishi.admin.common.dto.HttpResult;
 import com.haishi.admin.resource.dto.DomainDTO;
+import com.haishi.admin.resource.entity.DomainAgentConfig;
 import com.haishi.admin.resource.service.DomainService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -59,6 +60,21 @@ public class DomainController {
         return HttpResult.success(
                 domainService.delete(id)
         );
+    }
+
+
+    @Operation(summary = "获取AGENT域名配置文件")
+    @GetMapping("/getAgentConfig")
+    public DomainAgentConfig getAgentConfig(Long id) {
+        return domainService.getAgentConfig(id);
+    }
+
+
+    @Operation(summary = "部署域名")
+    @PostMapping("/deploy")
+    public HttpResult<String> deploy(Long id) {
+        domainService.deploy(id);
+        return HttpResult.success("部署成功");
     }
 
 }

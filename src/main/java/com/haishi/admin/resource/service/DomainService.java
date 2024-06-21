@@ -4,6 +4,7 @@ import com.haishi.admin.common.dto.PageDTO;
 import com.haishi.admin.common.exception.BizException;
 import com.haishi.admin.resource.dao.DomainRepository;
 import com.haishi.admin.resource.dto.DomainDTO;
+import com.haishi.admin.resource.entity.DomainAgentConfig;
 import com.haishi.admin.resource.entity.QDomain;
 import com.haishi.admin.resource.entity.Domain;
 import com.haishi.admin.resource.mapper.DomainMapper;
@@ -15,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
@@ -28,6 +30,7 @@ public class DomainService {
     private final DomainRepository domainRepository;
     private final DomainMapper domainMapper;
     private final JPAQueryFactory jpaQueryFactory;
+    private final RestTemplate restTemplate;
 
     /**
      * 根据ID获取域名
@@ -106,5 +109,21 @@ public class DomainService {
     public boolean delete(Long id) {
         domainRepository.deleteById(id);
         return true;
+    }
+
+    public DomainAgentConfig getAgentConfig(Long id) {
+        return domainMapper.toDomainAgentConfig(domainRepository.findById(id).orElseThrow());
+    }
+
+
+    public void deploy(Long id) {
+        Domain domain = domainRepository.findById(id).orElseThrow();
+        // deploy domain
+        try {
+            restTemplate.getForEntity("http://localhost:8000/deploy/domain?domain_id=" + domain.getId(), String.class);
+        } catch (Exception e) {
+            log.error("Deploy domain failed", e);
+            throw new BizException("部署失败");
+        }
     }
 }

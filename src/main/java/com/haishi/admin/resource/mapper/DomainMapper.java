@@ -2,6 +2,7 @@ package com.haishi.admin.resource.mapper;
 
 import com.haishi.admin.resource.dto.DomainDTO;
 import com.haishi.admin.resource.entity.Domain;
+import com.haishi.admin.resource.entity.DomainAgentConfig;
 import com.haishi.admin.system.dto.UserMapper;
 import org.mapstruct.*;
 
@@ -37,4 +38,16 @@ public interface DomainMapper {
     Domain copy(Domain domain);
 
     Domain idToEntity(Long id);
+
+    Domain toDomain(DomainAgentConfig domainAgentConfig);
+
+    @AfterMapping
+    default void linkWebsites(@MappingTarget Domain domain) {
+        domain.getWebsites().forEach(website -> website.setDomain(domain));
+    }
+
+    DomainAgentConfig toDomainAgentConfig(Domain domain);
+
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    Domain partialUpdate(DomainAgentConfig domainAgentConfig, @MappingTarget Domain domain);
 }

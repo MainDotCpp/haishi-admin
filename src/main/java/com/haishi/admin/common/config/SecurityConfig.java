@@ -64,7 +64,8 @@ public class SecurityConfig {
                 .requestMatchers("auth/login")
                 .requestMatchers("v3/api-docs")
                 .requestMatchers("cloak/check/*")
-                .requestMatchers("l/*");
+                .requestMatchers("l/*")
+                .requestMatchers("domain/getAgentConfig");
     }
 
     @Bean
