@@ -45,7 +45,6 @@ public class AuthenticationSessionFilter extends OncePerRequestFilter {
                 throwError(response);
                 return;
             }
-            log.info("AuthenticationSessionFilter: {}", accessToken);
 
             // 查询redis中是否存在该用户的token
             UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(accessToken, "access");
