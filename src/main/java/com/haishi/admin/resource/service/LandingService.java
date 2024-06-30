@@ -3,8 +3,10 @@ package com.haishi.admin.resource.service;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.core.util.IdUtil;
+import cn.hutool.core.util.ReUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.extra.compress.CompressUtil;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.haishi.admin.common.HaishiConfig;
 import com.haishi.admin.common.dto.PageDTO;
 import com.haishi.admin.common.exception.BizException;
@@ -13,6 +15,7 @@ import com.haishi.admin.resource.dto.LandingDTO;
 import com.haishi.admin.resource.entity.QLanding;
 import com.haishi.admin.resource.entity.Landing;
 import com.haishi.admin.resource.mapper.LandingMapper;
+import com.haishi.admin.system.service.SystemConfigService;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.jpa.impl.JPAQuery;
@@ -26,6 +29,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
+import java.util.regex.Pattern;
 
 /**
  * Service for {@link Landing}
@@ -38,6 +42,7 @@ public class LandingService {
     private final LandingMapper landingMapper;
     private final JPAQueryFactory jpaQueryFactory;
     private final HaishiConfig haishiConfig;
+    private final SystemConfigService systemConfigService;
 
     /**
      * 根据ID获取落地页
@@ -127,7 +132,7 @@ public class LandingService {
         log.info("下载落地页: web-path {}", webDir);
 
         String command = StrUtil.format(
-                "/usr/bin/wget -user-agent=\"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.104 Safari/537.36 Core/1.53.4482.400 QQBrowser/9.7.13001.400\" -r -q -L -nd -k -p  -P {} {}",
+                "/usr/bin/wget -r -q -L -nd -k -p  -P {} {}",
                 webDir.toString(),
                 url
         );
@@ -138,6 +143,13 @@ public class LandingService {
 
             // 处理index文件
             log.info("处理index文件");
+            File indexFile = FileUtil.file(webDir + "/index.html");
+            File phpFile = new File(webDir + "/index.php");
+            if (indexFile.exists()) {
+                String indexContent = FileUtil.readUtf8String(indexFile);
+                String reformIndexContent = reformIndex(indexContent);
+                FileUtil.writeUtf8String(reformIndexContent, phpFile);
+            }
             // 生成压缩包
             if (!webDir.exists()) {
                 throw new BizException("下载失败");
@@ -159,8 +171,22 @@ public class LandingService {
         return true;
     }
 
+
     public String reformIndex(String indexContent) {
-        return "";
+        // 头部添加php代码块
+        indexContent = systemConfigService.getConfig("LANDING::HEAD_PHP") + indexContent;
+
+
+        List<String> regexMappings = systemConfigService.getConfigs("LANDING::REGEX_MAPPING");
+        for (String mapping : regexMappings) {
+            String[] split = mapping.split("\\|\\|");
+            indexContent = ReUtil.replaceAll(
+                    indexContent,
+                    Pattern.compile(split[0], Pattern.DOTALL),
+                    split[1]
+            );
+        }
+        return indexContent;
     }
 }
 
