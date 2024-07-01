@@ -14,6 +14,7 @@ import com.haishi.admin.resource.dao.LandingRepository;
 import com.haishi.admin.resource.dto.LandingDTO;
 import com.haishi.admin.resource.entity.QLanding;
 import com.haishi.admin.resource.entity.Landing;
+import com.haishi.admin.resource.entity.SaveLandingByUrlDTO;
 import com.haishi.admin.resource.mapper.LandingMapper;
 import com.haishi.admin.system.service.SystemConfigService;
 import com.querydsl.core.QueryResults;
@@ -124,9 +125,9 @@ public class LandingService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public boolean downloadWeb(String url) {
+    public boolean downloadWeb(SaveLandingByUrlDTO dto) {
         String path = IdUtil.fastUUID();
-        Landing landing = new Landing();
+        Landing landing = landingMapper.toLanding(dto);
         String webLibPath = haishiConfig.getWebLibPath();
         File webDir = FileUtil.file(webLibPath + "/" + path);
         log.info("下载落地页: web-path {}", webDir);
@@ -134,7 +135,7 @@ public class LandingService {
         String command = StrUtil.format(
                 "/usr/bin/wget -r -q -L -nd -k -p  -P {} {}",
                 webDir.toString(),
-                url
+                dto.getUrl()
         );
         log.info("command: {}", command);
         try {
@@ -165,7 +166,6 @@ public class LandingService {
             throw new BizException("下载失败");
         }
 
-        landing.setName(url);
         landing.setUuid(UUID.fromString(path));
         landingRepository.save(landing);
         return true;

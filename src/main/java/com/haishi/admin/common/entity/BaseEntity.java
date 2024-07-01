@@ -1,6 +1,8 @@
 package com.haishi.admin.common.entity;
 
 import com.haishi.admin.common.ThreadUserinfo;
+import com.haishi.admin.system.dto.Userinfo;
+import com.haishi.admin.system.entity.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -40,9 +42,16 @@ public class BaseEntity {
 
     private String deptId;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "owner_id")
+    private User owner;
+
     @PrePersist
     public void prePersist() {
-        deptId = ThreadUserinfo.get().getDeptId();
+        Userinfo userinfo = ThreadUserinfo.get();
+        deptId = userinfo.getDeptId();
+        owner = new User();
+        owner.setId(userinfo.getId());
     }
 
 }

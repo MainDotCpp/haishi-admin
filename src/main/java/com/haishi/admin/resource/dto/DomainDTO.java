@@ -13,12 +13,10 @@ import java.io.Serializable;
 public class DomainDTO implements Serializable {
     Long id;
     String domain;
-    Boolean proxyShortlink;
     Long ownerId;
     String ownerNickname;
     Long serverId;
     String serverIp;
     String serverName;
     DomainStatus status;
-
 }

@@ -47,7 +47,7 @@ public class SecurityConfig {
     }
 
     public AuthenticationSessionFilter authenticationSessionFilter() {
-        return new AuthenticationSessionFilter(userService, redissonClient);
+        return new AuthenticationSessionFilter();
     }
 
     /**

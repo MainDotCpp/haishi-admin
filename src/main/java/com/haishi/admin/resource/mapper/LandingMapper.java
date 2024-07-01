@@ -2,6 +2,7 @@ package com.haishi.admin.resource.mapper;
 
 import com.haishi.admin.resource.dto.LandingDTO;
 import com.haishi.admin.resource.entity.Landing;
+import com.haishi.admin.resource.entity.SaveLandingByUrlDTO;
 import org.mapstruct.*;
 
 import java.util.List;
@@ -27,4 +28,11 @@ public interface LandingMapper {
     Landing copy(Landing landing);
 
     Landing idToEntity(Long id);
+
+    Landing toLanding(SaveLandingByUrlDTO saveLandingByUrlDTO);
+
+    SaveLandingByUrlDTO toSaveLandingByUrlDTO(Landing landing);
+
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    Landing partialUpdate(SaveLandingByUrlDTO saveLandingByUrlDTO, @MappingTarget Landing landing);
 }

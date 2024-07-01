@@ -3,6 +3,7 @@ package com.haishi.admin.resource.controller;
 import com.haishi.admin.common.dto.PageDTO;
 import com.haishi.admin.common.dto.HttpResult;
 import com.haishi.admin.resource.dto.LandingDTO;
+import com.haishi.admin.resource.entity.SaveLandingByUrlDTO;
 import com.haishi.admin.resource.service.LandingService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -62,14 +63,11 @@ public class LandingController {
     }
 
 
-    public record SaveByUrlDTO(String url) {
-    }
-
     @Operation(summary = "通过URL保存落地页")
     @PostMapping("saveByUrl")
     @PreAuthorize("hasAnyAuthority('LANDING__EDIT')")
-    public HttpResult<Boolean> saveByUrl(@RequestBody SaveByUrlDTO dto) {
-        return HttpResult.success(landingService.downloadWeb(dto.url));
+    public HttpResult<Boolean> saveByUrl(@RequestBody SaveLandingByUrlDTO dto) {
+        return HttpResult.success(landingService.downloadWeb(dto));
     }
 
 }

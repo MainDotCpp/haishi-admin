@@ -1,5 +1,6 @@
 package com.haishi.admin.resource.entity;
 
+import com.haishi.admin.common.entity.BaseEntity;
 import com.haishi.admin.resource.enums.DomainStatus;
 import com.haishi.admin.system.entity.User;
 import jakarta.persistence.*;
@@ -16,11 +17,7 @@ import java.util.Set;
 @Setter
 @Entity
 @Table(name = "r_domain")
-public class Domain {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
-    private Long id;
+public class Domain extends BaseEntity {
 
     @Size(max = 255)
     @Column(name = "domain", nullable = false)
@@ -30,14 +27,6 @@ public class Domain {
     @ColumnDefault("'UNUSED'")
     @Enumerated(EnumType.STRING)
     private DomainStatus status = DomainStatus.UNUSED;
-
-    @ColumnDefault("false")
-    @Column(name = "proxy_shortlink")
-    private Boolean proxyShortlink = false;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "owner_id")
-    private User owner;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "server_id")

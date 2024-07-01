@@ -31,9 +31,6 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class AuthenticationSessionFilter extends OncePerRequestFilter {
 
-    private final UserService userService;
-    private final RedissonClient redissonClient;
-
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         // 通过请求头中的token获取用户信息

@@ -77,4 +77,11 @@ public class DomainController {
         return HttpResult.success("部署成功");
     }
 
+    @Operation(summary = "领取域名")
+    @PostMapping("/receive")
+    public HttpResult<String> receive(Long id) {
+        domainService.receive(id);
+        return HttpResult.success("领取成功");
+    }
+
 }

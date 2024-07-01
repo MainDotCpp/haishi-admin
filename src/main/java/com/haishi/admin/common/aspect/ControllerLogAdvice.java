@@ -29,13 +29,16 @@ public class ControllerLogAdvice {
     public Object aroundAdvice(ProceedingJoinPoint pjp) throws Throwable {
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
-        HttpServletResponse response = attributes.getResponse();
         String requestURI = request.getRequestURI();
         // 获取 Operation 注解的value
         MethodSignature signature = (MethodSignature) pjp.getSignature();
         Operation operation = signature.getMethod().getAnnotation(Operation.class);
         Userinfo userinfo = ThreadUserinfo.get();
-        log.info("[{}]{} ({}|{})", operation.summary(), requestURI, userinfo.getId(), userinfo.getNickname());
+        if (userinfo != null) {
+            log.info("[{}]{} ({}|{})", operation.summary(), requestURI, userinfo.getId(), userinfo.getNickname());
+        } else {
+            log.info("[{}]{} (未登录)", operation.summary(), requestURI);
+        }
         return pjp.proceed();
     }
 }

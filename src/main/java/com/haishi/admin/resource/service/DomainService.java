@@ -1,13 +1,18 @@
 package com.haishi.admin.resource.service;
 
+import cn.hutool.core.lang.Assert;
+import cn.hutool.core.util.ArrayUtil;
+import com.haishi.admin.common.ThreadUserinfo;
 import com.haishi.admin.common.dto.PageDTO;
 import com.haishi.admin.common.exception.BizException;
+import com.haishi.admin.common.utils.QueryUtils;
 import com.haishi.admin.resource.dao.DomainRepository;
 import com.haishi.admin.resource.dto.DomainDTO;
 import com.haishi.admin.resource.entity.DomainAgentConfig;
 import com.haishi.admin.resource.entity.QDomain;
 import com.haishi.admin.resource.entity.Domain;
 import com.haishi.admin.resource.mapper.DomainMapper;
+import com.haishi.admin.system.entity.User;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.jpa.impl.JPAQuery;
@@ -18,6 +23,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -52,9 +59,19 @@ public class DomainService {
         QDomain qdomain = QDomain.domain1;
         JPAQuery<Domain> query = jpaQueryFactory
                 .selectFrom(qdomain);
-        query.where(new Predicate[]{
-                dto.getId() != null ? qdomain.id.eq(dto.getId()) : null,
-        });
+
+        var predicates = new ArrayList<Predicate>();
+
+        if (dto.getOwnerId() != null && dto.getOwnerId() == 0L) {
+            predicates.add(qdomain.owner.id.isNull());
+        } else {
+            QueryUtils.dataPermissionFilter(qdomain._super, predicates);
+        }
+        if (dto.getId() != null) {
+            predicates.add(qdomain.id.eq(dto.getId()));
+        }
+
+        query.where(predicates.toArray(Predicate[]::new));
         query.orderBy(qdomain.id.desc());
         return query;
     }
@@ -125,5 +142,14 @@ public class DomainService {
             log.error("Deploy domain failed", e);
             throw new BizException("部署失败");
         }
+    }
+
+    public void receive(Long id) {
+        Domain domain = domainRepository.findById(id).orElseThrow();
+        Assert.isNull(domain.getOwner(), "域名已被领取");
+        var owner = new User();
+        owner.setId(ThreadUserinfo.get().getId());
+        domain.setOwner(owner);
+        domainRepository.save(domain);
     }
 }
