@@ -10,6 +10,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.haishi.admin.common.HaishiConfig;
 import com.haishi.admin.common.dto.PageDTO;
 import com.haishi.admin.common.exception.BizException;
+import com.haishi.admin.common.utils.WebShotUtils;
 import com.haishi.admin.resource.dao.LandingRepository;
 import com.haishi.admin.resource.dto.LandingDTO;
 import com.haishi.admin.resource.entity.QLanding;
@@ -165,6 +166,12 @@ public class LandingService {
             e.printStackTrace();
             throw new BizException("下载失败");
         }
+
+        // 生成封面图
+        log.info("生成封面图");
+        landing.setCover(path + ".jpg");
+        String webShotPath = haishiConfig.getWebLibPath() + "/" + landing.getCover();
+        WebShotUtils.downloadWebShot(dto.getUrl(), webShotPath, 720, 960);
 
         landing.setUuid(UUID.fromString(path));
         landingRepository.save(landing);

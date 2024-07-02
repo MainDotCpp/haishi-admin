@@ -20,7 +20,7 @@ import java.util.Date;
 @EntityListeners(AuditingEntityListener.class)
 public class BaseEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private Long id;
 
