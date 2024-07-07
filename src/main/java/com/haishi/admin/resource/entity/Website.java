@@ -31,6 +31,13 @@ public class Website extends BaseEntity {
     @JoinColumn(name = "cloak_config_id")
     private CloakConfig cloakConfig;
 
+    @Column(name = "target_link")
+    private String targetLink;
+
+    @ColumnDefault("''")
+    @Column(name = "extra_script", columnDefinition = "TEXT", nullable = false)
+    private String extraScript = "";
+
     @ManyToOne
     @JoinColumn(name = "landing_id")
     private Landing landing;

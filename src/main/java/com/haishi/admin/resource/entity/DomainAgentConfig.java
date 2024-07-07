@@ -51,6 +51,8 @@ public class DomainAgentConfig implements Serializable {
         CloakConfigDTO cloakConfig;
         LandingDTO landing;
         Set<OrderDTO> orders;
+        String targetLink;
+        String extraScript;
 
         /**
          * DTO for {@link com.haishi.admin.cloak.entity.CloakConfig}

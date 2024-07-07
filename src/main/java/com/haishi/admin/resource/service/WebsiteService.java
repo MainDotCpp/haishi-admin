@@ -1,8 +1,12 @@
 package com.haishi.admin.resource.service;
 
+import com.haishi.admin.cloak.dto.CloakCheckResult;
+import com.haishi.admin.cloak.enums.CloakScene;
+import com.haishi.admin.cloak.service.CloakService;
 import com.haishi.admin.common.dto.PageDTO;
 import com.haishi.admin.common.exception.BizException;
 import com.haishi.admin.resource.dao.WebsiteRepository;
+import com.haishi.admin.resource.dto.WebsiteCloakCheckDTO;
 import com.haishi.admin.resource.dto.WebsiteDTO;
 import com.haishi.admin.resource.entity.QWebsite;
 import com.haishi.admin.resource.entity.Website;
@@ -28,6 +32,7 @@ public class WebsiteService {
     private final WebsiteRepository websiteRepository;
     private final WebsiteMapper websiteMapper;
     private final JPAQueryFactory jpaQueryFactory;
+    private final CloakService cloakService;
 
     /**
      * 根据ID获取网站
@@ -107,5 +112,13 @@ public class WebsiteService {
     public boolean delete(Long id) {
         websiteRepository.deleteById(id);
         return true;
+    }
+
+    public CloakCheckResult check(WebsiteCloakCheckDTO dto) {
+        return cloakService.check(dto.cloakKey(), dto.clientInfo(), cloakLog -> {
+            cloakLog.setScene(CloakScene.WEBSITE);
+            cloakLog.setRelatedId(dto.websiteId());
+            return cloakLog;
+        });
     }
 }

@@ -1,5 +1,6 @@
 package com.haishi.admin.common.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.haishi.admin.common.ThreadUserinfo;
 import com.haishi.admin.system.dto.Userinfo;
 import com.haishi.admin.system.entity.User;
@@ -44,6 +45,7 @@ public class BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id")
+    @JsonIgnore
     private User owner;
 
     @PrePersist

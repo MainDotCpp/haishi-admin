@@ -1,7 +1,9 @@
 package com.haishi.admin.resource.controller;
 
+import com.haishi.admin.cloak.dto.CloakCheckResult;
 import com.haishi.admin.common.dto.PageDTO;
 import com.haishi.admin.common.dto.HttpResult;
+import com.haishi.admin.resource.dto.WebsiteCloakCheckDTO;
 import com.haishi.admin.resource.dto.WebsiteDTO;
 import com.haishi.admin.resource.service.WebsiteService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -59,6 +61,13 @@ public class WebsiteController {
         return HttpResult.success(
                 websiteService.delete(id)
         );
+    }
+
+    @Operation(summary = "检查站点斗篷")
+    @PostMapping("/check")
+    public HttpResult<CloakCheckResult> check(@RequestBody WebsiteCloakCheckDTO dto) {
+        CloakCheckResult result = websiteService.check(dto);
+        return HttpResult.success(result);
     }
 
 }

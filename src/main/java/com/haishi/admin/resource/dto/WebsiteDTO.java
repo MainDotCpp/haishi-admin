@@ -28,6 +28,8 @@ public class WebsiteDTO implements Serializable {
     private Integer landingVersion;
     private Set<OrderDTO> orders = new LinkedHashSet<>();
     private Long domainId;
+    private String targetLink;
+    private String extraScript = "";
 
 
     /**

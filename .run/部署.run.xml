@@ -1,0 +1,40 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="部署" type="DEPLOY_HOST_RUN_CONFIGURATION" factoryName="Deploy to Host">
+    <option name="accountModel" />
+    <option name="accountModels" />
+    <option name="address" />
+    <option name="afterCommand" value="cd /root/hs-short &amp;&amp; bash ./restart_admin.sh" />
+    <option name="alreadyReset" value="true" />
+    <option name="autoOpen" value="false" />
+    <option name="beforeCommand" value="" />
+    <option name="defaultTabIdx" value="0" />
+    <option name="ecsInstance">
+      <EcsInstance>
+        <option name="OSType" />
+        <option name="instanceId" />
+        <option name="instanceName" />
+        <option name="netType" />
+        <option name="privateIps" />
+        <option name="publicIps" />
+        <option name="regionId" />
+        <option name="tags" />
+      </EcsInstance>
+    </option>
+    <option name="ecsInstances" />
+    <option name="hostIds">
+      <list>
+        <option value="1" />
+      </list>
+    </option>
+    <option name="hostTagId" value="0" />
+    <option name="location" value="/root/hs-short/admin" />
+    <option name="pathOrUrl" value="C:\Users\Administrator\Desktop\100_Work\HS\haishi-admin\target\admin-0.0.1-SNAPSHOT.jar" />
+    <option name="tagId" value="0" />
+    <option name="terminalCommand" />
+    <option name="type" value="HOST" />
+    <option name="uploadType" value="MAVEN" />
+    <method v="2">
+      <option name="Maven.BeforeRunTask" enabled="true" file="$PROJECT_DIR$/../haishi-admin\pom.xml" goal="clean install" />
+    </method>
+  </configuration>
+</component>

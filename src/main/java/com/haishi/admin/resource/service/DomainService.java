@@ -65,6 +65,7 @@ public class DomainService {
         if (dto.getOwnerId() != null && dto.getOwnerId() == 0L) {
             predicates.add(qdomain.owner.id.isNull());
         } else {
+            predicates.add(qdomain.owner.id.isNotNull());
             QueryUtils.dataPermissionFilter(qdomain._super, predicates);
         }
         if (dto.getId() != null) {

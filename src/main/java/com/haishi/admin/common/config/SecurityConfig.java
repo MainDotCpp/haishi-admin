@@ -65,6 +65,7 @@ public class SecurityConfig {
                 .requestMatchers("v3/api-docs")
                 .requestMatchers("cloak/check/*")
                 .requestMatchers("l/*")
+                .requestMatchers("website/check")
                 .requestMatchers("domain/getAgentConfig");
     }
 

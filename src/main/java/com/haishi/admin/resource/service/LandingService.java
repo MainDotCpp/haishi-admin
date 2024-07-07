@@ -45,6 +45,7 @@ public class LandingService {
     private final JPAQueryFactory jpaQueryFactory;
     private final HaishiConfig haishiConfig;
     private final SystemConfigService systemConfigService;
+    private final WebShotUtils webShotUtils;
 
     /**
      * 根据ID获取落地页
@@ -68,6 +69,7 @@ public class LandingService {
                 .selectFrom(qlanding);
         query.where(new Predicate[]{
                 dto.getId() != null ? qlanding.id.eq(dto.getId()) : null,
+                
         });
         query.orderBy(qlanding.id.desc());
         return query;
@@ -171,7 +173,7 @@ public class LandingService {
         log.info("生成封面图");
         landing.setCover(path + ".jpg");
         String webShotPath = haishiConfig.getWebLibPath() + "/" + landing.getCover();
-        WebShotUtils.downloadWebShot(dto.getUrl(), webShotPath, 720, 960);
+        webShotUtils.downloadWebShot(dto.getUrl(), webShotPath, 720, 960);
 
         landing.setUuid(UUID.fromString(path));
         landingRepository.save(landing);
