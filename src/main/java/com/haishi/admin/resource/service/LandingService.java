@@ -69,7 +69,7 @@ public class LandingService {
                 .selectFrom(qlanding);
         query.where(new Predicate[]{
                 dto.getId() != null ? qlanding.id.eq(dto.getId()) : null,
-                
+
         });
         query.orderBy(qlanding.id.desc());
         return query;
@@ -147,13 +147,18 @@ public class LandingService {
 
             // 处理index文件
             log.info("处理index文件");
+            // 如果为特定的html文件, 则改名为index.html
+
             File indexFile = FileUtil.file(webDir + "/index.html");
             File phpFile = new File(webDir + "/index.php");
-            if (indexFile.exists()) {
-                String indexContent = FileUtil.readUtf8String(indexFile);
-                String reformIndexContent = reformIndex(indexContent);
-                FileUtil.writeUtf8String(reformIndexContent, phpFile);
+            if (!indexFile.exists()) {
+                var split = dto.getUrl().split("/");
+                FileUtil.rename(FileUtil.file(webDir + "/" + split[split.length - 1]), "index.html", true);
             }
+            String indexContent = FileUtil.readUtf8String(indexFile);
+            String reformIndexContent = reformIndex(indexContent);
+            FileUtil.writeUtf8String(reformIndexContent, phpFile);
+
             // 生成压缩包
             if (!webDir.exists()) {
                 throw new BizException("下载失败");
