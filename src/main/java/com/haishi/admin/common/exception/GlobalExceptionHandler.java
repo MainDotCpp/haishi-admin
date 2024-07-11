@@ -2,6 +2,7 @@ package com.haishi.admin.common.exception;
 
 import com.haishi.admin.common.dto.HttpResult;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -38,6 +39,12 @@ public class GlobalExceptionHandler {
     }
 
 
+    @ExceptionHandler(value = ConstraintViolationException.class)
+    @ResponseBody
+    public HttpResult<Object> handleConstraintViolationException(ConstraintViolationException e) {
+        log.error(e.getMessage());
+        return HttpResult.error(new BizException(BizExceptionEnum.CONSTRAINT_VIOLATION));
+    }
 
 
     @ExceptionHandler(value = Exception.class)

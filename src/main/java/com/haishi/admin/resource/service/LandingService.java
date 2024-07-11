@@ -190,7 +190,6 @@ public class LandingService {
         // 头部添加php代码块
         indexContent = systemConfigService.getConfig("LANDING::HEAD_PHP") + indexContent;
 
-
         List<String> regexMappings = systemConfigService.getConfigs("LANDING::REGEX_MAPPING");
         for (String mapping : regexMappings) {
             String[] split = mapping.split("\\|\\|");

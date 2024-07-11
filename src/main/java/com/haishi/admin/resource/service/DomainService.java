@@ -138,7 +138,7 @@ public class DomainService {
         Domain domain = domainRepository.findById(id).orElseThrow();
         // deploy domain
         try {
-            restTemplate.getForEntity("http://localhost:8000/deploy/domain?domain_id=" + domain.getId(), String.class);
+            restTemplate.getForEntity(domain.getServer().getAddress() +"/deploy/domain?domain_id=" + domain.getId(), String.class);
         } catch (Exception e) {
             log.error("Deploy domain failed", e);
             throw new BizException("部署失败");

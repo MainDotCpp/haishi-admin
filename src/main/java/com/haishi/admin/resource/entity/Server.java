@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -31,4 +32,8 @@ public class Server {
     @Column(name = "status", nullable = false)
     @Enumerated(EnumType.STRING)
     private ServerStatus status = ServerStatus.DISCONNECTED;
+
+    @ColumnDefault("''")
+    @Column(name = "address",nullable = false)
+    private String address;
 }

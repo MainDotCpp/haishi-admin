@@ -33,6 +33,7 @@ public class DomainAgentConfig implements Serializable {
         @Size(max = 255)
         String name;
         ServerStatus status;
+        String address;
     }
 
     /**
