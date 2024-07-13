@@ -66,7 +66,9 @@ public class SecurityConfig {
                 .requestMatchers("cloak/check/*")
                 .requestMatchers("l/*")
                 .requestMatchers("website/check")
-                .requestMatchers("domain/getAgentConfig");
+                .requestMatchers("domain/getAgentConfig")
+                // 商店接口
+                .requestMatchers("commodityGroup/list");
     }
 
     @Bean

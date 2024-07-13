@@ -5,11 +5,17 @@ import re
 
 tasks = [
     {
-        "package": "system",
-        "biz": "systemConfig",
-        "comment": "系统设置",
+        "package": "store",
+        "biz": "commodityGroup",
+        "comment": "商品分组",
+    },
+    {
+        "package": "store",
+        "biz": "commodity",
+        "comment": "商品",
     }
 ]
+
 # 更改当前工作目录
 work_dir = Path(__file__).parent.parent
 # output_dir = work_dir.joinpath("src/main/java/com/haishi/admin")
