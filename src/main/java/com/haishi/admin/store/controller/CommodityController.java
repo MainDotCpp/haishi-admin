@@ -3,6 +3,7 @@ package com.haishi.admin.store.controller;
 import com.haishi.admin.common.dto.PageDTO;
 import com.haishi.admin.common.dto.HttpResult;
 import com.haishi.admin.store.dto.CommodityDTO;
+import com.haishi.admin.store.dto.CreateCommodityOrderDTO;
 import com.haishi.admin.store.service.CommodityService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -60,5 +61,6 @@ public class CommodityController {
                 commodityService.delete(id)
         );
     }
+
 
 }

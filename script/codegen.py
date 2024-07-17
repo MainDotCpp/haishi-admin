@@ -6,20 +6,15 @@ import re
 tasks = [
     {
         "package": "store",
-        "biz": "commodityGroup",
-        "comment": "商品分组",
-    },
-    {
-        "package": "store",
-        "biz": "commodity",
-        "comment": "商品",
+        "biz": "commodityOrder",
+        "comment": "商品订单",
     }
 ]
 
 # 更改当前工作目录
 work_dir = Path(__file__).parent.parent
-# output_dir = work_dir.joinpath("src/main/java/com/haishi/admin")
-output_dir = work_dir.joinpath("generate")
+output_dir = work_dir.joinpath("src/main/java/com/haishi/admin")
+# output_dir = work_dir.joinpath("generate")
 template_dir = work_dir.joinpath("script/templates")
 
 

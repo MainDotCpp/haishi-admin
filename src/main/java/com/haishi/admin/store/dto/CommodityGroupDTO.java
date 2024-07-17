@@ -15,6 +15,7 @@ import java.util.Objects;
 @Data
 public class CommodityGroupDTO implements Serializable {
     private Long id;
+    private String groupName;
     private List<CommodityDto> commodities = new ArrayList<>();
 
     /**

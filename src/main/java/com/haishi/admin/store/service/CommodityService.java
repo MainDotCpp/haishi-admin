@@ -1,12 +1,23 @@
 package com.haishi.admin.store.service;
 
+import cn.hutool.core.util.IdUtil;
+import com.alipay.easysdk.payment.facetoface.models.AlipayTradePrecreateResponse;
 import com.haishi.admin.common.dto.PageDTO;
 import com.haishi.admin.common.exception.BizException;
+import com.haishi.admin.pay.dto.SysOrderDTO;
+import com.haishi.admin.pay.entity.SysOrder;
+import com.haishi.admin.pay.enums.OrderTypeEnum;
+import com.haishi.admin.pay.mapper.SysOrderMapper;
+import com.haishi.admin.pay.service.SysOrderService;
 import com.haishi.admin.store.dao.CommodityRepository;
 import com.haishi.admin.store.dto.CommodityDTO;
+import com.haishi.admin.store.dto.CommodityOrderDTO;
+import com.haishi.admin.store.dto.CreateCommodityOrderDTO;
+import com.haishi.admin.store.entity.CommodityOrder;
 import com.haishi.admin.store.entity.QCommodity;
 import com.haishi.admin.store.entity.Commodity;
 import com.haishi.admin.store.mapper.CommodityMapper;
+import com.haishi.admin.store.mapper.CommodityOrderMapper;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.jpa.impl.JPAQuery;
@@ -107,4 +118,6 @@ public class CommodityService {
         commodityRepository.deleteById(id);
         return true;
     }
+
+
 }
