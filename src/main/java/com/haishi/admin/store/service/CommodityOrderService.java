@@ -5,13 +5,14 @@ import com.alipay.easysdk.payment.facetoface.models.AlipayTradePrecreateResponse
 import com.haishi.admin.common.dto.PageDTO;
 import com.haishi.admin.common.exception.BizException;
 import com.haishi.admin.pay.dto.SysOrderDTO;
+import com.haishi.admin.pay.entity.SysOrder;
 import com.haishi.admin.pay.enums.OrderTypeEnum;
 import com.haishi.admin.pay.service.SysOrderService;
 import com.haishi.admin.store.dao.CommodityOrderRepository;
 import com.haishi.admin.store.dto.CommodityDTO;
 import com.haishi.admin.store.dto.CommodityOrderDTO;
-import com.haishi.admin.store.dto.CreateCommodityOrderDTO;
-import com.haishi.admin.store.entity.Commodity;
+import com.haishi.admin.store.dto.CreateCommodityOrderResponse;
+import com.haishi.admin.store.entity.QCommodityItem;
 import com.haishi.admin.store.entity.QCommodityOrder;
 import com.haishi.admin.store.entity.CommodityOrder;
 import com.haishi.admin.store.mapper.CommodityOrderMapper;
@@ -19,6 +20,7 @@ import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import jakarta.annotation.Resource;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -37,7 +39,8 @@ public class CommodityOrderService {
     private final CommodityOrderMapper commodityOrderMapper;
     private final JPAQueryFactory jpaQueryFactory;
     private final CommodityService commodityService;
-    private final SysOrderService sysOrderService;
+    @Resource
+    private SysOrderService sysOrderService;
 
     /**
      * 根据ID获取商品订单
@@ -119,13 +122,14 @@ public class CommodityOrderService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public String pay(CommodityOrderDTO dto) {
+    public CreateCommodityOrderResponse pay(CommodityOrderDTO dto) {
         CommodityDTO commodityDTO = commodityService.getById(dto.getCommodityId());
         if (commodityDTO.getStock() < dto.getCount()) {
             throw new BizException("商品库存不足");
         }
         SysOrderDTO createOrderDto = new SysOrderDTO();
-        createOrderDto.setDescription(commodityDTO.getName());
+        createOrderDto.setSubject(commodityDTO.getCommodityGroupGroupName());
+        createOrderDto.setDescription(commodityDTO.getDescription());
         createOrderDto.setTotalAmount(commodityDTO.getPrice().longValue());
         createOrderDto.setOrderNo(IdUtil.fastUUID());
         createOrderDto.setOrderType(OrderTypeEnum.STORE);
@@ -136,6 +140,39 @@ public class CommodityOrderService {
         dto.setStatus(0);
         dto.setSysOrderId(createOrderDto.getId());
         this.save(dto);
-        return alipayTradePrecreateResponse.qrCode;
+
+        CreateCommodityOrderResponse createCommodityOrderResponse = new CreateCommodityOrderResponse();
+        createCommodityOrderResponse.setQrCode(alipayTradePrecreateResponse.qrCode);
+        createCommodityOrderResponse.setOrderNo(createOrderDto.getOrderNo());
+        return createCommodityOrderResponse;
+    }
+
+    public Boolean queryPayStatus(String orderNo) {
+        CommodityOrder commodityOrder = jpaQueryFactory.selectFrom(QCommodityOrder.commodityOrder)
+                .where(QCommodityOrder.commodityOrder.sysOrder.orderNo.eq(orderNo))
+                .fetchOne();
+        return commodityOrder != null && commodityOrder.getStatus() == 1;
+    }
+
+
+    public CommodityOrderDTO queryOrder(CommodityOrderDTO dto) {
+        CommodityOrder commodityOrder = jpaQueryFactory.selectFrom(QCommodityOrder.commodityOrder)
+                .where(QCommodityOrder.commodityOrder.email.eq(dto.getEmail())
+                        .and(QCommodityOrder.commodityOrder.password.eq(dto.getPassword())))
+                .fetchOne();
+        return commodityOrderMapper.toCommodityOrderDTO(commodityOrder);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public void payCallback(SysOrder sysOrder) {
+        CommodityOrder commodityOrder = jpaQueryFactory.selectFrom(QCommodityOrder.commodityOrder)
+                .where(QCommodityOrder.commodityOrder.sysOrder.id.eq(sysOrder.getId()))
+                .fetchOne();
+        commodityOrder.setStatus(1);
+        commodityOrderRepository.save(commodityOrder);
+
+        Integer count = commodityOrder.getCount();
+        jpaQueryFactory.selectFrom(QCommodityItem.commodityItem)
+                .where(QCommodityItem.commodityItem.commodityOrder.id.eq(commodityOrder.getId()));
     }
 }

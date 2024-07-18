@@ -69,7 +69,10 @@ public class SecurityConfig {
                 .requestMatchers("domain/getAgentConfig")
                 // 商店接口
                 .requestMatchers("commodityGroup/list")
-                .requestMatchers("commodityOrder/pay");
+                .requestMatchers("commodityOrder/pay")
+                .requestMatchers("commodityOrder/queryPayStatus")
+                .requestMatchers("commodityOrder/queryOrder")
+                .requestMatchers("sysOrder/payCallback");
     }
 
     @Bean

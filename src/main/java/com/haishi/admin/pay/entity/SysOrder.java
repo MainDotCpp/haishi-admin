@@ -29,6 +29,9 @@ public class SysOrder {
     @Column(name = "order_no", nullable = false)
     private String orderNo;
 
+    @Column(name = "subject", nullable = false)
+    private String subject;
+
     @Column(name = "description", nullable = false)
     private String description;
 
@@ -46,7 +49,7 @@ public class SysOrder {
     private Long payAmount = 0L;
 
     @ColumnDefault("CURRENT_TIMESTAMP")
-    @Column(name ="create_time",nullable = false)
+    @Column(name = "create_time", nullable = false)
     private Date createTime = new Date();
 
     @Column(name = "pay_time")

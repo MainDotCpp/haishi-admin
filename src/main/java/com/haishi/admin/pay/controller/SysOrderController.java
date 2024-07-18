@@ -2,16 +2,20 @@ package com.haishi.admin.pay.controller;
 
 import com.haishi.admin.common.dto.PageDTO;
 import com.haishi.admin.common.dto.HttpResult;
+import com.haishi.admin.pay.dto.AlipayNotifyDTO;
 import com.haishi.admin.pay.dto.SysOrderDTO;
 import com.haishi.admin.pay.service.SysOrderService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 
+import java.util.HashMap;
 import java.util.List;
 
+@Slf4j
 @Tag(name = "sysOrder", description = "系统订单控制器")
 @RestController
 @RequestMapping("/sysOrder")
@@ -58,6 +62,13 @@ public class SysOrderController {
         return HttpResult.success(
                 sysOrderService.delete(id)
         );
+    }
+
+    @Operation(summary = "支付回调 ")
+    @RequestMapping("/payCallback")
+    public String payCallback(@RequestParam HashMap<String, Object> notifyDTO) {
+        return sysOrderService.payCallback(notifyDTO);
+
     }
 
 }

@@ -3,7 +3,7 @@ package com.haishi.admin.store.controller;
 import com.haishi.admin.common.dto.PageDTO;
 import com.haishi.admin.common.dto.HttpResult;
 import com.haishi.admin.store.dto.CommodityOrderDTO;
-import com.haishi.admin.store.dto.CreateCommodityOrderDTO;
+import com.haishi.admin.store.dto.CreateCommodityOrderResponse;
 import com.haishi.admin.store.service.CommodityOrderService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -64,9 +64,25 @@ public class CommodityOrderController {
 
     @Operation(summary = "购买商品")
     @PostMapping("/pay")
-    public HttpResult<String> pay(@RequestBody CommodityOrderDTO dto) {
+    public HttpResult<CreateCommodityOrderResponse> pay(@RequestBody CommodityOrderDTO dto) {
         return HttpResult.success(
-                 commodityOrderService.pay(dto)
+                commodityOrderService.pay(dto)
+        );
+    }
+
+    @Operation(summary = "查询订单支付状态")
+    @GetMapping("/queryPayStatus")
+    public HttpResult<Boolean> queryPayStatus(String orderNo) {
+        return HttpResult.success(
+                commodityOrderService.queryPayStatus(orderNo)
+        );
+    }
+
+    @Operation(summary = "查询订单内容")
+    @PostMapping("/queryOrder")
+    public HttpResult<CommodityOrderDTO> queryOrder(@RequestBody CommodityOrderDTO dto) {
+        return HttpResult.success(
+                commodityOrderService.queryOrder(dto)
         );
     }
 

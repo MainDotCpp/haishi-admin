@@ -6,43 +6,32 @@ import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.proxy.HibernateProxy;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "s_commodity")
-public class Commodity {
+@Table(name = "s_commodity_item")
+public class CommodityItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "name", nullable = false)
-    private String name;
-
-    @Column(name = "description")
-    private String description;
-
-    @Column(name = "cover", nullable = false)
-    private String cover;
+    @Column(name = "commodity_id", nullable = false, length = 1024)
+    private String content;
 
     @ColumnDefault("0")
-    @Column(name = "price", nullable = false)
-    private Integer price;
-
-    @ColumnDefault("0")
-    @Column(name = "stock", nullable = false)
-    private Integer stock;
+    @Column(name = "payed", nullable = false)
+    private Boolean payed = false;
 
     @ManyToOne
-    @JoinColumn(name = "commodity_group_id")
-    private CommodityGroup commodityGroup;
+    @JoinColumn(name = "commodity_id")
+    private Commodity commodity;
 
-    @OneToMany(mappedBy = "commodity", orphanRemoval = true)
-    private List<CommodityItem> commodityItems = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "commodity_order_id")
+    private CommodityOrder commodityOrder;
 
     @Override
     public final boolean equals(Object o) {
@@ -51,8 +40,8 @@ public class Commodity {
         Class<?> oEffectiveClass = o instanceof HibernateProxy ? ((HibernateProxy) o).getHibernateLazyInitializer().getPersistentClass() : o.getClass();
         Class<?> thisEffectiveClass = this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass() : this.getClass();
         if (thisEffectiveClass != oEffectiveClass) return false;
-        Commodity commodity = (Commodity) o;
-        return getId() != null && Objects.equals(getId(), commodity.getId());
+        CommodityItem that = (CommodityItem) o;
+        return getId() != null && Objects.equals(getId(), that.getId());
     }
 
     @Override

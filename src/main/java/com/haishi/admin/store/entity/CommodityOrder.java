@@ -7,6 +7,8 @@ import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.util.Date;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -42,5 +44,8 @@ public class CommodityOrder {
     @ColumnDefault("CURRENT_TIMESTAMP")
     @Column(name = "create_time", nullable = false)
     private Date createTime = new Date();
+
+    @OneToMany(mappedBy = "commodityOrder", orphanRemoval = true)
+    private Set<CommodityItem> commodityItems = new LinkedHashSet<>();
 
 }

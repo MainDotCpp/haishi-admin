@@ -1,31 +1,34 @@
 package com.haishi.admin.pay.service;
 
+import cn.hutool.core.date.DateUtil;
 import com.alipay.easysdk.factory.Factory;
 import com.alipay.easysdk.kernel.Config;
-import com.alipay.easysdk.kernel.util.ResponseChecker;
+import com.alipay.easysdk.payment.facetoface.models.AlipayTradePayResponse;
 import com.alipay.easysdk.payment.facetoface.models.AlipayTradePrecreateResponse;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.haishi.admin.common.dto.PageDTO;
 import com.haishi.admin.common.exception.BizException;
 import com.haishi.admin.pay.dao.SysOrderRepository;
 import com.haishi.admin.pay.dto.SysOrderDTO;
 import com.haishi.admin.pay.entity.QSysOrder;
 import com.haishi.admin.pay.entity.SysOrder;
+import com.haishi.admin.pay.enums.OrderStatusEnum;
 import com.haishi.admin.pay.mapper.SysOrderMapper;
+import com.haishi.admin.store.service.CommodityOrderService;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.annotation.PostConstruct;
+import jakarta.annotation.Resource;
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
-
-import static org.apache.tomcat.jni.SSL.getOptions;
 
 /**
  * Service for {@link SysOrder}
@@ -37,6 +40,8 @@ public class SysOrderService {
     private final SysOrderRepository sysOrderRepository;
     private final SysOrderMapper sysOrderMapper;
     private final JPAQueryFactory jpaQueryFactory;
+    @Resource
+    private CommodityOrderService commodityOrderService;
 
 
     @PostConstruct
@@ -53,7 +58,7 @@ public class SysOrderService {
         // config.alipayCertPath = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAjMZ4vPap47uduQaYgxFCqdtPdSNno8VhPxvulz6ZuJoQDLlNeIwhcPPVIwkyh0eSL2fGhwwbDwEV+XAoOGVCjuIFvn+U9FTxwkWd2mhWLyLLsCt8bggnTnpIJd4IlKsSpsB5fc7eSGwadwJaFXsG09pM2ao2rOsN/KmFDYHTb0nVv5B0NVo5oX6Q01mMcjCS8BTvONvl3FWKu9uZJfsOFLja7IExI4Y1Kjt3VQoXN/jPke75hGNHpJK4FE/MC1m1KXWRQCqqiEe7EkLP7jeUq079owfHr6FJsh+hBkQfwKC8TjACVgyTT5k9oEqqyP4sl+jhrR31/cROiMrPLXxn9wIDAQAB";
 //         config.alipayRootCertPath = "<-- 请填写您的支付宝根证书文件路径，例如：/foo/alipayRootCert.crt -->";
         //注：如果采用非证书模式，则无需赋值上面的三个证书路径，改为赋值如下的支付宝公钥字符串即可
-         config.alipayPublicKey = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAkjNBJI5cw1hG0zueYWjN6V/L2wiQkPmUvbGqGmwfTQkiVYw4E3kb1ZnRxYgh4gCzqPplrWSTjOiQ6fax0OkNaDPX7JomrnuQDlZyET2P7HZ3U+s9DhyITabTRjEtIuy3WtU+/Wd/4M2sqVxT3lEn8VW07Qc3ynxjNDE35+AAoq4UAIdrho85EpwZaBehZwrWHvKlCLL68em4x5Z8Q+4eEBjDXpGfpBszsQNblbkEO+hjQLz3YtUOHHCUMBglkG/RiFlSQw3hsoMblOynwQpmEQBV9K+h3N/twLZDU5OO941Q9QoXKsDjqjm4tGapPz3Zr7jrXbyq3PP24fsXG+6XOQIDAQAB";
+        config.alipayPublicKey = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAkjNBJI5cw1hG0zueYWjN6V/L2wiQkPmUvbGqGmwfTQkiVYw4E3kb1ZnRxYgh4gCzqPplrWSTjOiQ6fax0OkNaDPX7JomrnuQDlZyET2P7HZ3U+s9DhyITabTRjEtIuy3WtU+/Wd/4M2sqVxT3lEn8VW07Qc3ynxjNDE35+AAoq4UAIdrho85EpwZaBehZwrWHvKlCLL68em4x5Z8Q+4eEBjDXpGfpBszsQNblbkEO+hjQLz3YtUOHHCUMBglkG/RiFlSQw3hsoMblOynwQpmEQBV9K+h3N/twLZDU5OO941Q9QoXKsDjqjm4tGapPz3Zr7jrXbyq3PP24fsXG+6XOQIDAQAB";
         //可设置异步通知接收服务地址（可选）
         //        config.notifyUrl = "<-- 请填写您的支付类接口异步通知接收服务地址，例如：https://www.test.com/callback -->";
         //可设置AES密钥，调用AES加解密相关接口时需要（可选）
@@ -122,14 +127,16 @@ public class SysOrderService {
      * @return {@link SysOrderDTO}
      */
     @Transactional(rollbackFor = Exception.class)
-    public SysOrderDTO save(SysOrderDTO dto){
+    public SysOrderDTO save(SysOrderDTO dto) {
         SysOrder sysOrder = new SysOrder();
         if (dto.getId() != null)
             sysOrder = sysOrderRepository.findById(dto.getId()).orElseThrow(() -> new BizException("系统错误:系统订单不存在"));
         AlipayTradePrecreateResponse alipayTradePrecreateResponse = null;
         try {
             String amountStr = BigDecimal.valueOf(dto.getTotalAmount()).divide(BigDecimal.valueOf(100)).toString();
-            alipayTradePrecreateResponse = Factory.Payment.FaceToFace().preCreate(dto.getDescription(), dto.getOrderNo(), amountStr);
+            alipayTradePrecreateResponse = Factory.Payment.FaceToFace()
+                    .asyncNotify("https://console.d-l.ink/api/sysOrder/payCallback")
+                    .preCreate(dto.getSubject(), dto.getOrderNo(), amountStr);
         } catch (Exception e) {
             throw new BizException("系统错误:支付宝预下单失败");
         }
@@ -150,4 +157,36 @@ public class SysOrderService {
         return true;
     }
 
+    @Transactional(rollbackFor = Exception.class)
+    public String payCallback(HashMap<String, Object> notifyDTO) {
+        ObjectMapper om = new ObjectMapper();
+        String notifyJson = null;
+        AlipayTradePayResponse response;
+        try {
+            notifyJson = om.writeValueAsString(notifyDTO);
+        } catch (Exception e) {
+            throw new BizException("系统错误:支付回调失败");
+        }
+        log.info("支付回调:{}", notifyJson);
+        String outTradeNo = (String) notifyDTO.get("out_trade_no");
+        String tradeNo = (String) notifyDTO.get("trade_no");
+        String gmtPayment = (String) notifyDTO.get("gmt_payment");
+        String tradeStatus = (String) notifyDTO.get("trade_status");
+        String invoiceAmount = (String) notifyDTO.get("invoice_amount");
+
+        if ("TRADE_SUCCESS".equals(tradeStatus)) {
+            //支付成功
+            //更新订单状态
+            SysOrder sysOrder = jpaQueryFactory.selectFrom(QSysOrder.sysOrder)
+                    .where(QSysOrder.sysOrder.orderNo.eq(outTradeNo))
+                    .fetchFirst();
+            sysOrder.setStatus(OrderStatusEnum.PAID);
+            sysOrder.setPayTime(DateUtil.parse(gmtPayment, "yyyy-MM-dd HH:mm:ss"));
+            sysOrder.setPayAmount(new BigDecimal(invoiceAmount).multiply(new BigDecimal(100)).longValue());
+
+            // 业务回调
+            commodityOrderService.payCallback(sysOrder);
+        }
+        return "success";
+    }
 }

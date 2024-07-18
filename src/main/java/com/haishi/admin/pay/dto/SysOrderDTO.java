@@ -23,5 +23,7 @@ public class SysOrderDTO implements Serializable {
     private String orderNo;
     private Long totalAmount;
 
+
     private AlipayTradePrecreateResponse alipayTradePrecreateResponse;
+    private String subject;
 }

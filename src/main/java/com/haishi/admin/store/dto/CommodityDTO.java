@@ -11,6 +11,7 @@ import java.io.Serializable;
 public class CommodityDTO implements Serializable {
     private Long id;
 
+    private String commodityGroupGroupName;
     private String name;
     private String description;
     private String cover;
