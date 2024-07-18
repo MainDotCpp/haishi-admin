@@ -13,9 +13,7 @@ import com.haishi.admin.store.dao.CommodityRepository;
 import com.haishi.admin.store.dto.CommodityDTO;
 import com.haishi.admin.store.dto.CommodityOrderDTO;
 import com.haishi.admin.store.dto.CreateCommodityOrderDTO;
-import com.haishi.admin.store.entity.CommodityOrder;
-import com.haishi.admin.store.entity.QCommodity;
-import com.haishi.admin.store.entity.Commodity;
+import com.haishi.admin.store.entity.*;
 import com.haishi.admin.store.mapper.CommodityMapper;
 import com.haishi.admin.store.mapper.CommodityOrderMapper;
 import com.querydsl.core.QueryResults;
@@ -117,6 +115,19 @@ public class CommodityService {
     public boolean delete(Long id) {
         commodityRepository.deleteById(id);
         return true;
+    }
+
+    @Transactional
+    public void flushStoke(Long id) {
+        Long stock = jpaQueryFactory.select(QCommodityItem.commodityItem.count())
+                .from(QCommodityItem.commodityItem)
+                .where(QCommodityItem.commodityItem.commodity.id.eq(id))
+                .fetchOne();
+        jpaQueryFactory
+                .update(QCommodity.commodity)
+                .set(QCommodity.commodity.stock, stock.intValue())
+                .where(QCommodity.commodity.id.eq(id))
+                .execute();
     }
 
 

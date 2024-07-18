@@ -109,4 +109,6 @@ public class CommodityGroupService {
         commodityGroupRepository.deleteById(id);
         return true;
     }
+
+
 }

@@ -80,7 +80,7 @@ public class CommodityOrderController {
 
     @Operation(summary = "查询订单内容")
     @PostMapping("/queryOrder")
-    public HttpResult<CommodityOrderDTO> queryOrder(@RequestBody CommodityOrderDTO dto) {
+    public HttpResult<List<CommodityOrderDTO>> queryOrder(@RequestBody CommodityOrderDTO dto) {
         return HttpResult.success(
                 commodityOrderService.queryOrder(dto)
         );

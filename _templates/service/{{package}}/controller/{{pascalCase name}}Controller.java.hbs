@@ -1,0 +1,65 @@
+package com.haishi.admin.{{package}}.controller;
+
+import com.haishi.admin.common.dto.PageDTO;
+import com.haishi.admin.common.dto.HttpResult;
+import com.haishi.admin.{{package}}.dto.{{pascalCase name}}DTO;
+import com.haishi.admin.{{package}}.service.{{pascalCase name}}Service;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.AllArgsConstructor;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.security.access.prepost.PreAuthorize;
+
+import java.util.List;
+
+@Tag(name = "{{camelCase name}}", description = "{{comment}}控制器")
+@RestController
+@RequestMapping("/{{camelCase name}}")
+@AllArgsConstructor
+public class {{pascalCase name}}Controller {
+    private final {{pascalCase name}}Service {{camelCase name}}Service;
+
+    @Operation(summary = "根据ID获取{{comment}}")
+    @GetMapping("/getById")
+    public HttpResult<{{pascalCase name}}DTO> get(Long id) {
+        return HttpResult.success({{camelCase name}}Service.getById(id));
+    }
+
+    @Operation(summary = "{{comment}}列表")
+    @GetMapping("/list")
+    @PreAuthorize("hasAnyAuthority('{{constantCase name}}')")
+    public HttpResult<List<{{pascalCase name}}DTO>> list({{pascalCase name}}DTO queryDTO) {
+        return HttpResult.success(
+                {{camelCase name}}Service.list(queryDTO)
+        );
+    }
+
+    @Operation(summary = "分页查询{{comment}}")
+    @GetMapping("/page")
+    @PreAuthorize("hasAnyAuthority('{{constantCase name}}')")
+    public HttpResult<PageDTO<{{pascalCase name}}DTO>> page({{pascalCase name}}DTO queryDTO, Integer current, Integer pageSize) {
+        return HttpResult.success(
+                {{camelCase name}}Service.page(queryDTO, current, pageSize)
+        );
+    }
+
+    @Operation(summary = "保存{{comment}}")
+    @PostMapping("/save")
+    @PreAuthorize("hasAnyAuthority('{{constantCase name}}__EDIT')")
+    public HttpResult<{{pascalCase name}}DTO> save(@RequestBody {{pascalCase name}}DTO {{camelCase name}}UpdateDTO) {
+        return HttpResult.success(
+                {{camelCase name}}Service.save({{camelCase name}}UpdateDTO)
+        );
+    }
+
+    @Operation(summary = "通过ID删除{{comment}}")
+    @PostMapping("/deleteById")
+    @PreAuthorize("hasAnyAuthority('{{constantCase name}}__DELETE')")
+    public HttpResult<Boolean> delete(Long id) {
+        return HttpResult.success(
+                {{camelCase name}}Service.delete(id)
+        );
+    }
+
+
+}

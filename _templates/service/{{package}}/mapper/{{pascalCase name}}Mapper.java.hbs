@@ -1,0 +1,30 @@
+package com.haishi.admin.{{package}}.mapper;
+
+import com.haishi.admin.{{package}}.dto.{{pascalCase name}}DTO;
+import com.haishi.admin.{{package}}.entity.{{pascalCase name}};
+import org.mapstruct.*;
+
+import java.util.List;
+
+@Mapper(
+        unmappedTargetPolicy = ReportingPolicy.IGNORE,
+        componentModel = MappingConstants.ComponentModel.SPRING
+)
+public interface {{pascalCase name}}Mapper {
+
+    {{pascalCase name}}DTO to{{pascalCase name}}DTO({{pascalCase name}} {{camelCase name}});
+
+    {{pascalCase name}} to{{pascalCase name}}({{pascalCase name}}DTO {{camelCase name}}DTO);
+
+    List<{{pascalCase name}}> to{{pascalCase name}}List(List<{{pascalCase name}}DTO> {{camelCase name}}DTOList);
+
+    List<{{pascalCase name}}DTO> to{{pascalCase name}}DTOList(List<{{pascalCase name}}> {{camelCase name}}List);
+
+    @InheritConfiguration
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    {{pascalCase name}} partialUpdate({{pascalCase name}}DTO {{camelCase name}}DTO, @MappingTarget {{pascalCase name}} {{camelCase name}});
+
+    {{pascalCase name}} copy({{pascalCase name}} {{camelCase name}});
+
+    {{pascalCase name}} idToEntity(Long id);
+}

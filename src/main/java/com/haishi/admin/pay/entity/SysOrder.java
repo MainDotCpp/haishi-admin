@@ -29,6 +29,7 @@ public class SysOrder {
     @Column(name = "order_no", nullable = false)
     private String orderNo;
 
+    @ColumnDefault("''")
     @Column(name = "subject", nullable = false)
     private String subject;
 

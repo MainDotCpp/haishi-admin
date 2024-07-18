@@ -12,6 +12,7 @@ import com.haishi.admin.store.dao.CommodityOrderRepository;
 import com.haishi.admin.store.dto.CommodityDTO;
 import com.haishi.admin.store.dto.CommodityOrderDTO;
 import com.haishi.admin.store.dto.CreateCommodityOrderResponse;
+import com.haishi.admin.store.entity.CommodityItem;
 import com.haishi.admin.store.entity.QCommodityItem;
 import com.haishi.admin.store.entity.QCommodityOrder;
 import com.haishi.admin.store.entity.CommodityOrder;
@@ -27,6 +28,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Service for {@link CommodityOrder}
@@ -129,8 +131,8 @@ public class CommodityOrderService {
         }
         SysOrderDTO createOrderDto = new SysOrderDTO();
         createOrderDto.setSubject(commodityDTO.getCommodityGroupGroupName());
-        createOrderDto.setDescription(commodityDTO.getDescription());
-        createOrderDto.setTotalAmount(commodityDTO.getPrice().longValue());
+        createOrderDto.setDescription(commodityDTO.getName());
+        createOrderDto.setTotalAmount(((long) commodityDTO.getPrice() * dto.getCount()));
         createOrderDto.setOrderNo(IdUtil.fastUUID());
         createOrderDto.setOrderType(OrderTypeEnum.STORE);
         createOrderDto = sysOrderService.save(createOrderDto);
@@ -144,6 +146,7 @@ public class CommodityOrderService {
         CreateCommodityOrderResponse createCommodityOrderResponse = new CreateCommodityOrderResponse();
         createCommodityOrderResponse.setQrCode(alipayTradePrecreateResponse.qrCode);
         createCommodityOrderResponse.setOrderNo(createOrderDto.getOrderNo());
+        createCommodityOrderResponse.setTotalAmount(createOrderDto.getTotalAmount());
         return createCommodityOrderResponse;
     }
 
@@ -155,12 +158,12 @@ public class CommodityOrderService {
     }
 
 
-    public CommodityOrderDTO queryOrder(CommodityOrderDTO dto) {
-        CommodityOrder commodityOrder = jpaQueryFactory.selectFrom(QCommodityOrder.commodityOrder)
+    public List<CommodityOrderDTO> queryOrder(CommodityOrderDTO dto) {
+        List<CommodityOrder> commodityOrder = jpaQueryFactory.selectFrom(QCommodityOrder.commodityOrder)
                 .where(QCommodityOrder.commodityOrder.email.eq(dto.getEmail())
                         .and(QCommodityOrder.commodityOrder.password.eq(dto.getPassword())))
-                .fetchOne();
-        return commodityOrderMapper.toCommodityOrderDTO(commodityOrder);
+                .fetch();
+        return commodityOrder.stream().map(commodityOrderMapper::toCommodityOrderDTO).collect(Collectors.toList());
     }
 
     @Transactional(rollbackFor = Exception.class)
@@ -172,7 +175,18 @@ public class CommodityOrderService {
         commodityOrderRepository.save(commodityOrder);
 
         Integer count = commodityOrder.getCount();
-        jpaQueryFactory.selectFrom(QCommodityItem.commodityItem)
-                .where(QCommodityItem.commodityItem.commodityOrder.id.eq(commodityOrder.getId()));
+        QCommodityItem qCommodityItem = QCommodityItem.commodityItem;
+        List<CommodityItem> commodityItem = jpaQueryFactory.selectFrom(qCommodityItem)
+                .where(
+                        qCommodityItem.commodity.id.eq(commodityOrder.getCommodity().getId()),
+                        qCommodityItem.payed.eq(false)
+                ).limit(count)
+                .fetch();
+        for (CommodityItem item : commodityItem) {
+            item.setPayed(true);
+            item.setCommodityOrder(commodityOrder);
+        }
+
+        commodityService.flushStoke(commodityOrder.getCommodity().getId());
     }
 }

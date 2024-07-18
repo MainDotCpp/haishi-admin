@@ -14,6 +14,7 @@ public interface CommodityOrderMapper {
 
     @Mapping(source = "sysOrder.id", target = "sysOrderId")
     @Mapping(source = "commodity.id", target = "commodityId")
+    @Mapping(source = "commodity.name", target = "commodityName")
     CommodityOrderDTO toCommodityOrderDTO(CommodityOrder commodityOrder);
 
     @Mapping(source = "sysOrderId", target = "sysOrder.id")
@@ -26,6 +27,7 @@ public interface CommodityOrderMapper {
 
     @Mapping(source = "sysOrder.id", target = "sysOrderId")
     @Mapping(source = "commodity.id", target = "commodityId")
+    @Mapping(source = "commodity.name", target = "commodityName")
     List<CommodityOrderDTO> toCommodityOrderDTOList(List<CommodityOrder> commodityOrderList);
 
     @InheritConfiguration

@@ -18,10 +18,10 @@ public class CommodityItem {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "commodity_id", nullable = false, length = 1024)
+    @Column(name = "comtent", nullable = false, length = 1024)
     private String content;
 
-    @ColumnDefault("0")
+    @ColumnDefault("false")
     @Column(name = "payed", nullable = false)
     private Boolean payed = false;
 

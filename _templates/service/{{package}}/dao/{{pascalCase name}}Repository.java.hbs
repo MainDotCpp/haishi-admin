@@ -1,0 +1,8 @@
+package com.haishi.admin.{{package}}.dao;
+
+import com.haishi.admin.{{package}}.entity.{{pascalCase name}};
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
+
+public interface {{pascalCase name}}Repository extends PagingAndSortingRepository<{{pascalCase name}}, Long>, CrudRepository<{{pascalCase name}}, Long> {
+}

@@ -6,4 +6,5 @@ import lombok.Data;
 public class CreateCommodityOrderResponse {
     private String qrCode;
     private String orderNo;
+    private Long totalAmount;
 }
