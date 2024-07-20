@@ -61,5 +61,12 @@ public class CommodityItemController {
         );
     }
 
+    @Operation(summary = "批量保存商品库存")
+    @PostMapping("/batchSave")
+    @PreAuthorize("hasAnyAuthority('COMMODITY_ITEM__EDIT')")
+    public HttpResult<Boolean> batchSave(@RequestBody List<CommodityItemDTO> commodityItemDTOList) {
+        commodityItemService.batchSave(commodityItemDTOList);
+        return HttpResult.success(true);
+    }
 
 }

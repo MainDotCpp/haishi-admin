@@ -114,4 +114,9 @@ public class CommodityItemService {
         commodityItemRepository.deleteById(id);
         return true;
     }
+
+    public void batchSave(List<CommodityItemDTO> commodityItemDTOList) {
+        commodityItemRepository.saveAll(commodityItemMapper.toCommodityItemList(commodityItemDTOList));
+        commodityService.flushStoke(commodityItemDTOList.get(0).getCommodityId());
+    }
 }
