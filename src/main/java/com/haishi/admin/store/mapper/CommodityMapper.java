@@ -13,16 +13,20 @@ import java.util.List;
 )
 public interface CommodityMapper {
 
-    @Mapping(source = "commodityGroup.groupName", target = "commodityGroupGroupName")
+    @Mapping(source = "commodityGroup.groupName", target = "groupName")
+    @Mapping(source = "commodityGroup.id", target = "groupId")
     CommodityDTO toCommodityDTO(Commodity commodity);
 
-    @Mapping(source = "commodityGroupGroupName", target = "commodityGroup.groupName")
+    @Mapping(source = "groupName", target = "commodityGroup.groupName")
+    @Mapping(source = "groupId", target = "commodityGroup.id")
     Commodity toCommodity(CommodityDTO commodityDTO);
 
-    @Mapping(source = "commodityGroupGroupName", target = "commodityGroup.groupName")
+    @Mapping(source = "groupName", target = "commodityGroup.groupName")
+    @Mapping(source = "groupId", target = "commodityGroup.id")
     List<Commodity> toCommodityList(List<CommodityDTO> commodityDTOList);
 
-    @Mapping(source = "commodityGroup.groupName", target = "commodityGroupGroupName")
+    @Mapping(source = "commodityGroup.groupName", target = "groupName")
+    @Mapping(source = "commodityGroup.id", target = "groupId")
     List<CommodityDTO> toCommodityDTOList(List<Commodity> commodityList);
 
     @InheritConfiguration

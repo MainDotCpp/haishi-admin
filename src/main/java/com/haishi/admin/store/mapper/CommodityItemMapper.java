@@ -12,12 +12,20 @@ import java.util.List;
 )
 public interface CommodityItemMapper {
 
+    @Mapping(source = "commodity.name", target = "commodityName")
+    @Mapping(source = "commodity.id", target = "commodityId")
     CommodityItemDTO toCommodityItemDTO(CommodityItem commodityItem);
 
+    @Mapping(source = "commodityName", target = "commodity.name")
+    @Mapping(source = "commodityId", target = "commodity.id")
     CommodityItem toCommodityItem(CommodityItemDTO commodityItemDTO);
 
+    @Mapping(source = "commodityName", target = "commodity.name")
+    @Mapping(source = "commodityId", target = "commodity.id")
     List<CommodityItem> toCommodityItemList(List<CommodityItemDTO> commodityItemDTOList);
 
+    @Mapping(source = "commodity.name", target = "commodityName")
+    @Mapping(source = "commodity.id", target = "commodityId")
     List<CommodityItemDTO> toCommodityItemDTOList(List<CommodityItem> commodityItemList);
 
     @InheritConfiguration

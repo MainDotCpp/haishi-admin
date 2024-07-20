@@ -130,7 +130,7 @@ public class CommodityOrderService {
             throw new BizException("商品库存不足");
         }
         SysOrderDTO createOrderDto = new SysOrderDTO();
-        createOrderDto.setSubject(commodityDTO.getCommodityGroupGroupName());
+        createOrderDto.setSubject(commodityDTO.getGroupName());
         createOrderDto.setDescription(commodityDTO.getName());
         createOrderDto.setTotalAmount(((long) commodityDTO.getPrice() * dto.getCount()));
         createOrderDto.setOrderNo(IdUtil.fastUUID());

@@ -49,7 +49,7 @@ public class CommodityGroupService {
         QCommodityGroup qcommodityGroup = QCommodityGroup.commodityGroup;
         JPAQuery<CommodityGroup> query = jpaQueryFactory
                 .selectFrom(qcommodityGroup)
-                .innerJoin(qcommodityGroup.commodities)
+                .leftJoin(qcommodityGroup.commodities)
                 .fetchJoin();
         query.where(new Predicate[]{
                 dto.getId() != null ? qcommodityGroup.id.eq(dto.getId()) : null,

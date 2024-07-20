@@ -31,11 +31,11 @@ public class Commodity {
 
     @ColumnDefault("0")
     @Column(name = "price", nullable = false)
-    private Integer price;
+    private Integer price = 0;
 
     @ColumnDefault("0")
     @Column(name = "stock", nullable = false)
-    private Integer stock;
+    private Integer stock = 0;
 
     @ManyToOne
     @JoinColumn(name = "commodity_group_id")

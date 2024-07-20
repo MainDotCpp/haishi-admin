@@ -10,4 +10,8 @@ import java.io.Serializable;
 @Data
 public class CommodityItemDTO implements Serializable {
     private Long id;
+    private String content;
+    private Boolean payed;
+    private Long commodityId;
+    private String commodityName;
 }

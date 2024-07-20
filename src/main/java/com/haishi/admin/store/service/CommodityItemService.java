@@ -54,6 +54,8 @@ public class CommodityItemService {
                 .selectFrom(qcommodityItem);
         query.where(new Predicate[]{
                 dto.getId() != null ? qcommodityItem.id.eq(dto.getId()) : null,
+                dto.getPayed() != null ? qcommodityItem.payed.eq(dto.getPayed()) : null,
+                dto.getCommodityId() != null ? qcommodityItem.commodity.id.eq(dto.getCommodityId()) : null,
         });
         query.orderBy(qcommodityItem.id.desc());
         return query;
