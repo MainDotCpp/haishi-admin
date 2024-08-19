@@ -5,6 +5,7 @@ import cn.hutool.core.date.TimeInterval;
 import com.haishi.admin.cloak.dao.BlacklistIpRepository;
 import com.haishi.admin.cloak.entity.*;
 import com.haishi.admin.cloak.enums.CheckStatus;
+import com.haishi.admin.system.entity.QSystemConfig;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
@@ -39,7 +40,20 @@ public class BlacklistIpCheckService extends CloakCheckHandleIntercept {
 
     @PostConstruct
     public void init() {
-
+        RBloomFilter<Object> blacklistIpFilter = redissonClient.getBloomFilter("blacklistIp");
+        if (blacklistIpFilter.isExists()) {
+            return;
+        }
+        // 加载黑名单
+        var blacklistStr = jpaQueryFactory
+                .selectFrom(QSystemConfig.systemConfig)
+                .where(QSystemConfig.systemConfig.configKey.eq("cloak.blacklistIp.init"))
+                .fetchFirst();
+        var blacklist = blacklistStr.getConfigValue().split("\n");
+        for (String ip : blacklist) {
+            log.info("黑名单IP检查，初始化布隆过滤器，添加黑名单IP：{}", ip);
+            blacklistIpFilter.add(ip);
+        }
     }
 
     public Boolean initFilter() {

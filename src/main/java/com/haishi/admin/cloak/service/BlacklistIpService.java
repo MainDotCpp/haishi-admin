@@ -5,6 +5,8 @@ import com.haishi.admin.cloak.entity.QBlacklistIp;
 import com.haishi.admin.common.dto.PageDTO;
 import com.haishi.admin.cloak.dao.BlacklistIpRepository;
 import com.haishi.admin.cloak.entity.BlacklistIp;
+import com.haishi.admin.system.entity.QSystemConfig;
+import com.haishi.admin.system.entity.SystemConfig;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -55,6 +57,21 @@ public class BlacklistIpService {
 
     public boolean delete(Long id) {
         blacklistIpRepository.deleteById(id);
+        return true;
+    }
+
+    public String getBlacklistIp() {
+        var systemConfig = jpaQueryFactory.selectFrom(QSystemConfig.systemConfig)
+                .where(QSystemConfig.systemConfig.configKey.eq("cloak.blacklistIp.init"))
+                .fetchFirst();
+        return systemConfig.getConfigValue();
+    }
+
+    public Boolean setBlacklistIp(String blacklistIp) {
+        var systemConfig = jpaQueryFactory.selectFrom(QSystemConfig.systemConfig)
+                .where(QSystemConfig.systemConfig.configKey.eq("cloak.blacklistIp.init"))
+                .fetchFirst();
+        systemConfig.setConfigValue(blacklistIp);
         return true;
     }
 }

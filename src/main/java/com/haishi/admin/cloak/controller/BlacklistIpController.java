@@ -34,6 +34,23 @@ public class BlacklistIpController {
         );
     }
 
+    @Operation(summary = "获取黑名单 ip")
+    @GetMapping("/getBlacklistIp")
+    public HttpResult<String> getBlacklistIp() {
+        return HttpResult.success(
+                blacklistIpService.getBlacklistIp()
+        );
+    }
+
+
+    @Operation(summary = "设置黑名单 ip")
+    @PostMapping("/setBlacklistIp")
+    public HttpResult<Boolean> setBlacklistIp(String blacklistIp) {
+        return HttpResult.success(
+                blacklistIpService.setBlacklistIp(blacklistIp)
+        );
+    }
+
     @Operation(summary = "分页查询黑名单 ip")
     @GetMapping("/page")
     public HttpResult<PageDTO<BlacklistIp>> page(BlacklistIpQueryDTO queryDTO) {
