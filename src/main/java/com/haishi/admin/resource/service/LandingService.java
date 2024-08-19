@@ -127,6 +127,10 @@ public class LandingService {
         return true;
     }
 
+    public boolean rePackage(String uuid) {
+        
+    }
+
     @Transactional(rollbackFor = Exception.class)
     public boolean downloadWeb(SaveLandingByUrlDTO dto) {
         String path = IdUtil.fastUUID();

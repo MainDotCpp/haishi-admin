@@ -24,8 +24,8 @@ public class GlobalExceptionHandler {
         return HttpResult.error(e);
     }
 
-    @ExceptionHandler(value = AccessDeniedException.class)
     @ResponseBody
+    @ExceptionHandler(value = AccessDeniedException.class)
     public HttpResult<Object> handleAccessDeniedException(AccessDeniedException e) {
         log.error(e.getMessage());
         return HttpResult.error(new BizException(BizExceptionEnum.PERMISSION_DENIED));
@@ -39,8 +39,8 @@ public class GlobalExceptionHandler {
     }
 
 
-    @ExceptionHandler(value = ConstraintViolationException.class)
     @ResponseBody
+    @ExceptionHandler(value = ConstraintViolationException.class)
     public HttpResult<Object> handleConstraintViolationException(ConstraintViolationException e) {
         log.error(e.getMessage());
         return HttpResult.error(new BizException(BizExceptionEnum.CONSTRAINT_VIOLATION));
