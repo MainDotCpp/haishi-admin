@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,6 +68,7 @@ public class BlacklistIpService {
         return systemConfig.getConfigValue();
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public Boolean setBlacklistIp(String blacklistIp) {
         var systemConfig = jpaQueryFactory.selectFrom(QSystemConfig.systemConfig)
                 .where(QSystemConfig.systemConfig.configKey.eq("cloak.blacklistIp.init"))

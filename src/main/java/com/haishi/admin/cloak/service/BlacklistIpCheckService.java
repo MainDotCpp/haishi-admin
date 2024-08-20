@@ -40,20 +40,20 @@ public class BlacklistIpCheckService extends CloakCheckHandleIntercept {
 
     @PostConstruct
     public void init() {
-        RBloomFilter<Object> blacklistIpFilter = redissonClient.getBloomFilter("blacklistIp");
-        if (blacklistIpFilter.isExists()) {
-            return;
-        }
-        // 加载黑名单
-        var blacklistStr = jpaQueryFactory
-                .selectFrom(QSystemConfig.systemConfig)
-                .where(QSystemConfig.systemConfig.configKey.eq("cloak.blacklistIp.init"))
-                .fetchFirst();
-        var blacklist = blacklistStr.getConfigValue().split("\n");
-        for (String ip : blacklist) {
-            log.info("黑名单IP检查，初始化布隆过滤器，添加黑名单IP：{}", ip);
-            blacklistIpFilter.add(ip);
-        }
+//        RBloomFilter<Object> blacklistIpFilter = redissonClient.getBloomFilter("blacklistIp");
+//        if (blacklistIpFilter.isExists()) {
+//            return;
+//        }
+//        // 加载黑名单
+//        var blacklistStr = jpaQueryFactory
+//                .selectFrom(QSystemConfig.systemConfig)
+//                .where(QSystemConfig.systemConfig.configKey.eq("cloak.blacklistIp.init"))
+//                .fetchFirst();
+//        var blacklist = blacklistStr.getConfigValue().split("\n");
+//        for (String ip : blacklist) {
+//            log.info("黑名单IP检查，初始化布隆过滤器，添加黑名单IP：{}", ip);
+//            blacklistIpFilter.add(ip);
+//        }
     }
 
     public Boolean initFilter() {
@@ -98,6 +98,13 @@ public class BlacklistIpCheckService extends CloakCheckHandleIntercept {
     @Override
     @Transactional(rollbackFor = Exception.class)
     CheckStatus check(CloakLog cloakLog, CloakConfig cloakConfig) {
+
+        var blacklistIp = blacklistIpService.getBlacklistIp();
+        if (blacklistIp.contains(cloakLog.getIp())) {
+            log.info("黑名单IP命中：{}", cloakLog.getIp());
+            return CheckStatus.FORBID_BY_BLACKLIST_IP;
+        }
+
         RBloomFilter<Object> visitorFilter = redissonClient.getBloomFilter("visitorIp");
         RBloomFilter<Object> blacklistIpFilter = redissonClient.getBloomFilter("blacklistIp");
 
