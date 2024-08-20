@@ -40,6 +40,7 @@ public class BlacklistIpCheckService extends CloakCheckHandleIntercept {
 
     @PostConstruct
     public void init() {
+        initFilter();
 //        RBloomFilter<Object> blacklistIpFilter = redissonClient.getBloomFilter("blacklistIp");
 //        if (blacklistIpFilter.isExists()) {
 //            return;
