@@ -2,6 +2,7 @@ package com.haishi.admin.cloak.service;
 
 import com.haishi.admin.cloak.dto.BlacklistIpQueryDTO;
 import com.haishi.admin.cloak.entity.QBlacklistIp;
+import com.haishi.admin.common.config.RedisConfig;
 import com.haishi.admin.common.dto.PageDTO;
 import com.haishi.admin.cloak.dao.BlacklistIpRepository;
 import com.haishi.admin.cloak.entity.BlacklistIp;
@@ -12,6 +13,7 @@ import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.redisson.api.RedissonClient;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -27,6 +29,7 @@ import java.util.UUID;
 public class BlacklistIpService {
     private final BlacklistIpRepository blacklistIpRepository;
     private final JPAQueryFactory jpaQueryFactory;
+    private final RedissonClient redissonClient;
 
     public BlacklistIp getById(Long id) {
         return blacklistIpRepository.findById(id).orElse(null);
@@ -53,6 +56,8 @@ public class BlacklistIpService {
     }
 
     public BlacklistIp save(BlacklistIp blacklistIp) {
+        // 添加到布隆过滤器中
+        redissonClient.getBloomFilter("blacklistIp").add(blacklistIp.getIp().toString());
         return blacklistIpRepository.save(blacklistIp);
     }
 

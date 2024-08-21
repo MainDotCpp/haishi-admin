@@ -14,6 +14,7 @@ import org.redisson.api.RBloomFilter;
 import org.redisson.api.RedissonClient;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.servlet.tags.HtmlEscapeTag;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -63,6 +64,11 @@ public class BlacklistIpCheckService extends CloakCheckHandleIntercept {
         // 初始化布隆过滤器
         RBloomFilter<Object> visitorFilter = redissonClient.getBloomFilter("visitorIp");
         RBloomFilter<Object> blacklistIpFilter = redissonClient.getBloomFilter("blacklistIp");
+
+        if (visitorFilter.isExists() && blacklistIpFilter.isExists()) {
+            return false;
+        }
+
         visitorFilter.tryInit(1000000, 0.03);
         blacklistIpFilter.tryInit(1000000, 0.03);
 
@@ -99,13 +105,6 @@ public class BlacklistIpCheckService extends CloakCheckHandleIntercept {
     @Override
     @Transactional(rollbackFor = Exception.class)
     CheckStatus check(CloakLog cloakLog, CloakConfig cloakConfig) {
-
-        var blacklistIp = blacklistIpService.getBlacklistIp();
-        if (blacklistIp.contains(cloakLog.getIp())) {
-            log.info("黑名单IP命中：{}", cloakLog.getIp());
-            return CheckStatus.FORBID_BY_BLACKLIST_IP;
-        }
-
         RBloomFilter<Object> visitorFilter = redissonClient.getBloomFilter("visitorIp");
         RBloomFilter<Object> blacklistIpFilter = redissonClient.getBloomFilter("blacklistIp");
 

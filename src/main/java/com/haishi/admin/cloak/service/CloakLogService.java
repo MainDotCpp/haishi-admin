@@ -10,6 +10,8 @@ import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.redisson.api.RBloomFilter;
+import org.redisson.api.RedissonClient;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,7 @@ import java.util.List;
 public class CloakLogService {
     private final CloakLogRepository cloakLogRepository;
     private final JPAQueryFactory jpaQueryFactory;
+    private final RedissonClient redissonClient;
 
     public CloakLog getById(Long id) {
         return cloakLogRepository.findById(id).orElse(null);
@@ -46,6 +49,12 @@ public class CloakLogService {
 
         queryDTO.setTotal(query.fetchCount());
         List<CloakLog> data = query.offset((long) (queryDTO.getCurrent() - 1) * queryDTO.getPageSize()).limit(queryDTO.getPageSize()).fetch();
+        // 检测是否是黑名单ip
+        var blacklistIp = redissonClient.getBloomFilter("blacklistIp");
+        data.forEach(cloakLog -> {
+            cloakLog.setInBlacklist(blacklistIp.contains(cloakLog.getIp()));
+        });
+
         queryDTO.setData(data);
         return queryDTO;
     }

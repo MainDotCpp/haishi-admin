@@ -147,4 +147,7 @@ public class CloakLog {
     @Schema(description = "访问 URL")
     @Column(name = "access_url")
     private String accessUrl;
+
+    @Transient
+    private Boolean inBlacklist;
 }
