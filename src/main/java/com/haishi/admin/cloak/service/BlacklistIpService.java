@@ -57,7 +57,7 @@ public class BlacklistIpService {
 
     public BlacklistIp save(BlacklistIp blacklistIp) {
         // 添加到布隆过滤器中
-        redissonClient.getBloomFilter("blacklistIp").add(blacklistIp.getIp().toString());
+        redissonClient.getBloomFilter("blacklistIp").add(blacklistIp.getIp().getHostAddress());
         return blacklistIpRepository.save(blacklistIp);
     }
 
