@@ -9,6 +9,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.Comment;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -31,6 +32,10 @@ public class Domain extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "server_id")
     private Server server;
+
+    @Comment("备注")
+    @Column(name = "remark")
+    private String remark;
 
     @OneToMany(mappedBy = "domain", orphanRemoval = true)
     private Set<Website> websites = new LinkedHashSet<>();

@@ -19,4 +19,5 @@ public class DomainDTO implements Serializable {
     String serverIp;
     String serverName;
     DomainStatus status;
+    private String remark;
 }
