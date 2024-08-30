@@ -1,7 +1,6 @@
 package com.haishi.admin.resource.service;
 
 import cn.hutool.core.lang.Assert;
-import cn.hutool.core.util.ArrayUtil;
 import com.haishi.admin.common.ThreadUserinfo;
 import com.haishi.admin.common.dto.PageDTO;
 import com.haishi.admin.common.exception.BizException;
@@ -24,7 +23,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -152,5 +150,27 @@ public class DomainService {
         owner.setId(ThreadUserinfo.get().getId());
         domain.setOwner(owner);
         domainRepository.save(domain);
+    }
+
+    /**
+     * 配置SSL
+     *
+     * @param id
+     * @return
+     */
+    public boolean configSsl(Long id) {
+        Domain domain = domainRepository.findById(id).orElseThrow();
+        this.deploy(id);
+        // config ssl
+        try {
+            restTemplate.getForEntity(domain.getServer().getAddress() +"/config/ssl?domain_id=" + domain.getId(), String.class);
+        } catch (Exception e) {
+            log.error("Config ssl failed", e);
+            throw new BizException("配置SSL失败");
+        }
+        domain.setSsl(true);
+        domainRepository.save(domain);
+        this.deploy(id);
+        return  true;
     }
 }

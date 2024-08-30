@@ -29,6 +29,10 @@ public class Domain extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private DomainStatus status = DomainStatus.UNUSED;
 
+    @ColumnDefault("false")
+    @Column(name = "ssl", nullable = false)
+    private Boolean ssl = false;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "server_id")
     private Server server;

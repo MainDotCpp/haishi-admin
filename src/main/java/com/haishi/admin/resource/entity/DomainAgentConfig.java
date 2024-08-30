@@ -22,6 +22,7 @@ public class DomainAgentConfig implements Serializable {
     ServerDTO server;
     Set<WebsiteDTO> websites;
     String remark;
+    Boolean ssl;
 
     /**
      * DTO for {@link Server}

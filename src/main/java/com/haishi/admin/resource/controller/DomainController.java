@@ -84,4 +84,11 @@ public class DomainController {
         return HttpResult.success("领取成功");
     }
 
+    @Operation(summary = "配置SSL")
+    @PostMapping("/configSsl")
+    public HttpResult<Boolean> configSsl(Long id) {
+        return HttpResult.success(
+                domainService.configSsl(id)
+        );
+    }
 }
