@@ -107,4 +107,8 @@ public class ServerService {
         serverRepository.deleteById(id);
         return true;
     }
+
+    public Server findById(Long serverId) {
+        return serverRepository.findById(serverId).orElse(null);
+    }
 }

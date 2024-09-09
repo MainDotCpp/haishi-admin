@@ -10,6 +10,7 @@ import com.haishi.admin.resource.dto.DomainDTO;
 import com.haishi.admin.resource.entity.DomainAgentConfig;
 import com.haishi.admin.resource.entity.QDomain;
 import com.haishi.admin.resource.entity.Domain;
+import com.haishi.admin.resource.enums.DomainSource;
 import com.haishi.admin.resource.mapper.DomainMapper;
 import com.haishi.admin.system.entity.User;
 import com.querydsl.core.QueryResults;
@@ -18,12 +19,14 @@ import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Service for {@link Domain}
@@ -36,6 +39,8 @@ public class DomainService {
     private final DomainMapper domainMapper;
     private final JPAQueryFactory jpaQueryFactory;
     private final RestTemplate restTemplate;
+    private final DomainAccountService domainAccountService;
+    private final ServerService serverService;
 
     /**
      * 根据ID获取域名
@@ -113,7 +118,13 @@ public class DomainService {
         if (dto.getId() != null)
             domain = domainRepository.findById(dto.getId()).orElseThrow(() -> new BizException("系统错误:域名不存在"));
         domainMapper.partialUpdate(dto, domain);
-        return domainMapper.toDomainDTO(domainRepository.save(domain));
+        domain = domainRepository.save(domain);
+        if (domain.getSource() == DomainSource.GODADDY) {
+            domain.setServer(serverService.findById(dto.getServerId()));
+            // 域名解析
+            domainAccountService.configDns(domain);
+        }
+        return domainMapper.toDomainDTO(domain);
     }
 
     /**

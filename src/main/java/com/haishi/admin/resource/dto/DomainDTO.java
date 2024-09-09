@@ -1,5 +1,6 @@
 package com.haishi.admin.resource.dto;
 
+import com.haishi.admin.resource.enums.DomainSource;
 import com.haishi.admin.resource.enums.DomainStatus;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
@@ -13,12 +14,14 @@ import java.io.Serializable;
 public class DomainDTO implements Serializable {
     Long id;
     String domain;
+    DomainSource source;
     Long ownerId;
     String ownerNickname;
     Long serverId;
     String serverIp;
     String serverName;
+    Long accountId;
     DomainStatus status;
-    private String remark;
-    private Boolean ssl = false;
+    String remark;
+    Boolean ssl = false;
 }
