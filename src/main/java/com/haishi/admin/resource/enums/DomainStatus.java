@@ -5,5 +5,7 @@ import lombok.Getter;
 @Getter
 public enum DomainStatus {
     UNUSED,
-    USED
+    USED,
+    PARSING,
+    PARSE_ERROR, NORMAL
 }

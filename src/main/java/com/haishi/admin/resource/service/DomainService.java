@@ -11,6 +11,7 @@ import com.haishi.admin.resource.entity.DomainAgentConfig;
 import com.haishi.admin.resource.entity.QDomain;
 import com.haishi.admin.resource.entity.Domain;
 import com.haishi.admin.resource.enums.DomainSource;
+import com.haishi.admin.resource.enums.DomainStatus;
 import com.haishi.admin.resource.mapper.DomainMapper;
 import com.haishi.admin.system.entity.User;
 import com.querydsl.core.QueryResults;
@@ -20,10 +21,13 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Hibernate;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -67,6 +71,8 @@ public class DomainService {
 
         if (dto.getOwnerId() != null && dto.getOwnerId() == 0L) {
             predicates.add(qdomain.owner.id.isNull());
+        } else if (dto.getOwnerId() != null) {
+            predicates.add(qdomain.owner.id.eq(dto.getOwnerId()));
         } else {
             predicates.add(qdomain.owner.id.isNotNull());
             QueryUtils.dataPermissionFilter(qdomain._super, predicates);
@@ -121,6 +127,7 @@ public class DomainService {
         domain = domainRepository.save(domain);
         if (domain.getSource() == DomainSource.GODADDY) {
             domain.setServer(serverService.findById(dto.getServerId()));
+            domain.setStatus(DomainStatus.PARSING);
             // 域名解析
             domainAccountService.configDns(domain);
         }
@@ -183,5 +190,33 @@ public class DomainService {
         domainRepository.save(domain);
         this.deploy(id);
         return  true;
+    }
+
+    /**
+     * 监控域名是否解析正确
+     */
+    @Scheduled(cron = "0 0/1 * * * ?")
+    public void domainMonitor() {
+        log.info("域名解析监控");
+        var domains = jpaQueryFactory
+                .selectFrom(QDomain.domain1)
+                .leftJoin(QDomain.domain1.server).fetchJoin()
+                .fetch();
+
+        for (Domain domain : domains) {
+            try {
+                var address = InetAddress.getByName(domain.getDomain());
+                log.info("{} IP: {}",domain.getDomain() ,address.getHostAddress());
+                if (domain.getServer().getIp().equals(address.getHostAddress())) {
+                    domain.setStatus(DomainStatus.NORMAL);
+                } else {
+                    domain.setStatus(DomainStatus.PARSING);
+                }
+            } catch (UnknownHostException e) {
+                domain.setStatus(DomainStatus.PARSE_ERROR);
+                log.error("域名解析失败", e);
+            }
+        }
+        domainRepository.saveAll(domains);
     }
 }
