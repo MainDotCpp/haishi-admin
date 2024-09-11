@@ -195,7 +195,8 @@ public class DomainService {
     /**
      * 监控域名是否解析正确
      */
-    @Scheduled(cron = "0 0/1 * * * ?")
+    @Transactional(rollbackFor = Exception.class)
+    @Scheduled(cron = "0 0/5 * * * ?")
     public void domainMonitor() {
         log.info("域名解析监控");
         var domains = jpaQueryFactory
